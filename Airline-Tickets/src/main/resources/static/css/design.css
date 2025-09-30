@@ -1,0 +1,8 @@
+@charset "UTF-8";
+.background {
+    background: url('images/tokyo.jpeg');
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
