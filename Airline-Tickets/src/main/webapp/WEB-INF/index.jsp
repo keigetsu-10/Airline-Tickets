@@ -5,9 +5,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Login Page</title>
+<link rel="stylesheet" src="@{/css/design.css}">
 </head>
 <body>
-
+<div class="background">
+    <img src="/images/tokyo.jpeg" alt="japan">
+</div>
 </body>
 </html>
