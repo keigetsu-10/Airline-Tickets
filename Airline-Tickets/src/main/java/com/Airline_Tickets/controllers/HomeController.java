@@ -11,5 +11,10 @@ public class HomeController {
 		return "index.jsp";
 		
 	}
+	 @GetMapping("/register")
+		public String resgister() {
+			return "register.jsp";
+			
+		}
 
 }
