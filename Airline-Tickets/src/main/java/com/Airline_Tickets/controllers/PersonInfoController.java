@@ -1,18 +1,14 @@
 package com.Airline_Tickets.controllers;
 
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class HomeController {
+public class PersonInfoController {
 	
-	@GetMapping("/login")
-	public String index() {
-		return "index.jsp";
-		
+	@GetMapping("/PersonalInfo")
+	public String info () {
+		return "personalinfo.jsp";
 	}
 
-	}
-
-
+}
