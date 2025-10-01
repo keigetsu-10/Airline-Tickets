@@ -8,29 +8,51 @@
 <meta charset="UTF-8">
 <title>Jet2Holiday</title>
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+	
 	
 	<style>
+	
+		html, body {
+		  margin: 0;
+		  padding: 0;
+		  width: 100%;
+		  height: 100%;
+		  padding-bottom: 50px;
+		}
+
 		.header {
 		  width: 100%;
-		  height: 300px;
-		  background: url('/images/header.jpg') no-repeat center center/cover;
+		  height: 400px;
+		  background: url('/images/header1.jpg') no-repeat center center/cover;
 		  display: flex;
-		  align-items: center;
-		  justify-content: center;
-		  flex-direction: column;
-		  text-align: center;
+		  align-items: flex-start;
+		  justify-content: flex-start; 
+		  text-align: left;
 		  color: #fff;
+		  position: relative;
+		  padding-left: 250px;      
+		  padding-top: 60px;
+		  box-sizing: border-box;
 		}
 		
 		.header h1 {
+		  font-family: 'Montserrat', sans-serif;
 		  font-size: 36px;
 		  font-weight: bold;
-		  margin-bottom: 10px;
+		  margin: 80px 0 -5px;
+		  text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
 		}
 		
 		.header p {
 		  font-size: 18px;
 		  margin-bottom: 20px;
+		  text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+		}
+		
+		.header-title {
+			max-width: 600px;
+			margin-bottom: 0 0 0 -260px;
 		}
 		
 		.banner-btn {
@@ -53,15 +75,24 @@
 		  font-family: 'Poppins', sans-serif;
 		  display: flex;
 		  justify-content: center;
-		  margin-top: 55px;
-		  margin-bottom: 40px;
+		  position: relative;
+		  top: -40px;
+		  margin-bottom: 20px;
 		}
 		
 		.booking-container {
 		  display: flex;
 		  align-items: flex-end;
 		  gap: 15px;
-		  background: #fff;
+		  background: linear-gradient(
+		    to bottom,
+		      rgba(255, 255, 255, 0.7) 0%,    
+			  rgba(255, 255, 255, 0.85) 10%,  
+			  rgba(255, 255, 255, 0.95) 20%, 
+			  rgba(255, 255, 255, 1.0) 30%,   
+			  rgba(255, 255, 255, 1.0) 80%, 
+			  rgba(242, 242, 242, 1.0) 100% 
+		  );
 		  padding: 20px 30px;
 		  border-radius: 15px;
 		  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
@@ -101,6 +132,38 @@
 		.search-btn button:hover {
 		  background: #144272;
 		}
+		
+		/* RECOMMENDATIONS */
+		.recommendations_title {
+		  font-family: 'Poppins', sans-serif;
+		  text-align: center;
+		}
+		
+		.recommendations_title h2{
+    	  font-weight: 600;
+		}
+		
+		.recommendations_title p{
+		  color: #b4b4b4;
+    	  font-weight: bold;
+    	  margin-top: -20px;
+		}
+		
+		.recommendations_img {
+		  width: 200px;
+		  height: 350px;
+		  margin: 0 auto;
+		  margin-bottom: 40px;
+		  overflow: hidden;       
+		  box-shadow: 0 4px 12px rgba(0,0,0,0.2); 
+		}
+
+		.recommendations_img img {
+		  width: 100%;
+		  height: 100%;
+		  object-fit: cover;
+		  display: block;
+		}
 
 	</style>
 
@@ -108,9 +171,8 @@
 <body>
 	<header class="header">
 	  <div class="header_title">
-	 	 <img src="/images/header1.jpg" alt="Test Banner" width="100%">
-	    <h1>WHERE COMFORT MEETS THE CLOUDS.</h1>
-	    <p>Get the best prices for your trips</p>
+	    <h1 class="header_text">WHERE COMFORT MEETS THE CLOUDS.</h1>
+	    <p class="header_text">Get the best prices for your trips</p>
 	    <button class="banner-btn">Book Now</button>
 	  </div>
 	</header>
@@ -149,8 +211,20 @@
 	    <div class="search-btn">
 	      <button>Search</button>
 	    </div>
-	   
 	  </div>
+	</section>
+	
+	<section class="recommendations">
+		<div class="recommendations_title">
+		<h2>RECOMMENDED TOP TRAVEL DESTINATIONS</h2>
+		<p>For as low as $5</p>
+		</div>
+		<div class="recommendations_destination">
+		</div>
+		<div class="recommendations_img">
+			<img src="/images/reco1.jpg" alt="Recommended Photo 1">
+		</div>
+	
 	</section>
 
 	
