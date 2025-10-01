@@ -4,20 +4,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<<<<<<< HEAD
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/design.css">
-=======
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<<<<<<< HEAD
 <title>Insert title here</title>
-
-=======
 <title>Login Page</title>
 <link rel="stylesheet" src="@{/css/design.css}">
->>>>>>> branch 'main' of https://github.com/keigetsu-10/Airline-Tickets.git
->>>>>>> branch 'main' of https://github.com/keigetsu-10/Airline-Tickets.git
 </head>
 <body>
 	<div class="background">
@@ -50,7 +43,7 @@
                     <button type="submit">Log in</button>
                     <p>Don’t have an account? <a href="#">Create an account</a></p>
                 </form>
-                <p></p>>
+                <p></p>
             </div>
         </div>
     </div>

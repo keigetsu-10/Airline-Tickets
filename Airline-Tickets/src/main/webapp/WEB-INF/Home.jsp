@@ -133,6 +133,7 @@
 		  background: #144272;
 		}
 		
+<<<<<<< HEAD
 		/* RECOMMENDATIONS */
 		.recommendations_title {
 		  font-family: 'Poppins', sans-serif;
@@ -163,6 +164,41 @@
 		  height: 100%;
 		  object-fit: cover;
 		  display: block;
+=======
+  gap: 30px;
+		}
+		.nav-links {
+		  list-style: none;
+		  display: flex;
+		  gap: 30px;
+		  margin: 0;
+		  padding: 0;
+		}
+		.nav-container {
+		  display: flex;
+		  justify-content: space-between;
+		  align-items: center;
+		}
+		.nav-links {
+		  list-style: none;
+		  display: flex;
+		  gap: 30px;
+		  margin: 0;
+		  padding: 0;
+		}
+		.navbar {
+		  display: flex;
+		  justify-content: space-between; /* logo left, menu right */
+		  align-items: center;
+		  padding: 15px 50px;
+		  position: absolute;
+		  justify-content: center;
+		  top: 0;
+		  width: 100%;
+		  z-index: 1000;
+		  background: rgba(0, 32, 64, 0.6);
+		  backdrop-filter: blur(6px);
+>>>>>>> branch 'main' of https://github.com/keigetsu-10/Airline-Tickets.git
 		}
 
 	</style>
@@ -176,7 +212,10 @@
 	    <button class="banner-btn">Book Now</button>
 	  </div>
 	</header>
-	
+<nav class="navbar">
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+</nav>
 	<section class="shortcut_booking-bar">
 	  <div class="booking-container">
 	  
@@ -213,6 +252,7 @@
 	    </div>
 	  </div>
 	</section>
+<<<<<<< HEAD
 	
 	<section class="recommendations">
 		<div class="recommendations_title">
@@ -230,5 +270,7 @@
 	
 		
 
+=======
+>>>>>>> branch 'main' of https://github.com/keigetsu-10/Airline-Tickets.git
 </body>
 </html>
