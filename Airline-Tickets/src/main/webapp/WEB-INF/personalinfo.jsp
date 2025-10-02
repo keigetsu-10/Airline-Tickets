@@ -1,105 +1,17 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="<c:url value='/resources/css/format.css' />">
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Personal Information - Flight Booking</title>
+<title>A4Lifers Flight Booking | Transaction Completed</title>
 
 <style> 
-          * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-         }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #ededed;
-        }
-        
-        .progress-bar {
-            background-color: #e8e8e8;
-            padding: 30px 50px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            justify-content: center;
-        }
+         
 
-        .step {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .step-number {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: white;
-        }
-
-        .step-number.completed {
-            background-color: #10b981;
-        }
-
-        .step-number.active {
-            background-color: #1e3a5f;
-        }
-
-        .step-number.inactive {
-            background-color: #9ca3af;
-        }
-
-        .step-label {
-            font-size: 14px;
-            color: #1e3a5f;
-        }
-
-        .step-label.inactive {
-            color: #9ca3af;
-        }
-
-        .step-connector {
-            width: 50px;
-            height: 3px;
-            background-color: #10b981;
-        }
-
-        .step-connector.inactive {
-            background-color: #9ca3af;
-            border-top: 2px dashed #6b7280;
-        }
-        .container {
-            display: flex;
-            gap: 30px;
-            padding: 30px 50px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .form {
-            flex: 2;
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-         .return-link {
-            display: flex;
-            align-items: center;
-            font-weight: bold;
-            gap: 5px;
-            color: #5a7a94;
-            text-decoration: none;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
+       
 
         h1 {
             color: #1e3a5f;
@@ -146,6 +58,7 @@
             display: flex;
             flex-direction: column;
         }
+        
 
         label {
             font-size: 14px;
@@ -181,92 +94,7 @@
             font-size: 12px;
             color: #c8c4c4;
         }
-        .button-container {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 30px;
-        }
-        .btn-next {
-            background-color: #1e3a5f;
-            color: white;
-            padding: 14px 50px;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .btn-next:hover {
-            background-color: #2d4a6f;
-        }
-        .summary-section {
-            flex: 1;
-            align-self: flex-start;
-        }
-
-        .summary-card {
-            background-color: white;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .summary-card h2 {
-            color: #1e3a5f;
-            font-size: 20px;
-            margin-bottom: 20px;
-        }
-
-        .summary-item {
-            margin-bottom: 20px;
-        }
-
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-        }
-
-        .summary-label {
-            font-size: 12px;
-            color: #6b7280;
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-
-        .summary-value {
-            font-size: 14px;
-            color: #1e3a5f;
-            font-weight: 600;
-        }
-
-        .summary-divider {
-            border: none;
-            border-top: 1px solid #e5e7eb;
-            margin: 15px 0;
-        }
-
-        .total-row {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 2px solid #e5e7eb;
-          
-        }
-
-        .total-label {
-            font-weight: 700;
-            color: #00bf63;
-            font-size: 18px;
-        }
-
-        .total-value {
-            font-weight: 700;
-            color: #00bf63;
-            font-size: 18px;
-        }
+        
         
 
 </style>
@@ -307,22 +135,13 @@
 
 <div class="container">
 
-<c:if test="${not empty errors}">
-    <div class="error">
-        <ul>
-            <c:forEach var="err" items="${errors}">
-                <li>${err}</li>
-            </c:forEach>
-        </ul>
-    </div>
-</c:if>
 
     <!-- FORM -->
     <div class="form">
         <a href="#" class="return-link">← Return</a>
         <h1>Personal Information <span class="passenger-tag">(Passenger 1)</span></h1>
 
-        <form action="${pageContext.request.contextPath}/PersonInfo" method="POST">
+        <form action="${pageContext.request.contextPath}/confirmationInfo" method="POST">
             <div class="identi">IDENTIFICATION</div>
 
             <div class="form-row">
@@ -387,7 +206,7 @@
             </div>
 
             <div class="button-container">
-                <button type="submit" class="btn-next">Next</button>
+                <button type="submit" class="btn-confirm">Next</button>
             </div>
         </form>
     </div>
