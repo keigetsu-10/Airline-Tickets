@@ -22,7 +22,7 @@
 		   height: 100%;
 		   padding-bottom: 50px;
 		}
-		
+	
 		body {
 		  /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
 		   background-color: #ededed;
@@ -96,20 +96,26 @@
 		   transition: 0.3s;
 		}
 		
-		/* .flight_page {
-		   display: flex;
-		   gap: 20px; 
-		   align-items: flex-start; 
-		} */
+		.flight_page {
+		    display: flex;
+		    justify-content: center;
+		    gap: 0;               
+		    max-width: 1200px;     
+		    margin: 5rem auto;      
+		    align-items: flex-start;
+		}
 		
 		.flight_options {
-		    max-width: 750px;
-		    margin: 5rem auto auto;
-		    display: flex;
+			flex: none;
+			display: flex;
+    		flex-direction: column;
+			width: 775px;
+			margin: -10px -20px 0 35px;
 		    gap: 20px;
 		}
 		
 		.flight_options_main {
+			margin: 0;
 		    flex: 3;
 		}
 		.flight_options_results-num {
@@ -120,8 +126,8 @@
 		.flight_options_recommendations {
 			font-family: 'Nunito', sans-serif;
 		    display: flex;
-		    gap: 20px;
-		    margin-bottom: 25px;
+		    gap: 15px;
+		    margin-bottom: 15px;
 		}
 		.flight_options_recommendations div {
 		    flex: 1;
@@ -140,6 +146,8 @@
 		
 		/* Flight Result Cards */
 		.flight_details-container {
+			width: 100%;        
+    		box-sizing: border-box; 
 		    background: #fff;
 		    border-radius: 12px;
 		    padding: 15px 20px;
@@ -162,8 +170,10 @@
 		    background: #3e5463;
 		}
 		
-		/* Right side (filters) */
+		/* Filters */
 		.flight_filters {
+			margin: 40px;
+			flex: none;
 		 	font-family: 'Nunito', sans-serif;
 		 	max-width: 200px;
 		    flex: 1;
@@ -278,7 +288,7 @@
 					<div class="select-btn"><button>Select</button></div>
 					</div>
 				</div>
-				</div>
+			</div>
 		</section>
 		
 		<section id="flight_filters" class="flight_filters">
