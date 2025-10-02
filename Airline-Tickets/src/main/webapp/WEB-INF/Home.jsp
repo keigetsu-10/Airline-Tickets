@@ -7,9 +7,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Jet2Holiday</title>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbar.css">
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
-	
 	
 	<style>
 	
@@ -19,6 +19,7 @@
 		  width: 100%;
 		  height: 100%;
 		  padding-bottom: 50px;
+		  
 		}
 
 		.header {
@@ -134,6 +135,11 @@
 		}
 		
 		/* RECOMMENDATIONS */
+		.recommendations {
+		  margin-bottom: 40px;
+		  padding-bottom: 2rem;
+		}
+		
 		.recommendations_title {
 		  font-family: 'Poppins', sans-serif;
 		  text-align: center;
@@ -143,19 +149,35 @@
     	  font-weight: 600;
 		}
 		
-		.recommendations_title p{
+		.recommendations_title p {
 		  color: #b4b4b4;
     	  font-weight: bold;
     	  margin-top: -20px;
 		}
 		
+		.recommendations_destination {
+		  display: flex;
+		  font-family: 'Poppins', sans-serif;
+		  justify-content: center;  
+		  gap: 20px;    
+		  flex-wrap: wrap;    
+		  margin-top: 20px;
+		}
+		
+		.recommendations_card {
+		  position: relative;    
+		  width: 150px;
+		  height: 300px;
+		  overflow: hidden;
+		  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+		  border-radius: 6px;
+		}
+		
 		.recommendations_img {
-		  width: 200px;
-		  height: 350px;
-		  margin: 0 auto;
-		  margin-bottom: 40px;
-		  overflow: hidden;       
-		  box-shadow: 0 4px 12px rgba(0,0,0,0.2); 
+		  width: 150px;
+		  height: 300px;
+		  overflow: hidden;
+		  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 		}
 
 		.recommendations_img img {
@@ -163,11 +185,33 @@
 		  height: 100%;
 		  object-fit: cover;
 		  display: block;
+		  
+		 }
+		 
+		 .recommendations_txt {
+		  position: absolute;
+		  top: 10px;
+		  left: 10px;
+		  color: #fff;
+		  font-size: 12px;
+		  font-weight: 600;
+		  text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+		  margin: 0;
+		}
 
 	</style>
 
 </head>
 <body>
+	<nav class="navbar">
+	  <ul class="nav-links">
+	    <li><a href="#">Home</a></li>
+	    <li><a href="#">Explore</a></li>
+	    <li><a href="#">Bookings</a></li>
+	    <li><a href="#">Manage</a></li>
+	  </ul>
+	</nav>
+	
 	<header class="header">
 	  <div class="header_title">
 	    <h1 class="header_text">WHERE COMFORT MEETS THE CLOUDS.</h1>
@@ -219,11 +263,31 @@
 		<p>For as low as $5</p>
 		</div>
 		<div class="recommendations_destination">
+			<div class="recommendations_card">
+				<p class="recommendations_txt">Paris,<br>France</p>
+				<img class="recommendations_img" src="/images/reco1.jpg" alt="Recommended Photo 1">
+			</div>
+			<div class="recommendations_card">
+				<p class="recommendations_txt">Beijing,<br>China</p>
+				<img class="recommendations_img" src="/images/reco2.jpg" alt="Recommended Photo 2">
+			</div>
+			<div class="recommendations_card">
+				<p class="recommendations_txt">Jeju Island,<br>South Korea</p>
+				<img class="recommendations_img" src="/images/reco3.jpg" alt="Recommended Photo 3">
+			</div>
+			<div class="recommendations_card">
+				<p class="recommendations_txt">Marina Bay Sands,<br>Singapore</p>
+				<img class="recommendations_img" src="/images/reco4.jpg" alt="Recommended Photo 4">
+			</div>
+			<div class="recommendations_card">
+				<p class="recommendations_txt">London,<br>United Kingdom</p>
+				<img class="recommendations_img" src="/images/reco5.jpg" alt="Recommended Photo 5">
+			</div>
+			<div class="recommendations_card">
+				<p class="recommendations_txt">Honshu,<br>Japan</p>
+				<img class="recommendations_img" src="/images/reco6.jpg" alt="Recommended Photo 6">
+			</div>
 		</div>
-		<div class="recommendations_img">
-			<img src="/images/reco1.jpg" alt="Recommended Photo 1">
-		</div>
-	
 	</section>
 	
 </body>
