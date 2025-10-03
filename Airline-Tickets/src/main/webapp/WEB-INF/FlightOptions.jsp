@@ -109,7 +109,7 @@
 			flex: none;
 			display: flex;
     		flex-direction: column;
-			width: 775px;
+    		width: 775px;
 			margin: -10px -20px 0 35px;
 		    gap: 20px;
 		}
@@ -143,6 +143,7 @@
 		
 		/* Flight Result Cards */
 		.flight_details-container {
+			height: 120px;
 			width: 100%;        
     		box-sizing: border-box; 
 		    background: #fff;
