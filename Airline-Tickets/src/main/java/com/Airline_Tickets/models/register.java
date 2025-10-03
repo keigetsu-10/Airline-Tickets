@@ -8,10 +8,10 @@ public class register {
 	private String phonenum;
 	private String email;
 	private String pass;
-	private String confirpass;
+	
 	
 	public register(String firstname, String lastname, 
-			String middlename, String bday, String phonenum,String email, String pass, String confirpass) {
+			String middlename, String bday, String phonenum,String email, String pass) {
 			super();
 			this.firstname=firstname;
 			this.lastname=lastname;
@@ -20,7 +20,7 @@ public class register {
 			this.phonenum=phonenum;
 			this.email=email;
 			this.pass=pass;
-			this.confirpass=confirpass;
+			
 		
 	}
 
@@ -78,14 +78,6 @@ public class register {
 
 	public void setPass(String pass) {
 		this.pass = pass;
-	}
-
-	public String getConfirpass() {
-		return confirpass;
-	}
-
-	public void setConfirpass(String confirpass) {
-		this.confirpass = confirpass;
 	}
 
 }
