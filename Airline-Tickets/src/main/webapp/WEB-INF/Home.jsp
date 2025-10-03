@@ -349,7 +349,7 @@
 	      <li><a class="active" href="#header">Home</a></li>
 	      <li><a href="/Home#explore">Explore</a></li>
 	      <li><a href="/Flight/Options">Book</a></li>
-	      <li><a href="#">Manage</a></li>
+	      <li><a href="/Manage/Profile">Manage</a></li>
 
 	    </ul>
 	  </div>

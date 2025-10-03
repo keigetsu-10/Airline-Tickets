@@ -17,7 +17,7 @@
 	height: 60px;      
 	line-height: 60px;
 	z-index: 1000;
-    background: rgba(0, 32, 64, 0.6);
+    background: rgba(17, 46, 80, 0.8);
     backdrop-filter: blur(6px);
     overflow: hidden;    
 }

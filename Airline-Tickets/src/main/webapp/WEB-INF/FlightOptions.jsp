@@ -140,9 +140,6 @@
 		    cursor: pointer;
 		    transition: transform 0.2s ease;
 		}
-		.flight_options_recommendations div:hover {
-		    transform: scale(1.05);
-		}
 		
 		/* Flight Result Cards */
 		.flight_details-container {
@@ -157,6 +154,7 @@
 		    align-items: center;
 		    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 		}
+		
 		.select-btn button {
 		    background: #5a7080;
 		    color: #fff;
@@ -165,9 +163,6 @@
 		    padding: 10px 16px;
 		    cursor: pointer;
 		    transition: 0.3s;
-		}
-		.select-btn button:hover {
-		    background: #3e5463;
 		}
 		
 		/* Filters */
@@ -189,13 +184,14 @@
 		    margin: 5px 0 5px 0;
 		}
 		.filter-btn button {
-		 	width: 195px;
+		 	width: 200px;
 		    background: #b1a7a6;
 		    color: #fff;
 		    border: none;
 		    border-radius: 6px;
 		    padding: 8px 16px;
-		    font-weight: bold;
+		    font-weight: 550;
+		    letter-spacing: 1px;
 		    cursor: pointer;
 		    margin-bottom: 15px;
 		}
@@ -209,6 +205,18 @@
 		  background: #5b6a84;
 		}
 		
+		.flight_options_recommendations div:hover {
+		    transform: scale(1.05);
+		}
+		
+		.select-btn button:hover {
+		    background: #3e5463;
+		}
+		
+		.filter-btn button:hover {
+		    background: #737373;
+		}
+		
 		
 	</style>
 	
@@ -220,7 +228,7 @@
 	      <li><a href="/Home">Home</a></li>
 	      <li><a href="/Home#explore">Explore</a></li>
 	      <li><a class="active" href="#shortcut_booking-bar">Book </a></li>
-	      <li><a href="#">Manage</a></li>
+	      <li><a href="/Manage/Profile">Manage</a></li>
 	    </ul>
 	  </div>
 	  <div class="nav-right">
