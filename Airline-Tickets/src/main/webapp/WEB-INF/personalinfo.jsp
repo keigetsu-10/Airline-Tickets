@@ -1,17 +1,16 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="<c:url value='/resources/css/format.css' />">
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>A4Lifers Flight Booking | Transaction Completed</title>
+<title>A4Lifers Flight Booking | Personal Information</title>
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/format.css'/>">
 
 <style> 
          
-
-       
 
         h1 {
             color: #1e3a5f;
@@ -49,6 +48,10 @@
         .form-row.two-col {
             grid-template-columns: repeat(2, 1fr);
         }
+        .form-row.two-col option,
+         .form-row.two-col select {
+            font-size: 14px;
+        }
 
         .form-row.single-col {
             grid-template-columns: 1fr;
@@ -58,6 +61,10 @@
             display: flex;
             flex-direction: column;
         }
+        .form-row input {
+		
+		  font-size: 14px;
+		}
         
 
         label {
