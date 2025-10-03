@@ -8,6 +8,9 @@
 <meta charset="UTF-8">
 <title>A4Lifers Flight Booking | Payment</title>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/format.css'/>">
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/Footer.css'/>">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbar.css">
+
 <style>
         h1 {
             color: #1e3a5f;
@@ -241,6 +244,23 @@
 </head>
 <body>
 
+   <nav class="navbar">
+	  <div class="nav-center">
+	    <ul class="nav-links">
+	      <li><a class="active" href="#header">Home</a></li>
+	      <li><a href="/Home#explore">Explore</a></li>
+	      <li><a href="/Flight/Options">Book</a></li>
+	      <li><a href="/Manage/Profile">Manage</a></li>
+
+	    </ul>
+	  </div>
+	  <div class="nav-right">
+		<ul class="nav-links">
+	      <li><a href="/login">Login / Sign-up</a></li>
+	    </ul>
+	    </div>
+	</nav>
+
    <div class="progress-bar">
         <div class="step">
             <div class="step-number completed">1</div>
@@ -274,7 +294,7 @@
     
     <div class="container">
         <div class="form">
-            <a href="#" class="return-link">← Return</a>
+            <a href="/ConfirmInfo" class="return-link">⮜  Return</a>
             
             <h1>Payment Confirmation</h1>
                 
@@ -303,7 +323,7 @@
                     
                 </div>
                
-     <form action="${pageContext.request.contextPath}/transaction" method="post">
+     
     <div class="form-rows">
         <label><input type="radio" name="paymentMethod" value="credit-card" onclick="togglePaymentFields()" 
             ${payment.paymentMethod == 'credit-card' ? 'checked' : ''}> Credit Card</label>
@@ -367,7 +387,7 @@
                     </div>
                  </div>
                 
-</form>
+
 <script>
 function togglePaymentFields() {
     const selected = document.querySelector('input[name="paymentMethod"]:checked').value;
@@ -455,10 +475,11 @@ window.onload = togglePaymentFields;
               I agree to the <a href="#">Terms and Conditions</a>, <a href="#">Privacy Policy</a>, and understand that my booking is subject to airline policies and cancellation rules.
               </div>
       
-            
+            <form action="${pageContext.request.contextPath}/TransactionSuccesful" method="POST">
                <div class="button-container">
                     <button type="submit" class="btn-confirm">Confirm and Pay</button>
                 </div>
+                </form>
                </div>       
                 
                             
@@ -566,7 +587,31 @@ window.onload = togglePaymentFields;
             </div>
         </div>
                 </div>
-                
+    <jsp:include page="Footer.jsp" />        
+    
+    
+    <script>
+
+<!-- NAVBAR JS -->
+document.addEventListener("DOMContentLoaded", () => {
+	  const navLinks = document.querySelectorAll(".nav-links a");
+	  const currentUrl = window.location.pathname;
+
+	  // Highlight the link that matches current URL
+	  navLinks.forEach(link => {
+	    if (link.getAttribute("href") === currentUrl) {
+	      link.classList.add("active");
+	    }
+
+	    // Add click event listener for manual switching
+	    link.addEventListener("click", () => {
+	      navLinks.forEach(l => l.classList.remove("active"));
+	      link.classList.add("active");
+	    });
+	  });
+	});
+
+</script>    
 
 </body>
 </html>

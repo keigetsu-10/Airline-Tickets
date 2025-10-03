@@ -8,6 +8,9 @@
 <meta charset="UTF-8">
 <title>A4Lifers Flight Booking | Payment</title>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/format.css'/>">
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/Footer.css'/>">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbar.css">
+
 <style>
         
 
@@ -201,6 +204,24 @@
 </head>
 <body>
 
+    <nav class="navbar">
+	  <div class="nav-center">
+	    <ul class="nav-links">
+	      <li><a class="active" href="#header">Home</a></li>
+	      <li><a href="/Home#explore">Explore</a></li>
+	      <li><a href="/Flight/Options">Book</a></li>
+	      <li><a href="/Manage/Profile">Manage</a></li>
+
+	    </ul>
+	  </div>
+	  <div class="nav-right">
+		<ul class="nav-links">
+	      <li><a href="/login">Login / Sign-up</a></li>
+	    </ul>
+	    </div>
+	</nav>
+
+    
  <div class="progress-bar">
         <div class="step">
             <div class="step-number completed">1</div>
@@ -234,7 +255,8 @@
     
     <div class="container">
         <div class="form">
-            <a href="#" class="return-link">← Return</a>
+        
+            <a href="/ConfirmInfo" class="return-link"> ⮜  Return</a>
             
             <h1>Payment</h1>
                 
@@ -265,7 +287,7 @@
                 </div>
                 
                 
-              <form action="${pageContext.request.contextPath}/paymentConfirm" method="post">
+               
     <div class="form-rows">
         <label><input type="radio" name="paymentMethod" value="credit-card" onclick="togglePaymentFields()" 
             ${payment.paymentMethod == 'credit-card' ? 'checked' : ''}> Credit Card</label>
@@ -278,13 +300,13 @@
         <div class="form-row four-col">
                             <div class="form-group">
                                 <label>Cardholder Name <span class="required">*</span></label>
-                                <input type="text" name="cardName" value="${user.cardName}" placeholder=" Cardholder Name"/>
+                                <input type="text" name="cardName" value="${user.cardName}" placeholder=" Cardholder Name"required>
                                 
                             </div>
                             
                             <div class="form-group">
                                 <label>Card Number <span class="required">*</span></label>
-                                <input type="text" name="cardNum" value="${user.cardNum}" placeholder=" Card Number "/>
+                                <input type="text" name="cardNum" value="${user.cardNum}" placeholder=" Card Number "required>
                                 
                             </div>
                             
@@ -292,13 +314,13 @@
                             
                             <div class="form-group">
                                 <label>Expiration Date <span class="required">*</span></label>
-                                <input type="text" name="expiDate" value="${user.expiDate}" placeholder=" Expiration Date "/>
+                                <input type="text" name="expiDate" value="${user.expiDate}" placeholder=" Expiration Date "required>
                                 
                             </div>
                             
                             <div class="form-group">
                                 <label>CVV <span class="required">*</span></label>
-                                <input type="text" name="cvvNum" value="${user.cvvNum}" placeholder=" CVV "/>
+                                <input type="text" name="cvvNum" value="${user.cvvNum}" placeholder=" CVV "required>
                             </div>
                         </div>
                         
@@ -309,29 +331,29 @@
          <div class="form-row">
               <div class="form-group">
                             <label>Account Holder Name <span class="required">*</span></label>
-                             <input type="text" name="accName" value="${user.accName}" placeholder=" Account Holder Name"/>
+                             <input type="text" name="accName" value="${user.accName}" placeholder=" Account Holder Name"required>
                                 
                             </div>
                             
                             <div class="form-group">
                                 <label>Account Number <span class="required">*</span></label>
-                                <input type="text" name="accNum" value="${user.accNum}" placeholder=" Account Number "/>
+                                <input type="text" name="accNum" value="${user.accNum}" placeholder=" Account Number "required>
                                 
                             </div>
                             <div class="form-group">
                                 <label>Bank Name <span class="required">*</span></label>
-                                <input type="text" name="bankName" value="${user.bankName}" placeholder=" Bank Name "/>
+                                <input type="text" name="bankName" value="${user.bankName}" placeholder=" Bank Name "required>
                             </div>
                             
                             <div class="form-group">
                                 <label>SWIFT/BIC <span class="required">*</span></label>
-                                <input type="text" name="swiftBic" value="${user.swiftBic}" placeholder=" SWIFT/BIC "/>
+                                <input type="text" name="swiftBic" value="${user.swiftBic}" placeholder=" SWIFT/BIC "required>
                                 
                         </div>
                     </div>
     </div>
 
-</form>
+
 
 <script>
 function togglePaymentFields() {
@@ -351,18 +373,18 @@ window.onload = togglePaymentFields;
                     <div class="form-row three-col">
                         <div class="form-group">
                             <label>Full Name <span class="required">*</span></label>
-                            <input type="text" name="fullName" value="${user.fullName}" placeholder=" Full Name"/>
+                            <input type="text" name="fullName" value="${user.fullName}" placeholder=" Full Name"required>
                         </div>
                         
                         <div class="form-group">
                             <label>Email Address <span class="required">*</span></label>
-                            <input type="email" name="email" value="${user.email}" placeholder=" Email "/>
+                            <input type="email" name="email" value="${user.email}" placeholder=" Email "required>
                             
                         </div>
                         
                         <div class="form-group">
                             <label>Phone Number <span class="required">*</span></label>
-                            <input type="text" name="phoneNum" value="${user.phoneNum}" placeholder=" Phone Number"/>
+                            <input type="text" name="phoneNum" value="${user.phoneNum}" placeholder=" Phone Number"required>
                             
                         </div>
                     </div>
@@ -373,23 +395,25 @@ window.onload = togglePaymentFields;
                     <div class="form-row three-col">
                         <div class="form-group">
                             <label>Billing Address <span class="required">*</span></label>
-                            <input type="text" name="billAdd" value="${user.billAdd}" placeholder=" Address 1"/>
+                            <input type="text" name="billAdd" value="${user.billAdd}" placeholder=" Address 1"required>
                         </div>
                         
                         <div class="form-group">
-                            <input type="text" name="city" value="${user.city}" placeholder=" City "/>
+                            <input type="text" name="city" value="${user.city}" placeholder=" City "required>
                             
                         </div>
                         
                         <div class="form-group">
-                            <input type="text" name="province" value="${user.province}" placeholder=" Province "/>
+                            <input type="text" name="province" value="${user.province}" placeholder=" Province "required>
                             
                         </div>
                     </div>
                 </div>
+                <form action="${pageContext.request.contextPath}/PaymentConfirmation" method="POST">
                 <div class="button-container">
                     <button type="submit" class="btn-confirm">Next</button>
                 </div>
+                </form>
                 
                </div>
                 
@@ -492,6 +516,32 @@ window.onload = togglePaymentFields;
             </div>
         </div>
     </div>
+
+<jsp:include page="Footer.jsp" />
+
+
+<script>
+
+<!-- NAVBAR JS -->
+document.addEventListener("DOMContentLoaded", () => {
+	  const navLinks = document.querySelectorAll(".nav-links a");
+	  const currentUrl = window.location.pathname;
+
+	  // Highlight the link that matches current URL
+	  navLinks.forEach(link => {
+	    if (link.getAttribute("href") === currentUrl) {
+	      link.classList.add("active");
+	    }
+
+	    // Add click event listener for manual switching
+	    link.addEventListener("click", () => {
+	      navLinks.forEach(l => l.classList.remove("active"));
+	      link.classList.add("active");
+	    });
+	  });
+	});
+
+</script>
                 
 
 </body>

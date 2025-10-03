@@ -8,6 +8,10 @@
 <meta charset="UTF-8">
 <title>A4Lifers Flight Booking | Payment</title>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/format.css'/>">
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/Footer.css'/>">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbar.css">
+
+
 <style>
         h1 {
             color: #1e3a5f;
@@ -50,6 +54,25 @@
 
 </head>
 <body>
+
+     <nav class="navbar">
+	  <div class="nav-center">
+	    <ul class="nav-links">
+	      <li><a class="active" href="#header">Home</a></li>
+	      <li><a href="/Home#explore">Explore</a></li>
+	      <li><a href="/Flight/Options">Book</a></li>
+	      <li><a href="/Manage/Profile">Manage</a></li>
+
+	    </ul>
+	  </div>
+	  <div class="nav-right">
+		<ul class="nav-links">
+	      <li><a href="/login">Login / Sign-up</a></li>
+	    </ul>
+	    </div>
+	</nav>
+
+     
    <div class="progress-bar">
         <div class="step">
             <div class="step-number completed">1</div>
@@ -83,7 +106,7 @@
     
     <div class="container">
         <div class="form">
-            <a href="#" class="return-link">← Return</a>
+            <a href="PaymentConfirmation" class="return-link">⮜  Return</a>
             
      
             <h1>Transaction Succesfully Completed</h1>
@@ -92,10 +115,12 @@
             <div class="section-title">You have successfully completed Transaction #</div>
             <div class="section-title-two">Your E-Ticket and Receipt has been sent to the e-mail address you have provided.</div>
              
+             <form action="${pageContext.request.contextPath}/Home" method="POST">
                <div class="button-container">
                     <button type="submit" class="btn-confirm">Go to Home Page</button>
                 </div>
-                    </div>
+                </form>
+                 </div>
             
                         
                 <div class="summary-section">
@@ -185,7 +210,32 @@
                     
              </div>
              
-             
+       
+<jsp:include page="Footer.jsp" />
+
+   <script>
+
+<!-- NAVBAR JS -->
+document.addEventListener("DOMContentLoaded", () => {
+	  const navLinks = document.querySelectorAll(".nav-links a");
+	  const currentUrl = window.location.pathname;
+
+	  // Highlight the link that matches current URL
+	  navLinks.forEach(link => {
+	    if (link.getAttribute("href") === currentUrl) {
+	      link.classList.add("active");
+	    }
+
+	    // Add click event listener for manual switching
+	    link.addEventListener("click", () => {
+	      navLinks.forEach(l => l.classList.remove("active"));
+	      link.classList.add("active");
+	    });
+	  });
+	});
+
+</script>
+   
             
 </body>
 </html>

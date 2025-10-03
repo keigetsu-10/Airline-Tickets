@@ -8,6 +8,10 @@
 <meta charset="UTF-8">
 <title>A4Lifers Flight Booking | Personal Information</title>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/format.css'/>">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbar.css">
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/Footer.css'/>">
+
+
 
 <style> 
          
@@ -107,6 +111,23 @@
 </style>
 </head>
 <body> 
+
+   <nav class="navbar">
+	  <div class="nav-center">
+	    <ul class="nav-links">
+	      <li><a class="active" href="#header">Home</a></li>
+	      <li><a href="/Home#explore">Explore</a></li>
+	      <li><a href="/Flight/Options">Book</a></li>
+	      <li><a href="/Manage/Profile">Manage</a></li>
+
+	    </ul>
+	  </div>
+	  <div class="nav-right">
+		<ul class="nav-links">
+	      <li><a href="/login">Login / Sign-up</a></li>
+	    </ul>
+	    </div>
+	</nav>
  
        
       <div class="progress-bar">
@@ -145,7 +166,9 @@
 
     <!-- FORM -->
     <div class="form">
-        <a href="#" class="return-link">← Return</a>
+        
+        <a href="/SeatMap" class="return-link">⮜  Return </a>
+       
         <h1>Personal Information <span class="passenger-tag">(Passenger 1)</span></h1>
 
         <form action="${pageContext.request.contextPath}/confirmationInfo" method="POST">
@@ -154,33 +177,33 @@
             <div class="form-row">
                 <div class="form-group">
                     <label>First Name <span class="required">*</span></label>
-                    <input type="text" name="firstName" value="${user.firstName}" placeholder=" First Name"/>
+                    <input type="text" name="firstName" value="${user.firstName}" placeholder=" First Name" required>
                 </div>
                 <div class="form-group">
                     <label>Last Name <span class="required">*</span></label>
-                    <input type="text" name="lastName" value="${user.lastName}" placeholder=" Last Name"/>
+                    <input type="text" name="lastName" value="${user.lastName}" placeholder=" Last Name" required>
                 </div>
                 <div class="form-group">
                     <label>Middle Name <span class="optional">(Optional)</span></label>
-                    <input type="text" name="middleName" value="${user.middleName}" placeholder=" Middle Name"/>
+                    <input type="text" name="middleName" value="${user.middleName}" placeholder=" Middle Name"required>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
                     <label>Birth Date <span class="required">*</span></label>
-                    <input type="date" name="birthDate" value="${user.birthDate}"/>
+                    <input type="date" name="birthDate" value="${user.birthDate}" required>
                 </div>
                 <div class="form-group">
                     <label>Nationality <span class="required">*</span></label>
-                    <input type="text" name="nationality" value="${user.nationality}" placeholder=" Nationality"/>
+                    <input type="text" name="nationality" value="${user.nationality}" placeholder=" Nationality"required>
                 </div>
             </div>
 
             <div class="form-row two-col">
                 <div class="form-group">
                     <label>Passport ID <span class="required">*</span></label>
-                    <input type="text" name="passportId" value="${user.passportId}" placeholder=" Passport ID"/>
+                    <input type="text" name="passportId" value="${user.passportId}" placeholder=" Passport ID"required>
                 </div>
             </div>
 
@@ -188,14 +211,14 @@
             <div class="form-row two-col">
                 <div class="form-group">
                     <label>E-mail <span class="required">*</span></label>
-                    <input type="email" name="email" value="${user.email}" placeholder=" Email"/>
+                    <input type="email" name="email" value="${user.email}" placeholder=" Email"required>
                 </div>
             </div>
 
             <div class="form-row two-col">
                 <div class="form-group">
                     <label>Mobile Number <span class="required">*</span></label>
-                    <input type="text" name="mobileNumber" value="${user.mobileNumber}" placeholder=" Mobile Number"/>
+                    <input type="text" name="mobileNumber" value="${user.mobileNumber}" placeholder=" Mobile Number"required>
                 </div>
             </div>
 
@@ -317,7 +340,35 @@
             </div>
         </div>
     </div>
+   
 </div>
+<jsp:include page="Footer.jsp" />
+
+<script>
+
+<!-- NAVBAR JS -->
+document.addEventListener("DOMContentLoaded", () => {
+	  const navLinks = document.querySelectorAll(".nav-links a");
+	  const currentUrl = window.location.pathname;
+
+	  // Highlight the link that matches current URL
+	  navLinks.forEach(link => {
+	    if (link.getAttribute("href") === currentUrl) {
+	      link.classList.add("active");
+	    }
+
+	    // Add click event listener for manual switching
+	    link.addEventListener("click", () => {
+	      navLinks.forEach(l => l.classList.remove("active"));
+	      link.classList.add("active");
+	    });
+	  });
+	});
+
+</script>
+
+
+
 
 </body>
 </html>

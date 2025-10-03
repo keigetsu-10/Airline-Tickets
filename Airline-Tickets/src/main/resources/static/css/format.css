@@ -17,6 +17,7 @@
             align-items: center;
             gap: 15px;
             justify-content: center;
+            margin-top: 60px;
         }
 
         .step {
@@ -49,7 +50,7 @@
         }
 
         .step-label {
-            font-size: 14px;
+            font-size: 17px;
             color: #1e3a5f;
         }
 
