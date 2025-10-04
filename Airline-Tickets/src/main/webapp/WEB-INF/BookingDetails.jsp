@@ -5,93 +5,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>A4Lifers Flight Booking |Booking Details</title>
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/format.css'/>">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbar.css">
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/Footer.css'/>">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">	
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
         body {
             font-family: Arial, sans-serif;
             background: #f5f5f5;
             margin: 0;
         }
-        .navbar {
-            background-color: #405975;
-            padding: 15px;
-            color: white;
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-        }
-        .navbar a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-       }
-       
-       .progress-bar {
-            background-color: #e8e8e8;
-            padding: 30px 50px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            justify-content: center;
-        }
-
-        .step {
-        
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .step-number {
-            width: 40px;
-            height: 40px;
-            border-radius: 10%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: white;
-        }
-
-        .step-number.completed {
-            background-color: #10b981;
-        }
-
-        .step-number.active {
-            background-color: #1e3a5f;
-        }
-
-        .step-number.inactive {
-            background-color: #9ca3af;
-        }
-
-        .step-label {
-            font-size: 14px;
-            color: #1e3a5f;
-        }
-
-        .step-label.inactive {
-            color: #9ca3af;
-        }
-
-        .step-connector {
-            width: 50px;
-            height: 3px;
-            background-color: #10b981;
-        }
-
-        .step-connector.inactive {
-            background-color: #9ca3af;
-            border-top: 2px dashed #6b7280;
-		}
-		.container {
-            display: flex;
-            gap: 30px;
-            padding: 30px 50px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
         .form {
             flex: 2;
             background-color: white;
@@ -208,89 +133,26 @@
         .btn-next:hover {
             background-color: #2d4a6f;
         }
-        .summary-section {
-            flex: 1;
-            align-self: flex-start;
-        }
-
-        .summary-card {
-            background-color: white;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .summary-card h2 {
-            color: #1e3a5f;
-            font-size: 20px;
-            margin-bottom: 20px;
-        }
-
-        .summary-item {
-            margin-bottom: 20px;
-        }
-
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-        }
-
-        .summary-label {
-            font-size: 12px;
-            color: #6b7280;
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-
-        .summary-value {
-            font-size: 14px;
-            color: #1e3a5f;
-            font-weight: 600;
-        }
-
-        .summary-divider {
-            border: none;
-            border-top: 1px solid #e5e7eb;
-            margin: 15px 0;
-        }
-        .total-label {
-            font-weight: 700;
-            color: #00bf63;
-            font-size: 18px;
-        }
-
-        .total-value {
-            font-weight: 700;
-            color: #00bf63;
-            font-size: 18px;
-        }
-        input[type="date"] {
-          text-transform: uppercase; 
-          letter-spacing: 1px;
-          color: #889bbd;
-        }
-
     </style>
 </head>
 <body>
 <nav class="navbar">
-      <div class="nav-center">
-        <ul class="nav-links">
-          <li><a href="#header">Home</a></li>
-          <li><a href="#explore">Explore</a></li>
-          <li><a href="/Book">Bookings</a></li>
-          <li><a href="#">Manage</a></li>
+	  <div class="nav-center">
+	    <ul class="nav-links">
+	      <li><a  href="#header">Home</a></li>
+	      <li><a href="/Home#explore">Explore</a></li>
+	      <li><a class="active" href="/Flight/Options">Book</a></li>
+	      <li><a href="#">Manage</a></li>
 
-
-        </ul>
-      </div>
-      <div class="nav-right">
-        <ul class="nav-links">
-          <li><a href="/login">Login / Sign-up</a></li>
-        </ul>
-        </div>
-    </nav>
+	    </ul>
+	  </div>
+	  <div class="nav-right">
+		<ul class="nav-links">
+	      <li><a href="/login">Login / Sign-up</a></li>
+	    </ul>
+	    </div>
+	</nav>
+	
 <div class="progress-bar">
         <div class="step">
             <div class="step-number active">1</div>
@@ -324,7 +186,7 @@
     
 <div class="container">    
     <div class="form">
-        <a href="#" class="return-link">← Return</a>
+        <a href="/Flight/Options" class="return-link">⮜  Return</a>
         <h1>Booking Details</h1>
             <div class="identi">FLIGHT DETAILS</div>
 

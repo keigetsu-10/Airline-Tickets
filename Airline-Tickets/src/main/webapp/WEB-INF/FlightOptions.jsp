@@ -96,6 +96,27 @@
 		   transition: 0.3s;
 		}
 		
+		.suggestions-list {
+			width: 200px;       
+     		z-index: 1000;
+		    margin-top: 3.7rem;          
+		    padding: 0;         
+		    border: none;        
+		    outline: none;      
+		    font-family: 'Poppins', sans-serif;
+		    font-size: 14px;
+		    background: white;     
+		    position: absolute;  
+		    list-style: none;  
+		    box-shadow: 0 2px 8px rgba(0,0,0,0.15); 
+		}
+
+		.suggestions-list li {
+		    padding: 8px 12px;
+		    cursor: pointer;
+		}
+		
+		/* MAIN CONTENT */
 		.flight_page {
 		    display: flex;
 		    justify-content: center;
@@ -202,6 +223,10 @@
 		}
 		
 		/* EFFECTS */
+		.suggestions-list li:hover {
+		   background-color: #f0f0f0;
+		}
+		
 		.search-btn button:hover {
 		  background: #5b6a84;
 		}
@@ -239,40 +264,43 @@
 	    </div>
 	</nav>
 
+	<!-- Booking Bar -->
 	<section id="shortcut_booking-bar" class="shortcut_booking-bar">
-	    <div class="booking-container">
-	      <div class="from">
-	        <label>Where From?</label>
-	        <input type="text" placeholder="From">
-	     </div>
+	  <div class="booking-container">
+	    <div class="from">
+	      <label>Where From?</label>
+	      <input type="text" id="from" placeholder="From" value="${from}"> 
+	      <ul id="from-suggestions" class="suggestions-list"></ul>
+	    </div>
 	    
-	      <div class="to">
-	        <label>Where To?</label>
-	        <input type="text" placeholder="Destination">
-	     </div>
+	    <div class="to">
+	      <label>Where To?</label>
+	      <input type="text" id="to" placeholder="Destination" value="${to}">
+	      <ul id="to-suggestions" class="suggestions-list"></ul>
+	    </div>
 	 
-	      <div class="departure">
-	        <label>Departure</label>
-	        <input type="date" id="date" placeholder="MM/DD/YYYY">
-	      </div>
+	    <div class="departure">
+	      <label>Departure</label>
+	      <input type="date" id="departureDate" placeholder="MM/DD/YYYY" value="${departureDate}">
+	    </div>
 	    
-	      <div class="return">
-	        <label>Return</label>
-	        <input type="date" id="date" placeholder="MM/DD/YYYY">
-	      </div>
-	       
-	      <div class="trip">
-	         <label>Trip Type</label>
-	         <select>
-	            <option>Round Trip</option>
-	            <option>One Way</option>
-	         </select>
-	      </div>
+	    <div class="return">
+	      <label>Return</label>
+	      <input type="date" id="returnDate" placeholder="MM/DD/YYYY" value="${returnDate}">
+	    </div>
 	    
-	      <div class="search-btn">
-	         <button>Search</button>
-	      </div>
-	   </div>
+	    <div class="trip">
+	      <label>Trip Type</label>
+	      <select>
+	        <option>Round Trip</option>
+	        <option>One Way</option>
+	      </select>
+	    </div>
+	    
+	    <div id="search-btn" class="search-btn">
+	      <button>Search</button>
+	    </div>
+	  </div>
 	</section>
 	
 	<div class="flight_page">
@@ -287,29 +315,44 @@
 						<p>Fastest</p>
 					</div>
 				</div>
-				
+		<c:choose>
+		  <c:when test="${not empty flights}">
+		    <c:forEach var="flight" items="${flights}">
 				<div class="flight_details-container">
 					<div class="flight_departure-details">
+						<p><b>${flight.name}, ${flight.country}</b></p>
+			            <p>Airport: ${flight.airport}</p>
+			            <p>Departure: ${flight.departureDate} ${flight.departureTime}</p>
 					</div>
 					<div class="flight_return-details">
+						<p>Return: ${flight.returnDate} ${flight.returnTime}</p>
+	          			<p>Class: ${flight.flightClass} | ${flight.tripType}</p>
+					</div>
 					<div class="flight_price-details">
+						<p>💲${flight.price}</p>
 					</div>
 					<div class="select-btn"><button>Select</button></div>
-					</div>
-				</div>
-			</div>
-		</section>
+				 </div>
+			</c:forEach>
+		  </c:when>
+		  <c:otherwise>
+		    <p>No flights found for your search criteria 🚫</p>
+		  </c:otherwise>
+		</c:choose>
+			  </div>
+		  </section>
 		
-		<section id="flight_filters" class="flight_filters">
-			<div class="filter-btn"><button>Filter</button></div>
-			<p id="flight_filters-title" class="flight_filters-txt">FILTERS</p>
-			<p id="flight_filters-deptime" class="flight_filters-txt">Departure Time</p>
-				<input type="time" id="departure-time">
-			<p id="flight_filters-class" class="flight_filters-txt">Flight Class</p>
-				<label><input type="radio" name="class" value="economy"> Economy</label><br>
-				<label><input type="radio" name="class" value="premium"> Premium Economy</label><br>
-				<label><input type="radio" name="class" value="business"> Business</label><br>
-				<label><input type="radio" name="class" value="first"> First Class</label>
+		
+	   	 <section id="flight_filters" class="flight_filters">
+			 <div class="filter-btn"><button>Filter</button></div>
+			 <p id="flight_filters-title" class="flight_filters-txt">FILTERS</p>
+			 <p id="flight_filters-deptime" class="flight_filters-txt">Departure Time</p>
+				 <input type="time" id="departure-time">
+			 <p id="flight_filters-class" class="flight_filters-txt">Flight Class</p>
+				 <label><input type="radio" name="class" value="economy"> Economy</label><br>
+				 <label><input type="radio" name="class" value="premium"> Premium Economy</label><br>
+				 <label><input type="radio" name="class" value="business"> Business</label><br>
+				 <label><input type="radio" name="class" value="first"> First Class</label>
 		</section>
 	</div>
 	
@@ -332,7 +375,46 @@
 		    });
 		  });
 		});
+	  
+	  //Search
+	  document.addEventListener("DOMContentLoaded", function () {
+  const searchBtn = document.getElementById("search-btn");
+  const fromInput = document.getElementById("from");
+  const toInput = document.getElementById("to");
+  const departureInput = document.getElementById("departureDate");
+  const returnInput = document.getElementById("returnDate");
+
+  searchBtn.addEventListener("click", function (e) {
+    e.preventDefault(); // prevent accidental form reload
+
+    const from = fromInput.value.trim();
+    const to = toInput.value.trim();
+    const departureDate = departureInput.value;
+    const returnDate = returnInput.value;
+
+    // Validation
+    if (!from || !to || !departureDate || !returnDate) {
+      alert("⚠️ Please complete all booking fields before continuing.");
+      return;
+    }
+
+    // Build URL query string
+    const params = new URLSearchParams({
+      from,
+      to,
+      departureDate,
+      returnDate
+    }).toString();
+
+    const targetUrl = `/Flight/Options?${params}`;
+    console.log("🔍 Redirecting to:", targetUrl); // for debugging
+
+    // Redirect to backend to trigger filtering
+    window.location.href = targetUrl;
+  });
+});
 	</script>
+	<script src="${pageContext.request.contextPath}/js/type_filter.js"></script>
 	
 </body>
 </html>

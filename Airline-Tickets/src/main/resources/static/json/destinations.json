@@ -11,7 +11,8 @@
       "returnTime": "19:45",
       "flightClass": "Economy",
       "tripType": "Round Trip",
-      "price": 850
+      "price": 850,
+      "airline": "Air France"
     },
     {
       "id": 2,
@@ -24,7 +25,8 @@
       "returnTime": "21:15",
       "flightClass": "Business",
       "tripType": "Round Trip",
-      "price": 1200
+      "price": 1200,
+      "airline": "Air China"
     },
     {
       "id": 3,
@@ -37,7 +39,8 @@
       "returnTime": "16:30",
       "flightClass": "Economy",
       "tripType": "Round Trip",
-      "price": 450
+      "price": 450,
+      "airline": "Korean Air"
     },
     {
       "id": 4,
@@ -50,7 +53,8 @@
       "returnTime": "20:00",
       "flightClass": "Economy",
       "tripType": "Round Trip",
-      "price": 600
+      "price": 600,
+      "airline": "Singapore Airlines"
     },
     {
       "id": 5,
@@ -63,7 +67,8 @@
       "returnTime": "18:30",
       "flightClass": "Business",
       "tripType": "Round Trip",
-      "price": 1300
+      "price": 1300,
+      "airline": "British Airways"
     },
     {
       "id": 6,
@@ -76,7 +81,8 @@
       "returnTime": "17:20",
       "flightClass": "Economy",
       "tripType": "Round Trip",
-      "price": 900
+      "price": 900,
+      "airline": "Japan Airlines"
     },
     {
       "id": 7,
@@ -89,7 +95,8 @@
       "returnTime": "22:10",
       "flightClass": "Business",
       "tripType": "Round Trip",
-      "price": 1400
+      "price": 1400,
+      "airline": "Delta Airlines"
     },
     {
       "id": 8,
@@ -102,7 +109,8 @@
       "returnTime": "23:00",
       "flightClass": "Economy",
       "tripType": "Round Trip",
-      "price": 950
+      "price": 950,
+      "airline": "LATAM Airlines"
     },
     {
       "id": 9,
@@ -115,7 +123,8 @@
       "returnTime": "20:30",
       "flightClass": "Economy",
       "tripType": "Round Trip",
-      "price": 800
+      "price": 800,
+      "airline": "Iberia Airlines"
     },
     {
       "id": 10,
@@ -128,7 +137,8 @@
       "returnTime": "18:50",
       "flightClass": "Business",
       "tripType": "Round Trip",
-      "price": 1100
+      "price": 1100,
+      "airline": "Lufthansa"
     },
     {
       "id": 11,
@@ -141,7 +151,8 @@
       "returnTime": "19:10",
       "flightClass": "Economy",
       "tripType": "Round Trip",
-      "price": 700
+      "price": 700,
+      "airline": "Air France"
     },
     {
       "id": 12,
@@ -154,7 +165,8 @@
       "returnTime": "17:45",
       "flightClass": "Economy",
       "tripType": "Round Trip",
-      "price": 650
+      "price": 650,
+      "airline": "Aeroméxico"
     },
     {
       "id": 13,
@@ -167,7 +179,8 @@
       "returnTime": "16:40",
       "flightClass": "Economy",
       "tripType": "Round Trip",
-      "price": 400
+      "price": 400,
+      "airline": "Philippine Airlines"
     },
     {
       "id": 14,
@@ -180,7 +193,8 @@
       "returnTime": "18:00",
       "flightClass": "Business",
       "tripType": "Round Trip",
-      "price": 1000
+      "price": 1000,
+      "airline": "Air India"
     },
     {
       "id": 15,
@@ -193,7 +207,8 @@
       "returnTime": "19:30",
       "flightClass": "Economy",
       "tripType": "Round Trip",
-      "price": 900
+      "price": 900,
+      "airline": "ITA Airways"
     },
     {
       "id": 16,
@@ -206,7 +221,8 @@
       "returnTime": "20:00",
       "flightClass": "Economy",
       "tripType": "Round Trip",
-      "price": 950
+      "price": 950,
+      "airline": "EgyptAir"
     },
     {
       "id": 17,
@@ -219,7 +235,8 @@
       "returnTime": "18:20",
       "flightClass": "Economy",
       "tripType": "Round Trip",
-      "price": 550
+      "price": 550,
+      "airline": "Garuda Indonesia"
     },
     {
       "id": 18,
@@ -232,7 +249,8 @@
       "returnTime": "16:50",
       "flightClass": "Business",
       "tripType": "Round Trip",
-      "price": 1000
+      "price": 1000,
+      "airline": "All Nippon Airways"
     },
     {
       "id": 19,
@@ -245,7 +263,8 @@
       "returnTime": "17:00",
       "flightClass": "Economy",
       "tripType": "Round Trip",
-      "price": 480
+      "price": 480,
+      "airline": "Asiana Airlines"
     },
     {
       "id": 20,
@@ -258,7 +277,8 @@
       "returnTime": "20:15",
       "flightClass": "Economy",
       "tripType": "Round Trip",
-      "price": 920
+      "price": 920,
+      "airline": "ITA Airways"
     },
     {
       "id": 21,
@@ -271,7 +291,8 @@
       "returnTime": "18:45",
       "flightClass": "Business",
       "tripType": "Round Trip",
-      "price": 1200
+      "price": 1200,
+      "airline": "Emirates"
     },
     {
       "id": 22,
@@ -284,7 +305,8 @@
       "returnTime": "22:00",
       "flightClass": "Economy",
       "tripType": "Round Trip",
-      "price": 1300
+      "price": 1300,
+      "airline": "Qantas Airways"
     },
     {
       "id": 23,
@@ -297,7 +319,8 @@
       "returnTime": "19:10",
       "flightClass": "Economy",
       "tripType": "Round Trip",
-      "price": 850
+      "price": 850,
+      "airline": "Swiss International Air Lines"
     },
     {
       "id": 24,
@@ -310,7 +333,8 @@
       "returnTime": "17:30",
       "flightClass": "Business",
       "tripType": "Round Trip",
-      "price": 1400
+      "price": 1400,
+      "airline": "Maldivian Airlines"
     },
     {
       "id": 25,
@@ -323,7 +347,8 @@
       "returnTime": "19:45",
       "flightClass": "Economy",
       "tripType": "Round Trip",
-      "price": 900
+      "price": 900,
+      "airline": "Aegean Airlines"
     },
     {
       "id": 26,
@@ -336,7 +361,8 @@
       "returnTime": "18:30",
       "flightClass": "Economy",
       "tripType": "Round Trip",
-      "price": 650
+      "price": 650,
+      "airline": "Air Canada"
     }
   ]
 }
