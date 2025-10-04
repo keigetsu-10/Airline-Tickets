@@ -8,12 +8,12 @@
 <meta charset="UTF-8">
 <title>A4Lifers Flight Booking | Flight Options</title>
     <link rel="stylesheet" type="text/css" href="/css/navbar.css">
-	
+	<link rel="stylesheet" type="text/css" href="<c:url value='/css/Footer.css'/>">
 	
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">	
 	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">		
-	
+
 	<style>
 	    html, body {
 		   margin: 0;
@@ -356,6 +356,7 @@
 		</section>
 	</div>
 	
+	<jsp:include page="Footer.jsp" />
 	<script>
 	<!-- NAVBAR JS -->
 	  document.addEventListener("DOMContentLoaded", () => {

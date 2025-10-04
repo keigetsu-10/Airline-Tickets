@@ -290,6 +290,7 @@
 		    object-fit: cover; 
 		    object-position: center;
 		    display: block;
+		    pointer-events: none;
 		}
 		 
 		.explore_txt {
@@ -328,6 +329,7 @@
 		   opacity: 0.5;   
 		   cursor: pointer;
 		   transition: fill 0.3s ease, opacity 0.3s ease;
+		   z-index: 10;
 		}
 		
 		.star-icon.active {
@@ -512,6 +514,27 @@
 		  });
 		});
 	  
+	  // FAVORITES FUNCTIONALITY
+	  function addToFavorites(destination, imageUrl) {
+	    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+	    
+	    const exists = favorites.some(fav => fav.name === destination);
+	    if (!exists) {
+	      favorites.push({ 
+	        name: destination, 
+	        image: imageUrl 
+	      });
+	      localStorage.setItem('favorites', JSON.stringify(favorites));
+	      console.log('Successfully added to favorites:', { name: destination, image: imageUrl });
+	    }
+	  }
+
+	  function removeFromFavorites(destination) {
+	    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+	    favorites = favorites.filter(fav => fav.name !== destination);
+	    localStorage.setItem('favorites', JSON.stringify(favorites));
+	    console.log('Removed from favorites:', destination);
+	  }
 	  
 	</script>
 	<script src="${pageContext.request.contextPath}/js/type_filter.js"></script>
