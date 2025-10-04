@@ -35,9 +35,9 @@ public class FlightOptionsController {
 	        throw new IOException("❌ destinations.json not found at /static/json/");
 	    }
 
-	    // ✅ Read the root object as a Map
+	    // Read the root object as a Map
 	    Map<String, List<Flight>> data = mapper.readValue(is, new TypeReference<Map<String, List<Flight>>>() {});
-	    flights = data.get("destinations"); // 👈 Extract the list inside the "destinations" key
+	    flights = data.get("destinations"); // Extract the list inside the "destinations" key
 
 	    if (flights == null) {
 	        throw new IOException("❌ 'destinations' key not found in destinations.json");
