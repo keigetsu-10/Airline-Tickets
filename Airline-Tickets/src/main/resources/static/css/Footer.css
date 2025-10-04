@@ -8,7 +8,6 @@
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.15);
-  
   overflow: hidden;
 }
 
@@ -46,7 +45,7 @@
 }
 
 .footer-logo {
-  font-size: 24px;
+  font-size: 26px;   /* bigger logo */
   margin-bottom: 15px;
   font-weight: 600;
   color: #f8fafc;
@@ -58,13 +57,13 @@
 
 .footer-about p {
   line-height: 1.7;
-  font-size: 14px;
+  font-size: 15px;   /* was 14px */
   color: #d1d5db;
   margin-bottom: 15px;
 }
 
 .footer-section h3 {
-  font-size: 16px;
+  font-size: 18px;   /* was 16px */
   margin-bottom: 18px;
   font-weight: 600;
   color: #f8fafc;
@@ -91,14 +90,16 @@
   margin-bottom: 12px;
 }
 
-.footer-links ul li a {
+.footer-links ul li a,
+.footer-links ul li span {
   color: #e5e7eb;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 15px;   /* was 14px */
   font-weight: 400;
   transition: all 0.3s ease;
   display: inline-block;
   position: relative;
+  cursor: pointer;
 }
 
 .footer-links ul li a::before {
@@ -121,7 +122,7 @@
 }
 
 .footer-contact p {
-  font-size: 14px;
+  font-size: 15px;   /* was 14px */
   margin: 10px 0;
   color: #d1d5db;
   display: flex;
@@ -145,7 +146,7 @@
   background: rgba(255, 255, 255, 0.1);
   padding: 6px 12px;
   border-radius: 6px;
-  font-size: 12px;
+  font-size: 13px;
   color: #93c5fd;
   backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -198,7 +199,7 @@
   background: rgba(255, 255, 255, 0.05);
   color: #f1f5f9;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 15px;   /* was 14px */
   transition: all 0.3s ease;
 }
 
@@ -220,6 +221,7 @@
   border-radius: 8px;
   cursor: pointer;
   font-weight: 500;
+  font-size: 15px;   /* was 14px */
   transition: all 0.3s ease;
 }
 
@@ -246,7 +248,7 @@
 }
 
 .footer-bottom p {
-  font-size: 13px;
+  font-size: 14px;   /* was 13px */
   color: #cbd5e1;
   margin: 0;
 }
@@ -257,14 +259,17 @@
   flex-wrap: wrap;
 }
 
-.footer-legal-links a {
+.footer-legal-links a,
+.footer-legal-links span {
   color: #cbd5e1;
   text-decoration: none;
-  font-size: 13px;
+  font-size: 14px;   /* was 13px */
   transition: color 0.3s ease;
+  cursor: pointer;
 }
 
-.footer-legal-links a:hover {
+.footer-legal-links a:hover,
+.footer-legal-links span:hover {
   color: #ffffff;
 }
 
@@ -298,21 +303,18 @@
 
   .footer-logo {
     justify-content: center;
+    font-size: 22px;   /* responsive */
   }
 
-  .footer-links ul li a::before {
-    display: none;
-  }
-
-  .footer-links ul li a:hover {
-    padding-left: 0;
+  .footer-links ul li a,
+  .footer-links ul li span {
+    font-size: 14px;   /* smaller for mobile */
   }
 
   .footer-contact p {
     justify-content: center;
+    font-size: 14px;
   }
-
-  
 
   .newsletter-form {
     flex-direction: column;
@@ -326,6 +328,4 @@
   .footer-legal-links {
     justify-content: center;
   }
-
- 
 }

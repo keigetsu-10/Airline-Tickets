@@ -172,11 +172,11 @@
 	      margin-top: 0;
 	   }
 	
-	   .favorites-info {
-	      display: grid;
-	      grid-template-columns: 1fr 1fr;
-	      gap: 15px;
-	   }
+	  .favorites-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
 	
 	   .favorites-info div {
 	      display: flex;
@@ -347,174 +347,293 @@
 	</div>
 	
 	<script>
-	
-	//  NAVBAR JS 
-	  document.addEventListener("DOMContentLoaded", () => {
-		  const navLinks = document.querySelectorAll(".nav-links a");
-		  const currentUrl = window.location.pathname;
+// NAVBAR JS 
+document.addEventListener("DOMContentLoaded", () => {
+  const navLinks = document.querySelectorAll(".nav-links a");
+  const currentUrl = window.location.pathname;
 
-		  // Highlight the link that matches current URL
-		  navLinks.forEach(link => {
-		    if (link.getAttribute("href") === currentUrl) {
-		      link.classList.add("active");
-		    }
+  navLinks.forEach(link => {
+    if (link.getAttribute("href") === currentUrl) {
+      link.classList.add("active");
+    }
 
-		    // Add click event listener for manual switching
-		    link.addEventListener("click", () => {
-		      navLinks.forEach(l => l.classList.remove("active"));
-		      link.classList.add("active");
-		    });
-		  });
-		});
-	  
-	  function formatDateToDisplay(dateStr) {
-		  if (!dateStr || dateStr.indexOf("-") === -1) {
-		    return "";
-		  }
+    link.addEventListener("click", () => {
+      navLinks.forEach(l => l.classList.remove("active"));
+      link.classList.add("active");
+    });
+  });
+  
+  // Load favorites immediately on page load
+  loadFavorites();
+});
 
-		  var parts = dateStr.trim().split("-");
+function formatDateToDisplay(dateStr) {
+  if (!dateStr || dateStr.indexOf("-") === -1) {
+    return "";
+  }
 
-		  if (parts.length === 3 && parts[0] && parts[1] && parts[2]) {
-		    return parts[2] + "/" + parts[1] + "/" + parts[0];
-		  }
+  var parts = dateStr.trim().split("-");
 
-		  return "";
-		}
-	  
-	// Sidebar navigation
-	  document.querySelectorAll(".sidebar button").forEach((button, index) => {
-	    button.addEventListener("click", () => {
-	      // Remove active class from all buttons
-	      document.querySelectorAll(".sidebar button").forEach(btn => btn.classList.remove("active"));
-	      button.classList.add("active");
+  if (parts.length === 3 && parts[0] && parts[1] && parts[2]) {
+    return parts[2] + "/" + parts[1] + "/" + parts[0];
+  }
 
-	      // Hide all sections
-	      document.querySelectorAll(".section").forEach(sec => sec.classList.remove("active"));
+  return "";
+}
 
-	      // Show the section based on which button is clicked
-	      if (button.textContent === "Profile") {
-	        document.querySelector(".profile-section").classList.add("active");
-	      } else if (button.textContent === "Favorites") {
-	        document.querySelector(".favorites-section").classList.add("active");
-	      } else if (button.textContent === "Booking History") {
-	        document.querySelector(".history-section").classList.add("active");
-	      }
-	    });
-	  });
-	
-	//  Change Photo 
-	function previewImage(event) {
-		const reader = new FileReader();
-		reader.onload = function() {
-			const imageData = reader.result;
-			document.getElementById('profileImage').src = imageData;
-	
-			// Save image to localStorage
-			localStorage.setItem("profileImage", imageData);
-		}
-		reader.readAsDataURL(event.target.files[0]);
-		}
-	
-	  
-	// Edit Profile 
-	function enableEdit() {
-	    const spans = document.querySelectorAll('.profile-info span');
-	    const inputs = document.querySelectorAll('.profile-info input');
-	    
-	    spans.forEach(span => span.style.display = "none");
-	    inputs.forEach(input => input.style.display = "block");
+// Sidebar navigation
+document.querySelectorAll(".sidebar button").forEach((button, index) => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".sidebar button").forEach(btn => btn.classList.remove("active"));
+    button.classList.add("active");
 
-	    document.getElementById('editBtn').style.display = "none";
-	    document.getElementById('saveBtn').style.display = "inline-block";
-	  }
+    document.querySelectorAll(".section").forEach(sec => sec.classList.remove("active"));
 
-	function saveChanges() {
-		  let firstName = document.getElementById('firstNameInput').value;
-		  let lastName = document.getElementById('lastNameInput').value;
-		  let middleName = document.getElementById('middleNameInput').value;
-		  let birthDateIso = document.getElementById("birthDateInput").value;
-		  let formattedBirthDate = formatDateToDisplay(birthDateIso);
-		  let phoneNum = document.getElementById('phoneNumInput').value;
-		  let email = document.getElementById('emailInput').value;
-		  let password = document.getElementById('passwordInput').value;
+    if (button.textContent === "Profile") {
+      document.querySelector(".profile-section").classList.add("active");
+    } else if (button.textContent === "Favorites") {
+      document.querySelector(".favorites-section").classList.add("active");
+      loadFavorites();
+    } else if (button.textContent === "Booking History") {
+      document.querySelector(".history-section").classList.add("active");
+    }
+  });
+});
 
+// Load and display favorites
+function loadFavorites() {
+  const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+  const favoritesContainer = document.querySelector('.favorites-info');
+  
+  console.log('Loading favorites from Profile page:', favorites);
+  
+  if (favorites.length === 0) {
+    favoritesContainer.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #999; padding: 40px; font-family: Poppins, sans-serif;">No favorites yet. Visit the Explore section to add destinations!</p>';
+    return;
+  }
+  
+  favoritesContainer.innerHTML = '';
+  
+  favorites.forEach((fav, index) => {
+    console.log(`Favorite ${index}:`, fav);
+    
+    const favCard = document.createElement('div');
+    favCard.className = 'favorite-card';
+    favCard.setAttribute('data-destination', fav.name);
+    favCard.style.cssText = `
+      position: relative;
+      width: 100%;
+      height: 200px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+      background: #f0f0f0;
+      cursor: pointer;
+    `;
+    
+    const img = document.createElement('img');
+    img.src = fav.image;
+    img.alt = fav.name;
+    img.style.cssText = 'width: 100%; height: 100%; object-fit: cover; display: block;';
+    
+    // Add error handler to debug image loading issues
+    img.onerror = function() {
+      console.error('Failed to load image:', fav.image);
+      this.style.background = '#ddd';
+      this.alt = 'Image not found: ' + fav.name;
+    };
+    
+    img.onload = function() {
+      console.log('Successfully loaded image:', fav.image);
+    };
+    
+    const nameDiv = document.createElement('div');
+    nameDiv.style.cssText = `
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: white;
+      font-weight: 600;
+      font-size: 14px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+      font-family: Poppins, sans-serif;
+      pointer-events: none;
+    `;
+    nameDiv.textContent = fav.name;
+    
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('class', 'unfavorite-star');
+    svg.setAttribute('viewBox', '0 0 640 640');
+    svg.style.cssText = `
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 30px;
+      height: 30px;
+      fill: #fbca41;
+      opacity: 1;
+      cursor: pointer;
+      transition: fill 0.3s ease, opacity 0.3s ease;
+      z-index: 10;
+    `;
+    
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', 'M341.5 45.1C337.4 37.1 329.1 32 320.1 32C311.1 32 302.8 37.1 298.7 45.1L225.1 189.3L65.2 214.7C56.3 216.1 48.9 222.4 46.1 231C43.3 239.6 45.6 249 51.9 255.4L166.3 369.9L141.1 529.8C139.7 538.7 143.4 547.7 150.7 553C158 558.3 167.6 559.1 175.7 555L320.1 481.6L464.4 555C472.4 559.1 482.1 558.3 489.4 553C496.7 547.7 500.4 538.8 499 529.8L473.7 369.9L588.1 255.4C594.5 249 596.7 239.6 593.9 231C591.1 222.4 583.8 216.1 574.8 214.7L415 189.3L341.5 45.1z');
+    svg.appendChild(path);
+    
+    favCard.appendChild(img);
+    favCard.appendChild(nameDiv);
+    favCard.appendChild(svg);
+    
+    favoritesContainer.appendChild(favCard);
+    
+    // Add click handler for unfavoriting
+    svg.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (confirm('Are you sure you want to remove "' + fav.name + '" from your favorites?')) {
+        unfavoriteDestination(fav.name);
+      }
+    });
+    
+    // Hover effects
+    svg.addEventListener('mouseenter', () => {
+      svg.style.fill = '#808080';
+      svg.style.opacity = '0.7';
+    });
+    
+    svg.addEventListener('mouseleave', () => {
+      svg.style.fill = '#fbca41';
+      svg.style.opacity = '1';
+    });
+    
+    favCard.addEventListener('mouseenter', () => {
+      favCard.style.transform = 'scale(1.03)';
+    });
+    
+    favCard.addEventListener('mouseleave', () => {
+      favCard.style.transform = 'scale(1)';
+    });
+  });
+}
 
-		  document.getElementById('firstNameSpan').innerText = firstName;
-		  document.getElementById('lastNameSpan').innerText = lastName;
-		  document.getElementById('middleNameSpan').innerText = middleName;
-		  document.getElementById('birthDateSpan').innerText = formattedBirthDate || "Not set";
-		  document.getElementById('phoneNumSpan').innerText = phoneNum;
-		  document.getElementById('emailSpan').innerText = email;
-		  document.getElementById('passwordSpan').innerText = "******";
+// Remove destination from favorites
+function unfavoriteDestination(destination) {
+  console.log('Unfavoriting:', destination);
+  
+  let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+  favorites = favorites.filter(fav => fav.name !== destination);
+  localStorage.setItem('favorites', JSON.stringify(favorites));
+  
+  console.log('Remaining favorites:', favorites);
+  
+  // Immediately reload the display
+  loadFavorites();
+}
 
-		  // Username = firstName
-		  document.getElementById('userNameSpan').innerText = firstName;
+// Change Photo 
+function previewImage(event) {
+  const reader = new FileReader();
+  reader.onload = function() {
+    const imageData = reader.result;
+    document.getElementById('profileImage').src = imageData;
+    localStorage.setItem("profileImage", imageData);
+  }
+  reader.readAsDataURL(event.target.files[0]);
+}
 
-		  // Save to localStorage
-		  localStorage.setItem("firstName", firstName);
-		  localStorage.setItem("lastName", lastName);
-		  localStorage.setItem("middleName", middleName);
-		  localStorage.setItem("birthDateIso", birthDateIso);
-		  localStorage.setItem("birthDateFormatted", formattedBirthDate);
-		  localStorage.setItem("phoneNum", phoneNum);
-		  localStorage.setItem("email", email);
-		  localStorage.setItem("password", password);
-		  localStorage.setItem("username", firstName); 
+// Edit Profile 
+function enableEdit() {
+  const spans = document.querySelectorAll('.profile-info span');
+  const inputs = document.querySelectorAll('.profile-info input');
+  
+  spans.forEach(span => span.style.display = "none");
+  inputs.forEach(input => input.style.display = "block");
 
-		  // Hide inputs and show spans
-		  const spans = document.querySelectorAll('.profile-info span');
-		  const inputs = document.querySelectorAll('.profile-info input');
-		  
-		  spans.forEach(span => span.style.display = "block");
-		  inputs.forEach(input => input.style.display = "none");
+  document.getElementById('editBtn').style.display = "none";
+  document.getElementById('saveBtn').style.display = "inline-block";
+}
 
-		  document.getElementById('editBtn').style.display = "inline-block";
-		  document.getElementById('saveBtn').style.display = "none";
-		}
-	
-	window.onload = function() {
-		 if (localStorage.getItem("profileImage")) {
-		    document.getElementById('profileImage').src = localStorage.getItem("profileImage");
-		  }
-		  if (localStorage.getItem("firstName")) {
-		    document.getElementById('firstNameSpan').innerText = localStorage.getItem("firstName");
-		    document.getElementById('firstNameInput').value = localStorage.getItem("firstName");
-		    document.getElementById('userNameSpan').innerText = localStorage.getItem("firstName"); // ✅ load username
-		  }
-		  if (localStorage.getItem("lastName")) {
-		    document.getElementById('lastNameSpan').innerText = localStorage.getItem("lastName");
-		    document.getElementById('lastNameInput').value = localStorage.getItem("lastName");
-		  }
-		  if (localStorage.getItem("middleName")) {
-		    document.getElementById('middleNameSpan').innerText = localStorage.getItem("middleName");
-		    document.getElementById('middleNameInput').value = localStorage.getItem("middleName");
-		  }
-		  let birthDateIso = localStorage.getItem("birthDateIso");
-		  if (birthDateIso) {
-		    document.getElementById("birthDateInput").value = birthDateIso;
-		    document.getElementById("birthDateSpan").innerText = localStorage.getItem("birthDateFormatted");
-		  } else {
-		    let defaultIso = document.getElementById("birthDateInput").value;
-		    let formattedDefault = formatDateToDisplay(defaultIso);
-		    document.getElementById("birthDateSpan").innerText = formattedDefault;
-		  }
-		  
-		  if (localStorage.getItem("phoneNum")) {
-		    document.getElementById('phoneNumSpan').innerText = localStorage.getItem("phoneNum");
-		    document.getElementById('phoneNumInput').value = localStorage.getItem("phoneNum");
-		  }
-		  if (localStorage.getItem("email")) {
-		    document.getElementById('emailSpan').innerText = localStorage.getItem("email");
-		    document.getElementById('emailInput').value = localStorage.getItem("email");
-		  }
-		  if (localStorage.getItem("password")) {
-			  document.getElementById('passwordSpan').innerText = "******";
-			  document.getElementById('passwordInput').value = localStorage.getItem("password");
-			}
-		};
-	
-	</script>
-	
+function saveChanges() {
+  let firstName = document.getElementById('firstNameInput').value;
+  let lastName = document.getElementById('lastNameInput').value;
+  let middleName = document.getElementById('middleNameInput').value;
+  let birthDateIso = document.getElementById("birthDateInput").value;
+  let formattedBirthDate = formatDateToDisplay(birthDateIso);
+  let phoneNum = document.getElementById('phoneNumInput').value;
+  let email = document.getElementById('emailInput').value;
+  let password = document.getElementById('passwordInput').value;
+
+  document.getElementById('firstNameSpan').innerText = firstName;
+  document.getElementById('lastNameSpan').innerText = lastName;
+  document.getElementById('middleNameSpan').innerText = middleName;
+  document.getElementById('birthDateSpan').innerText = formattedBirthDate || "Not set";
+  document.getElementById('phoneNumSpan').innerText = phoneNum;
+  document.getElementById('emailSpan').innerText = email;
+  document.getElementById('passwordSpan').innerText = "******";
+  document.getElementById('userNameSpan').innerText = firstName;
+
+  localStorage.setItem("firstName", firstName);
+  localStorage.setItem("lastName", lastName);
+  localStorage.setItem("middleName", middleName);
+  localStorage.setItem("birthDateIso", birthDateIso);
+  localStorage.setItem("birthDateFormatted", formattedBirthDate);
+  localStorage.setItem("phoneNum", phoneNum);
+  localStorage.setItem("email", email);
+  localStorage.setItem("password", password);
+  localStorage.setItem("username", firstName);
+
+  const spans = document.querySelectorAll('.profile-info span');
+  const inputs = document.querySelectorAll('.profile-info input');
+  
+  spans.forEach(span => span.style.display = "block");
+  inputs.forEach(input => input.style.display = "none");
+
+  document.getElementById('editBtn').style.display = "inline-block";
+  document.getElementById('saveBtn').style.display = "none";
+}
+
+window.onload = function() {
+  if (localStorage.getItem("profileImage")) {
+    document.getElementById('profileImage').src = localStorage.getItem("profileImage");
+  }
+  if (localStorage.getItem("firstName")) {
+    document.getElementById('firstNameSpan').innerText = localStorage.getItem("firstName");
+    document.getElementById('firstNameInput').value = localStorage.getItem("firstName");
+    document.getElementById('userNameSpan').innerText = localStorage.getItem("firstName");
+  }
+  if (localStorage.getItem("lastName")) {
+    document.getElementById('lastNameSpan').innerText = localStorage.getItem("lastName");
+    document.getElementById('lastNameInput').value = localStorage.getItem("lastName");
+  }
+  if (localStorage.getItem("middleName")) {
+    document.getElementById('middleNameSpan').innerText = localStorage.getItem("middleName");
+    document.getElementById('middleNameInput').value = localStorage.getItem("middleName");
+  }
+  let birthDateIso = localStorage.getItem("birthDateIso");
+  if (birthDateIso) {
+    document.getElementById("birthDateInput").value = birthDateIso;
+    document.getElementById("birthDateSpan").innerText = localStorage.getItem("birthDateFormatted");
+  } else {
+    let defaultIso = document.getElementById("birthDateInput").value;
+    let formattedDefault = formatDateToDisplay(defaultIso);
+    document.getElementById("birthDateSpan").innerText = formattedDefault;
+  }
+  
+  if (localStorage.getItem("phoneNum")) {
+    document.getElementById('phoneNumSpan').innerText = localStorage.getItem("phoneNum");
+    document.getElementById('phoneNumInput').value = localStorage.getItem("phoneNum");
+  }
+  if (localStorage.getItem("email")) {
+    document.getElementById('emailSpan').innerText = localStorage.getItem("email");
+    document.getElementById('emailInput').value = localStorage.getItem("email");
+  }
+  if (localStorage.getItem("password")) {
+    document.getElementById('passwordSpan').innerText = "******";
+    document.getElementById('passwordInput').value = localStorage.getItem("password");
+  }
+};
+</script>
 
 </body>
 </html>

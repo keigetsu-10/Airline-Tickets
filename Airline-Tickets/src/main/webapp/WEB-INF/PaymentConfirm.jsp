@@ -294,7 +294,7 @@
     
     <div class="container">
         <div class="form">
-            <a href="/ConfirmInfo" class="return-link">⮜  Return</a>
+            <a href="/Payment" class="return-link">⮜  Return</a>
             
             <h1>Payment Confirmation</h1>
                 
