@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>A4Lifers Flight Booking |Register Page</title>
+<title>A4Lifers Flight Booking | Register Page</title>
 </head>
 <body>
 <style>
@@ -24,6 +24,7 @@ body, html {
             align-items: center;
             min-height: 100vh;
             margin: 1px;
+            backdrop-filter: blur(8px);
         }
         .container {
             border-radius: 5px;
@@ -35,7 +36,7 @@ body, html {
    			height: 500px;
             display: flex;
         }
-        .left-panel {
+         .left-panel {
             flex: 1;
             background-image: url('/images/korea.jpeg');
             background-image:opacity: 0.6;
@@ -55,11 +56,11 @@ body, html {
         .left-panel .nav a {
             color: white;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 400px;
         }
         .right-panel {
             flex: 1;
-            padding: 30px;
+            padding: 60px;
             background-color: #1a2b4d;
             flex-direction: column;
             color: #fff;
@@ -68,12 +69,12 @@ body, html {
             flex-direction: column;
         }
         h2 {
-			margin-top: 0px;
-            margin-bottom: 15px;
-            margin-right: 20px
-            color: #fff;
-        }
-        .form-group {
+	    margin-top: 0px;
+	    margin-bottom: 15px;
+	    margin-right: 20px;
+	    color: #fff; /* idagdag yung semicolon */
+		}
+        /* .form-group {
             margin-bottom: 6px;
             position: center;
         }
@@ -81,8 +82,8 @@ body, html {
             display: block;
             margin-bottom: 8px;
             color: #bbb;
-        }
-        .form-group input {
+        } */
+        /* .form-group input {
             width: 95%;
             margin:2px;
             padding: 12px 10px;
@@ -92,7 +93,7 @@ body, html {
             color: #fff;
             font-size: 15px;
             justify-content: center;
-        }
+        } */
         .form-group input::placeholder {
             color: #889bbd;
         }
@@ -103,12 +104,34 @@ body, html {
             display: block;
         }
         .form-row {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-bottom: 0px;
-        }
-        
+	    display: grid;
+	    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+	    gap: 10px;
+	    margin-bottom: 8px;
+		}
+	
+		.form-group input {
+	    width: 100%;        
+	    padding: 15px 12px;
+	    border: none;
+	    border-radius: 4px;
+	    background-color: #2c3e5e;
+	    color: #fff;
+	    font-size: 11px;
+	    box-sizing: border-box;
+		}
+		
+		.form-row.three-cols {
+		    grid-template-columns: repeat(3, 1fr);
+		}
+		
+		.form-row.two-cols {
+		    grid-template-columns: repeat(2, 1fr);
+		}
+		
+		.form-row.one-col {
+		    grid-template-columns: 1fr;
+		}
         .form-group {
             display: flex;
             flex-direction: column;
@@ -116,14 +139,14 @@ body, html {
         .checkbox-group {
             display: flex;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
         .checkbox-group input[type="checkbox"] {
             margin-right: 10px;
         }
         .checkbox-group label {
             color: #bbb;
-            font-size: 13px;
+            font-size: 12px;
             cursor: pointer;
         }
         .checkbox-group a {
@@ -131,9 +154,10 @@ body, html {
             text-decoration: none;
         }
         button {
-            width: 90%;
-            padding: 15px;
-            background-color: #6a5acd;
+        margin-bottom: 10px;
+            width: 100%;
+            padding: 12px;
+            background-color: #5170ff;
             color: white;
             border: none;
             border-radius: 4px;
@@ -147,7 +171,7 @@ body, html {
         }
         .login-link {
             text-align: center;
-            margin-top: 25px;
+            margin-top: 35px;
             color: #bbb;
             font-size: 14px;
         }
@@ -168,71 +192,69 @@ body, html {
         <div class="left-panel" style="background-image: url('/images/korea.jpeg');">
             <div class="nav">
                 <a href="/Home">Home</a>
-                <a href="#">Explore</a>
-                <a href="/Book">Book</a>
+                <a href="/Home#explore">Explore</a>
+                <a href="/Flight/Options">Book</a>
                 <a href="#">Contact Us</a>
             </div>
         </div>
         <div class="right-panel">
             <h2>Create an account</h2>
-            <form:form action="/register" method="post" modelAttribute="register">
+            <form action="#" method="POST"> <!-- Action should point to your Spring Boot controller -->
+                <div class="form-row three-cols">
+	    <div class="form-group">
+	        <input type="text" placeholder="First name">
+	    </div>
+	    <div class="form-group">
+	        <input type="text" placeholder="Last name">
+	    </div>
+	    <div class="form-group">
+	        <input type="text" placeholder="Middle name (Optional)">
+	    </div>
+	</div>
+	
+	<div class="form-row two-cols">
+	    <div class="form-group">
+	        <input type="text" placeholder="Birthdate">
+	    </div>
+	    <div class="form-group">
+	        <input type="tel" placeholder="Phone Number">
+	    </div>
+	</div>
+	
+	<div class="form-row one-col">
+	    <div class="form-group">
+	        <input type="email" placeholder="Email">
+	    </div>
+	</div>
                 <div class="form-row">
-                    <div class="form-group">
-                        <input type="text" id="firstName" name="firstname" placeholder="First name" value="${register.firstname}">
-                        <c:if test="${not empty errors.firstname}"><span class="error-message">${errors.firstname}</span></c:if>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="lastName" name="lastname" placeholder="Last name" value="${register.lastname}">
-                        <c:if test="${not empty errors.lastname}"><span class="error-message">${errors.lastname}</span></c:if>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="middleName" name="middlename" placeholder="Middle name" value="${register.middlename}">
-                        <c:if test="${not empty errors.middlename}"><span class="error-message">${errors.middlename}</span></c:if>
+                    <div class="form-group full-width">
+                        <input type="password" id="password" name="password" placeholder="Password">
+                        <i class="input-icon fas fa-eye" onclick="togglePasswordVisibility('password')"></i>
                     </div>
                 </div>
-                
-            <div class="form-row">
-                <div class="form-group">
-                    <input type="date" id="bday" name="bday" value="${register.bday}">
-                    <c:if test="${not empty errors.bday}"><span class="error-message">${errors.bday}</span></c:if>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm password">
+                        <i class="input-icon fas fa-eye" onclick="togglePasswordVisibility('confirmPassword')"></i>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <input type="text" id="phoneNumber" name="phonenum" placeholder="Phone Number" value="${register.phonenum}">
-                    <c:if test="${not empty errors.phonenum}"><span class="error-message">${errors.phonenum}</span></c:if>
+
+                <button type="submit">Sign up</button>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="agreeTerms">
+                    <label for="agreeTerms">I agree to the <a href="terms.jsp">Terms & Conditions</a></label>
                 </div>
-            </div>
-           
-           <div class="form-group" style="position: center;" >
-                <input type="email" id="email" name="email" placeholder="Email" value="${register.email}">
-                <c:if test="${not empty errors.email}"><span class="error-message">${errors.email}</span></c:if>
-            </div>
-             
-             <div class="form-group" style="position: center;">
-                <input type="password" id="password" name="pass" placeholder="Password">
-                <c:if test="${not empty errors.pass}"><span class="error-message">${errors.pass}</span></c:if>
-            </div>
-             
-             <div class="form-group" style="position: center;">
-                <input type="password" id="confirmPassword" name="confirpass" placeholder="Confirm password">
-                <c:if test="${not empty errors.confirpass}"><span class="error-message">${errors.confirpass}</span></c:if>
-            </div>
-             
-            <div class="checkbox-group">
-                <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
-                <label for="agreeTerms">I agree to the <a href="#">Terms & Conditions</a></label>
-            </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="keepMeInformed">
+                    <label for="keepMeInformed">Keep me informed about the latest promotions and travel updates.</label>
+                </div>
 
-            <div class="checkbox-group">
-                <input type="checkbox" id="keepMeInformed">
-                <label for="keepMeInformed">Keep me informed about the latest promotions and travel updates.</label>
-            </div>
-
-            <button type="submit">Sign up</button>
-
-            <div class="login-link">
+                <div class="login-link">
                 Already have an account? <a href="/login">Log in</a>
             </div>
-        </form:form>
+            </form>
+        </div>
     </div>
 </div>
 </body>
