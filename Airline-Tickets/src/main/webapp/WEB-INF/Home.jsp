@@ -485,6 +485,13 @@
 		    });
 		  });
 		});
+	  
+	  const bookNowBtn = document.querySelector(".banner-btn");
+	  if (bookNowBtn) {
+	    bookNowBtn.addEventListener("click", () => {
+	      window.location.href = "/Flight/Options";
+	    });
+	  }
 
 	  const searchBtn = document.getElementById("search-btn");
 	  const fromInput = document.getElementById("from");
