@@ -4,23 +4,21 @@ document.addEventListener("DOMContentLoaded", function () {
     .then((data) => {
       const exploreContainer = document.querySelector(".explore_container");
 
-      // Load saved favorites
-      const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+      // 🧩 Load saved favorites
+      const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
-      // Exclude the Top Destinations
-      const exploreDestinations = data.destinations.filter(
-        (dest) =>
-          !["Paris", "Beijing", "Jeju Island", "Marina Bay Sands", "London", "Mount Fuji"].includes(dest.name)
-      );
+      // 🧭 Exclude Top Destinations
+      const excluded = ["Paris", "Beijing", "Jeju Island", "Marina Bay Sands", "London", "Mount Fuji"];
+      const exploreDestinations = data.destinations.filter(dest => !excluded.includes(dest.name));
 
+      // 🧱 Build destination cards
       exploreDestinations.forEach((dest) => {
-        const imageFile = `/images/${dest.name.replace(/\s+/g, '')}.jpg`;
-
+        const imageFile = `/images/${dest.name.replace(/\s+/g, "")}.jpg`;
         const card = document.createElement("div");
         card.classList.add("explore_card");
 
-        // Check if this destination is already favorited
-        const isActive = favorites.some(fav => fav.name === dest.name) ? 'active' : '';
+        // ✅ Check if destination is already favorited
+        const isActive = favorites.some(fav => fav.name === dest.name) ? "active" : "";
 
         card.innerHTML = `
           <svg class="star-icon ${isActive}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
@@ -33,59 +31,59 @@ document.addEventListener("DOMContentLoaded", function () {
         exploreContainer.appendChild(card);
       });
 
-      // IMPORTANT: Attach star click handlers AFTER all cards are created
-      document.querySelectorAll('.star-icon').forEach(star => {
-        star.addEventListener('click', function(e) {
+      // ⭐ STAR CLICK HANDLER
+      document.querySelectorAll(".star-icon").forEach((star) => {
+        star.addEventListener("click", function (e) {
           e.stopPropagation();
-          
-          console.log('Star clicked!'); // Debug
-          
-          // Toggle active class
-          star.classList.toggle('active');
-          
-          // Get destination info
-          const card = star.closest('.explore_card');
-          const destinationName = card.querySelector('.explore_txt').innerText;
-          const img = card.querySelector('.explore_img');
-          
-          // Get the image URL and convert to absolute
-          let imageUrl = img.getAttribute('src');
-          if (imageUrl && !imageUrl.startsWith('http')) {
+
+          const card = star.closest(".explore_card");
+          const destinationName = card.querySelector(".explore_txt").innerText;
+          const img = card.querySelector(".explore_img");
+
+          // 🖼️ Get full image URL
+          let imageUrl = img.getAttribute("src");
+          if (imageUrl && !imageUrl.startsWith("http")) {
             imageUrl = window.location.origin + imageUrl;
           }
-          
-          console.log('Destination:', destinationName);
-          console.log('Image URL:', imageUrl);
-          
-          // Save/remove from favorites using functions from Home.jsp
-          if (star.classList.contains('active')) {
+
+          // 🚫 Block guests before toggling
+          if (typeof isLoggedIn === "undefined" || !isLoggedIn) {
+            alert("Please log in to add favorites.");
+            window.location.href = "/login";
+            return;
+          }
+
+          // ✅ Logged-in: toggle favorite
+          const isNowActive = !star.classList.contains("active");
+
+          if (isNowActive) {
+            star.classList.add("active");
             addToFavorites(destinationName, imageUrl);
           } else {
+            star.classList.remove("active");
             removeFromFavorites(destinationName);
           }
         });
       });
 
-      // Add click handlers for card navigation (to populate the "to" field)
-      document.querySelectorAll('.explore_card').forEach(card => {
-        card.addEventListener("click", function(e) {
-          // Don't navigate if clicking the star
-          if (e.target.closest('.star-icon')) {
-            return;
-          }
-          
-          const destinationName = card.querySelector('.explore_txt').innerText;
-          const departureInput = document.getElementById("to");
-          if (departureInput) {
-            // You'll need to get country from your data
-            departureInput.value = destinationName;
+      // ✈️ CARD CLICK HANDLER — autofill “To” input
+      document.querySelectorAll(".explore_card").forEach((card) => {
+        card.addEventListener("click", function (e) {
+          // Ignore clicks on stars
+          if (e.target.closest(".star-icon")) return;
+
+          const destinationName = card.querySelector(".explore_txt").innerText;
+          const toInput = document.getElementById("to");
+
+          if (toInput) {
+            toInput.value = destinationName;
           } else {
-            console.warn("Departure input not found!");
+            console.warn("⚠️ Destination input not found!");
           }
         });
       });
 
-      console.log('Explore cards loaded. Total stars:', document.querySelectorAll('.star-icon').length);
+      console.log(`✅ Explore cards loaded: ${document.querySelectorAll(".explore_card").length}`);
     })
-    .catch((error) => console.error("Error loading destinations:", error));
+    .catch((error) => console.error("❌ Error loading destinations:", error));
 });

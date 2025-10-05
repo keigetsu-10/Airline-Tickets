@@ -200,20 +200,20 @@
 <!-- Progress bar -->
 <div class="progress-bar">
         <div class="step">
-            <div class="step-number active">1</div>
+            <div class="step-number completed">1</div>
             <span class="step-label">Destination & Date</span>
         </div>
-        <div class="step-connector inactive"></div>
+        <div class="step-connector"></div>
         
         <div class="step">
-            <div class="step-number inactive">2</div>
-            <span class="step-label inactive">Seat Map</span>
+            <div class="step-number active">2</div>
+            <span class="step-label">Seat Map</span>
         </div>
         <div class="step-connector inactive"></div>
         
         <div class="step">
             <div class="step-number inactive">3</div>
-            <span class="step-label inactive">Personal Information</span>
+            <span class="step-label">Personal Information</span>
         </div>
         <div class="step-connector inactive"></div>
         

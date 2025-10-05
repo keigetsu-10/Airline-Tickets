@@ -18,14 +18,16 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpSession;
 
 import com.Airline_Tickets.models.Flight;
+import com.Airline_Tickets.models.register;
 
 @Controller
 public class FlightOptionsController {
 	
 	private List<Flight> flights;
-
+	
 	@PostConstruct
 	public void init() throws IOException {
 	    ObjectMapper mapper = new ObjectMapper();

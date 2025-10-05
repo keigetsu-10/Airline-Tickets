@@ -199,36 +199,36 @@ body, html {
         </div>
         <div class="right-panel">
             <h2>Create an account</h2>
-            <form action="#" method="POST"> <!-- Action should point to your Spring Boot controller -->
+            <form action="/register" method="POST">
                 <div class="form-row three-cols">
 	    <div class="form-group">
-	        <input type="text" placeholder="First name">
+	         <input type="text" name="firstName" value="${log.firstName}" placeholder="First Name">
 	    </div>
 	    <div class="form-group">
-	        <input type="text" placeholder="Last name">
+	        <input type="text" name="lastName" value="${log.lastName}" placeholder=" Last Name">
 	    </div>
 	    <div class="form-group">
-	        <input type="text" placeholder="Middle name (Optional)">
+	        <input type="text" name="middleName" value="${log.middleName}" placeholder=" Middle Name">
 	    </div>
 	</div>
 	
 	<div class="form-row two-cols">
 	    <div class="form-group">
-	        <input type="text" placeholder="Birthdate">
+	         <input type="date" name="birthDate" value="${log.bday}" placeholder=" Birthdate">
 	    </div>
 	    <div class="form-group">
-	        <input type="tel" placeholder="Phone Number">
+	        <input type="tel"  name="phoneNumber" value="${log.phonenum}" placeholder="Phone Number">
 	    </div>
 	</div>
 	
 	<div class="form-row one-col">
 	    <div class="form-group">
-	        <input type="email" placeholder="Email">
+	        <input type="email"  name="email" value="${log.email}" placeholder="Email">
 	    </div>
 	</div>
                 <div class="form-row">
                     <div class="form-group full-width">
-                        <input type="password" id="password" name="password" placeholder="Password">
+                        <input type="password" name="password" placeholder="Password" autocomplete="new-password">
                         <i class="input-icon fas fa-eye" onclick="togglePasswordVisibility('password')"></i>
                     </div>
                 </div>
@@ -242,20 +242,27 @@ body, html {
                 <button type="submit">Sign up</button>
 
                 <div class="checkbox-group">
-                    <input type="checkbox" id="agreeTerms">
-                    <label for="agreeTerms">I agree to the <a href="terms.jsp">Terms & Conditions</a></label>
-                </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="keepMeInformed">
-                    <label for="keepMeInformed">Keep me informed about the latest promotions and travel updates.</label>
-                </div>
+				    <input type="checkbox" id="agreeTerms" name="agreeTerms" value="yes">
+				    <label for="agreeTerms">
+				        I agree to the <a href="terms.jsp">Terms & Conditions</a>
+				    </label>
+				</div>
+				
+				<div class="checkbox-group">
+				    <input type="checkbox" id="keepMeInformed" name="keepMeInformed" value="yes">
+				    <label for="keepMeInformed">
+				        Keep me informed about the latest promotions and travel updates.
+				    </label>
+				</div>
+					<p class="success">${error}</p>
 
                 <div class="login-link">
                 Already have an account? <a href="/login">Log in</a>
             </div>
             </form>
         </div>
+        
     </div>
-</div>
+    
 </body>
 </html>

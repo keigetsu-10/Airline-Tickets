@@ -7,15 +7,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.Airline_Tickets.models.register;
 
+import jakarta.servlet.http.HttpSession;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 
 @Controller
 public class ProfileController {
 
-	@GetMapping("/Manage/Profile")
-	public String profile() {
-	        return "Profile.jsp";
-	}
 }
