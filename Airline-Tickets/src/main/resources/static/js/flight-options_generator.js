@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
       destinationsData = data.destinations;
       console.log("Destinations loaded:", destinationsData.length);
     })
-    .catch((err) => console.error("❌ Failed to load destinations.json", err));
+    .catch((err) => console.error("Failed to load destinations.json", err));
 
   fltSearchBtn.addEventListener("click", function (e) {
     e.preventDefault();
@@ -57,9 +57,10 @@ document.addEventListener("DOMContentLoaded", function () {
     resultsContainer.innerHTML = "";
 
     if (!toValue || !fromValue) {
-      resultsContainer.innerHTML = "<p>Please fill in both From and To ✈️</p>";
-      resultsCount.textContent = "0 Results";
-      return;
+		alert("⚠️ Please fill out all fields before searching.");
+		resultsContainer.innerHTML = `<p class="no_flight">Please fill in all required fields</p>`;
+		resultsCount.textContent = "0 Results";
+		return;
     }
 
 	// Find matching airports from JSON 

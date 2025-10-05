@@ -41,7 +41,7 @@
 	   .account-container {
 	      display: flex;
 	      max-width: 1200px;
-	      margin: 6rem auto 20px;
+	      margin: 6rem auto 8rem;
 	      background: #fff;
 	      border-radius: 12px;
 	      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
@@ -171,6 +171,19 @@
 	      transition: all 0.2s;
 	   }
 	   
+	   .logout-btn {
+		  background: #ff4d4d;
+		  color: white;
+		  border: 1px solid #ccc;       
+		  border-radius: 6px;
+		  padding: 5px 10px;            
+		  font-size: 12px;              
+		  cursor: pointer;
+		  align-self: flex-start;
+		  margin-top: 10px;
+		  transition: background 0.2s;
+		}
+	   
 	   /* Favorites Section */ 
 	   .favorites-section {
 	      background: #f9f9fb;
@@ -187,7 +200,7 @@
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         gap: 15px;
-    }
+       }
 	
 	   .favorites-info div {
 	      display: flex;
@@ -218,7 +231,19 @@
 	      flex-direction: column;
 	      margin-bottom: 10px;
 	   }
-	   /* Change Password Section */ 
+	   
+	   .save-password-btn {
+	      background: #007bff;
+	      color: white;
+	      border: none;
+	      border-radius: 6px;
+	      padding: 8px 15px;
+	      font-size: 14px;
+	      cursor: pointer;
+	      margin-top: 10px;
+	      transition: background 0.2s;
+		}
+
 	   .change-section {
 	      background: #f9f9fb;
 	      padding: 20px;
@@ -282,33 +307,10 @@
 	      border-color: #999;
 	   }
 	   
-	   .logout-btn {
-		 background: #ff4d4d;
-	     color: white;
-	     border: none;
-	     padding: 10px 16px;
-	     border-radius: 6px;
-	     cursor: pointer;
-	     transition: background 0.2s;
-		}
-		
-		.logout-btn:hover {
+	   .logout-btn:hover {
 		  background: #e60000;
 		}
-		
-		/* New button for Change Password section */
-		.save-password-btn {
-	      background: #007bff;
-	      color: white;
-	      border: none;
-	      border-radius: 6px;
-	      padding: 8px 15px;
-	      font-size: 14px;
-	      cursor: pointer;
-	      margin-top: 10px;
-	      transition: background 0.2s;
-		}
-		
+	   
 		.save-password-btn:hover {
 		  background: #0056b3;
 		}
