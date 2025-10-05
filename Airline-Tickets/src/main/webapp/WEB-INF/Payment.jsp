@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page session="true" %>
 
 <!DOCTYPE html>
 <html>
@@ -10,7 +10,6 @@
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/format.css'/>">
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/Footer.css'/>">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbar.css">
-
 <style>
         
 
@@ -250,27 +249,38 @@
 
 
 </style>
+
+
 </head>
 <body>
 
-    <nav class="navbar">
-	  <div class="nav-center">
-	    <ul class="nav-links">
-	      <li><a class="active" href="#header">Home</a></li>
-	      <li><a href="/Home#explore">Explore</a></li>
-	      <li><a href="/Flight/Options">Book</a></li>
-	      <li><a href="/Manage/Profile">Manage</a></li>
+<%-- Ensure latest info is available in model --%>
+<c:if test="${empty user}">
+    <c:set var="user" value="${sessionScope.user}" />
+</c:if>
+<c:if test="${empty bookingDetails}">
+    <c:set var="bookingDetails" value="${sessionScope.bookingDetails}" />
+</c:if>
+<c:if test="${empty payment}">
+    <c:set var="payment" value="${sessionScope.payment}" />
+</c:if>
 
-	    </ul>
-	  </div>
-	  <div class="nav-right">
-		<ul class="nav-links">
-	      <li><a href="/login">Login / Sign-up</a></li>
-	    </ul>
-	    </div>
-	</nav>
+<nav class="navbar">
+  <div class="nav-center">
+    <ul class="nav-links">
+      <li><a class="active" href="#header">Home</a></li>
+      <li><a href="/Home#explore">Explore</a></li>
+      <li><a href="/Flight/Options">Book</a></li>
+      <li><a href="/Manage/Profile">Manage</a></li>
+    </ul>
+  </div>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="/login">Login / Sign-up</a></li>
+    </ul>
+  </div>
+</nav>
 
-    
  <div class="progress-bar">
         <div class="step">
             <div class="step-number completed">1</div>
@@ -301,276 +311,236 @@
             <span class="step-label">Payment</span>
         </div>
     </div>
-    
-    <div class="container">
-        <div class="form">
+
+
+<div class="container">
+    <div class="form">
+        <a href="/ConfirmInfo" class="return-link"> ⮜  Return</a>
+        <h1>Payment</h1>
+        <form id="paymentForm" action="${pageContext.request.contextPath}/PaymentConfirmation" method="POST">
         
-            <a href="/ConfirmInfo" class="return-link"> ⮜  Return</a>
-            
-            <h1>Payment</h1>
-                
-                
-                <div class="addon-options">
-                    <div class="section-title">Add-on Options</div>
-                    
-                    <div class="addon-item">
-                        <div class="addon-label">
-                            <input type="checkbox" name="option1" value="value1"> Extra Baggage </input>
-                        </div>
-                        <span class="addon-price">+ Php 400.00</span>
-                    </div>
-                    
-                    <div class="addon-item">
-                        <div class="addon-label">
-                            <input type="checkbox" name="option2" value="value2"> Travel Insurance </input>
-                        </div>
-                        <span class="addon-price">+ Php 3,500.00</span>
-                    </div>
-                </div>
-                
-               
-                <div class="payment-methods">
-                    <div class="section-title">Payment Method <span class="required">*</span></div>
-                    
-                    
-                </div>
-                
-                
-               <form id="paymentForm" action="${pageContext.request.contextPath}/PaymentConfirmation" method="POST">
-    <div class="form-rows">
-        <label><input type="radio" name="paymentMethod" value="credit-card" onclick="togglePaymentFields()" 
-            ${payment.paymentMethod == 'credit-card' ? 'checked' : ''}> Credit Card</label>
-        <label><input type="radio" name="paymentMethod" value="bank-transfer" onclick="togglePaymentFields()" 
-            ${payment.paymentMethod == 'bank-transfer' ? 'checked' : ''}> Bank Transfer</label>
-    </div>
-
-    <!-- Credit Card Fields -->
-    <div id="creditCardFields" class="payment-fields ${payment.paymentMethod == 'credit-card' ? 'active' : ''}">
-        <div class="form-row four-col">
-            <div class="form-group">
-                <label>Cardholder Name <span class="required">*</span></label>
-                <input type="text" id="cardName" name="cardName" value="${user.cardName}" 
-                       placeholder=" Cardholder Name" maxlength="50">
-                <span class="error-message" id="cardNameError">Cardholder name is required</span>
-            </div>
-            
-            <div class="form-group">
-                <label>Card Number <span class="required">*</span></label>
-                <input type="text" id="cardNum" name="cardNum" value="${user.cardNum}" 
-                       placeholder=" Card Number" maxlength="16">
-                <span class="error-message" id="cardNumError">Card number is required</span>
-            </div>
-            
-            <div class="visa-logo" id="cardTypeLogo">VISA</div>
-            
-            <div class="form-group">
-                <label>Expiration Date <span class="required">*</span></label>
-                <input type="text" id="expiDate" name="expiDate" value="${user.expiDate}" 
-                       placeholder=" MM/YY" maxlength="5">
-                <span class="error-message" id="expiDateError">Format must be MM/YY</span>
-            </div>
-            
-            <div class="form-group">
-                <label>CVV <span class="required">*</span></label>
-                <input type="text" id="cvvNum" name="cvvNum" value="${user.cvvNum}" 
-                       placeholder=" CVV" maxlength="4">
-                <span class="error-message" id="cvvNumError">CVV is required</span>
-            </div>
+       <div class="addon-options">
+    <div class="section-title">Add-on Options</div>
+    <div class="addon-item">
+        <div class="addon-label">
+            <input type="checkbox" name="option1" value="value1"
+            <c:if test="${payment.option1 == 'value1'}">checked</c:if>
+            > Extra Baggage
         </div>
+        <span class="addon-price">+ Php 400.00</span>
     </div>
-
-    <!-- Bank Transfer Fields -->
-    <div id="bankTransferFields" class="payment-fields ${payment.paymentMethod == 'bank-transfer' ? 'active' : ''}">
-        <div class="form-row">
-            <div class="form-group">
-                <label>Account Holder Name <span class="required">*</span></label>
-                <input type="text" id="accName" name="accName" value="${user.accName}" 
-                       placeholder=" Account Holder Name" maxlength="50">
-                <span class="error-message" id="accNameError">Account holder name is required</span>
-            </div>
-            
-            <div class="form-group">
-                <label>Account Number <span class="required">*</span></label>
-                <input type="text" id="accNum" name="accNum" value="${user.accNum}" 
-                       placeholder=" Account Number" maxlength="34">
-                <span class="error-message" id="accNumError">Account number is required</span>
-            </div>
-            
-            <div class="form-group">
-                <label>Bank Name <span class="required">*</span></label>
-                <input type="text" id="bankName" name="bankName" value="${user.bankName}" 
-                       placeholder=" Bank Name" maxlength="50">
-                <span class="error-message" id="bankNameError">Bank name is required</span>
-            </div>
-            
-            <div class="form-group">
-                <label>SWIFT/BIC <span class="required">*</span></label>
-                <input type="text" id="swiftBic" name="swiftBic" value="${user.swiftBic}" 
-                       placeholder=" SWIFT/BIC" maxlength="34">
-                <span class="error-message" id="swiftBicError">SWIFT/BIC is required</span>
-            </div>
+    <div class="addon-item">
+        <div class="addon-label">
+            <input type="checkbox" name="option2" value="value2"
+            <c:if test="${payment.option2 == 'value2'}">checked</c:if>
+            > Travel Insurance
         </div>
+        <span class="addon-price">+ Php 3,500.00</span>
     </div>
+</div>
+        <div class="payment-methods">
+            <div class="section-title">Payment Method <span class="required">*</span></div>
+        </div>
 
-    <div style="margin-top: 30px;">
-        <div class="section-title">Billing Information</div>
+        <!-- PAYMENT FORM -->
         
-        <div class="form-row three-col">
-            <div class="form-group">
-                <label>Full Name <span class="required">*</span></label>
-                <input type="text" id="fullName" name="fullName" value="${user.fullName}" 
-                       placeholder=" Full Name" maxlength="50">
-                <span class="error-message" id="fullNameError">Full name is required</span>
+            <div class="form-rows">
+                <label>
+                    <input type="radio" name="paymentMethod" value="credit-card" onclick="togglePaymentFields()" 
+                        <c:if test="${payment.paymentMethod == 'credit-card'}">checked</c:if> > Credit Card
+                </label>
+                <label>
+                    <input type="radio" name="paymentMethod" value="bank-transfer" onclick="togglePaymentFields()" 
+                        <c:if test="${payment.paymentMethod == 'bank-transfer'}">checked</c:if> > Bank Transfer
+                </label>
             </div>
-            
-            <div class="form-group">
-                <label>Email Address <span class="required">*</span></label>
-                <input type="email" id="email" name="email" value="${user.email}" 
-                       placeholder=" Email">
-                <span class="error-message" id="emailError">Please enter a valid email address</span>
+
+            <!-- Credit Card Fields -->
+            <div id="creditCardFields" class="payment-fields <c:if test='${payment.paymentMethod == "credit-card"}'>active</c:if>">
+                <div class="form-row four-col">
+                    <div class="form-group">
+                        <label>Cardholder Name <span class="required">*</span></label>
+                        <input type="text" id="cardName" name="cardName" value="${payment.cardName}" placeholder=" Cardholder Name" maxlength="50">
+                        <span class="error-message" id="cardNameError">Cardholder name is required</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Card Number <span class="required">*</span></label>
+                        <input type="text" id="cardNum" name="cardNum" value="${payment.cardNum}" placeholder=" Card Number" maxlength="16">
+                        <span class="error-message" id="cardNumError">Card number is required</span>
+                    </div>
+                    <div class="visa-logo" id="cardTypeLogo">VISA</div>
+                    <div class="form-group">
+                        <label>Expiration Date <span class="required">*</span></label>
+                        <input type="text" id="expiDate" name="expiDate" value="${payment.expiDate}" placeholder=" MM/YY" maxlength="5">
+                        <span class="error-message" id="expiDateError">Format must be MM/YY</span>
+                    </div>
+                    <div class="form-group">
+                        <label>CVV <span class="required">*</span></label>
+                        <input type="text" id="cvvNum" name="cvvNum" value="${payment.cvvNum}" placeholder=" CVV" maxlength="4">
+                        <span class="error-message" id="cvvNumError">CVV is required</span>
+                    </div>
+                </div>
             </div>
-            
-            <div class="form-group">
-                <label>Phone Number <span class="required">*</span></label>
-                <input type="text" id="phoneNum" name="phoneNum" value="${user.phoneNum}" 
-                       placeholder=" Phone Number" maxlength="15">
-                <span class="error-message" id="phoneNumError">Phone number is required</span>
+
+            <!-- Bank Transfer Fields -->
+            <div id="bankTransferFields" class="payment-fields <c:if test='${payment.paymentMethod == "bank-transfer"}'>active</c:if>">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Account Holder Name <span class="required">*</span></label>
+                        <input type="text" id="accName" name="accName" value="${payment.accName}" placeholder=" Account Holder Name" maxlength="50">
+                        <span class="error-message" id="accNameError">Account holder name is required</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Account Number <span class="required">*</span></label>
+                        <input type="text" id="accNum" name="accNum" value="${payment.accNum}" placeholder=" Account Number" maxlength="34">
+                        <span class="error-message" id="accNumError">Account number is required</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Bank Name <span class="required">*</span></label>
+                        <input type="text" id="bankName" name="bankName" value="${payment.bankName}" placeholder=" Bank Name" maxlength="50">
+                        <span class="error-message" id="bankNameError">Bank name is required</span>
+                    </div>
+                    <div class="form-group">
+                        <label>SWIFT/BIC <span class="required">*</span></label>
+                        <input type="text" id="swiftBic" name="swiftBic" value="${payment.swiftBic}" placeholder=" SWIFT/BIC" maxlength="34">
+                        <span class="error-message" id="swiftBicError">SWIFT/BIC is required</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px;">
+                <div class="section-title">Billing Information</div>
+                <div class="form-row three-col">
+                    <div class="form-group">
+                        <label>Full Name <span class="required">*</span></label>
+                        <input type="text" id="fullName" name="fullName" value="${payment.fullName}" placeholder=" Full Name" maxlength="50">
+                        <span class="error-message" id="fullNameError">Full name is required</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" value="${payment.email}" placeholder=" Email">
+                        <span class="error-message" id="emailError">Please enter a valid email address</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number <span class="required">*</span></label>
+                        <input type="text" id="phoneNum" name="phoneNum" value="${payment.phoneNum}" placeholder=" Phone Number" maxlength="15">
+                        <span class="error-message" id="phoneNumError">Phone number is required</span>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 30px;">
+                <div class="form-row three-col">
+                    <div class="form-group">
+                        <label>Billing Address <span class="required">*</span></label>
+                        <input type="text" id="billAdd" name="billAdd" value="${payment.billAdd}" placeholder=" Address 1" maxlength="50">
+                        <span class="error-message" id="billAddError">Billing address is required</span>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="city" name="city" value="${payment.city}" placeholder=" City" maxlength="50">
+                        <span class="error-message" id="cityError">City is required</span>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="province" name="province" value="${payment.province}" placeholder=" Province" maxlength="50">
+                        <span class="error-message" id="provinceError">Province is required</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="submit" class="btn-confirm">Next</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- TRANSACTION SUMMARY -->
+    <div class="summary-section">
+        <div class="summary-card">
+            <h2>Transaction Summary</h2>
+            <div class="summary-item">
+                <div class="summary-row">
+                    <span class="summary-label">DEPARTURE</span>
+                    <span class="summary-label">RETURN</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-value">${bookingDetails.departureDate}</span>
+                    <span class="summary-value">${bookingDetails.returnDate}</span>
+                </div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-row">
+                    <span class="summary-label">DEPARTURE TIME</span>
+                    <span class="summary-label">RETURN TIME</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-value">${bookingDetails.departureTime}</span>
+                    <span class="summary-value">${bookingDetails.returnTime}</span>
+                </div>
+            </div>
+            <hr class="summary-divider"/>
+            <div class="summary-item">
+                <div class="summary-label">PASSENGER DETAILS</div>
+                <div class="summary-value" style="margin-top: 5px;">
+                    ${user.firstName} <c:if test="${not empty user.middleName}">${user.middleName} </c:if>${user.lastName}
+                </div>
+                <div class="summary-value" style="margin-top: 5px;">${user.birthDate}</div>
+                <div class="summary-value" style="margin-top: 5px;">${user.nationality}</div>
+                <div class="summary-value" style="margin-top: 5px;">${user.passportId}</div>
+            </div>
+            <hr class="summary-divider"/>
+            <div class="summary-item">
+                <div class="summary-row">
+                    <div style="width: 100%;">
+                        <div class="summary-label">FROM</div>
+                        <div class="summary-value">${bookingDetails.from}</div>
+                        <div class="summary-value" style="font-weight: 400; font-size: 12px;">${bookingDetails.fromTerminal}</div>
+                        <div class="summary-value" style="margin-top: 5px;">${bookingDetails.flightClass}</div>
+                    </div>
+                    <div style="width: 100%; text-align: right;">
+                        <div class="summary-label">DESTINATION</div>
+                        <div class="summary-value">${bookingDetails.destination}</div>
+                        <div class="summary-value" style="font-weight: 400; font-size: 12px;">${bookingDetails.destinationTerminal}</div>
+                        <div class="summary-value" style="margin-top: 5px;">${bookingDetails.flightClass}</div>
+                    </div>
+                </div>
+            </div>
+            <hr class="summary-divider"/>
+            <div class="summary-item">
+                <div class="summary-row">
+                    <div>
+                        <div class="summary-label">SEAT #</div>
+                        <div class="summary-value">${not empty user.seat ? user.seat : 'N/A'}</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="summary-label">BAGGAGE ALLOWANCE</div>
+                        <div class="summary-value">${bookingDetails.baggageAllowance}</div>
+                    </div>
+                </div>
+            </div>
+            <hr class="summary-divider"/>
+            <div class="summary-item">
+                <div class="summary-label">ADD-ONS</div>
+                <!-- If you have add-ons, display here -->
+            </div>
+            <hr class="summary-divider"/>
+            <div class="summary-item">
+                <h3 style="color: #1e3a5f; font-size: 16px; margin-bottom: 15px;">Your Price Summary</h3>
+                <div class="summary-row">
+                    <span style="font-size: 14px;">Travel Fare:</span>
+                    <span>${bookingDetails.travelFare}</span>
+                </div>
+                <div class="summary-row">
+                    <span style="font-size: 14px;">12% VAT:</span>
+                    <span>${bookingDetails.vat}</span>
+                </div>
+                <div class="total-row">
+                    <span class="total-label">Total Price</span>
+                    <span class="total-value">${bookingDetails.totalPrice}</span>
+                </div>
             </div>
         </div>
     </div>
-    
-    <div style="margin-top: 30px;">
-        <div class="form-row three-col">
-            <div class="form-group">
-                <label>Billing Address <span class="required">*</span></label>
-                <input type="text" id="billAdd" name="billAdd" value="${user.billAdd}" 
-                       placeholder=" Address 1" maxlength="50">
-                <span class="error-message" id="billAddError">Billing address is required</span>
-            </div>
-            
-            <div class="form-group">
-                <input type="text" id="city" name="city" value="${user.city}" 
-                       placeholder=" City" maxlength="50">
-                <span class="error-message" id="cityError">City is required</span>
-            </div>
-            
-            <div class="form-group">
-                <input type="text" id="province" name="province" value="${user.province}" 
-                       placeholder=" Province" maxlength="50">
-                <span class="error-message" id="provinceError">Province is required</span>
-            </div>
-        </div>
-    </div>
-    
-    <div class="button-container">
-        <button type="submit" class="btn-confirm">Next</button>
-    </div>
-</form>
-                
-               </div>
-                
-              
-                <div class="summary-section">
-            <div class="summary-card">
-                <h2>Transaction Summary</h2>
-                
-                <div class="summary-item">
-                    <div class="summary-row">
-                        <span class="summary-label">DEPARTURE</span>
-                        <span class="summary-label">RETURN</span>
-                    </div>
-                    <div class="summary-row">
-                        <span class="summary-value">${bookingDetails.departureDate}</span>
-                        <span class="summary-value">${bookingDetails.returnDate}</span>
-                    </div>
-                </div>
-                
-                <div class="summary-item">
-                    <div class="summary-row">
-                        <span class="summary-label">DEPARTURE TIME</span>
-                        <span class="summary-label">RETURN TIME</span>
-                    </div>
-                    <div class="summary-row">
-                        <span class="summary-value">${bookingDetails.departureTime}</span>
-                        <span class="summary-value">${bookingDetails.returnTime}</span>
-                    </div>
-                </div>
-                
-                <hr class="summary-divider">
-                
-                <div class="summary-item">
-                    <div class="summary-label">PASSENGER DETAILS</div>
-                    <div class="summary-value" style="margin-top: 5px;">${personalInfo.fullName}</div>
-                    <div class="summary-value" style="margin-top: 5px;">${personalInfo.formattedBirthDate}</div>
-                    <div class="summary-value" style="margin-top: 5px;">${personalInfo.nationality}</div>
-                    <div class="summary-value" style="margin-top: 5px;">${personalInfo.passportId}</div>
-                </div>
-                
-                <hr class="summary-divider">
-                
-                <div class="summary-item">
-                    <div class="summary-row">
-                        <div style="width: 100%;">
-                            <div class="summary-label">FROM</div>
-                            <div class="summary-value">${bookingDetails.from}</div>
-                            <div class="summary-value" style="font-weight: 400; font-size: 12px;">${bookingDetails.fromTerminal}</div>
-                            <div class="summary-value" style="margin-top: 5px;">${bookingDetails.flightClass}</div>
-                        </div>
-                        <div style="width: 100%; text-align: right;">
-                            <div class="summary-label">DESTINATION</div>
-                            <div class="summary-value">${bookingDetails.destination}</div>
-                            <div class="summary-value" style="font-weight: 400; font-size: 12px;">${bookingDetails.destinationTerminal}</div>
-                            <div class="summary-value" style="margin-top: 5px;">${bookingDetails.flightClass}</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <hr class="summary-divider">
-                
-                <div class="summary-item">
-                    <div class="summary-row">
-                        <div>
-                            <div class="summary-label">SEAT #</div>
-                            <div class="summary-value">${personalInfo.seatNumber}</div>
-                        </div>
-                        <div style="text-align: right;">
-                            <div class="summary-label">BAGGAGE ALLOWANCE</div>
-                            <div class="summary-value">${bookingDetails.baggageAllowance}</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <hr class="summary-divider">
-                
-                <div class="summary-item">
-                    <div class="summary-label">ADD-ONS</div>
-                    
-                </div>
-                
-                <hr class="summary-divider">
-                
-                <div class="summary-item">
-                    <h3 style="color: #1e3a5f; font-size: 16px; margin-bottom: 15px;">Your Price Summary</h3>
-                    <div class="summary-row">
-                        <span style="font-size: 14px;">Travel Fare:</span>
-                        <span>${bookingDetails.travelFare}</span>
-                    </div>
-                    <div class="summary-row">
-                        <span style="font-size: 14px;">12% VAT:</span>
-                        <span>${bookingDetails.vat}</span>
-                    </div>
-                    
-                    <div class="total-row">
-                        <span class="total-label">Total Price</span>
-                        <span class="total-value">${bookingDetails.totalPrice}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
 
 <jsp:include page="Footer.jsp" />
-
 
 <script>
 // NAVBAR JS
@@ -1113,6 +1083,5 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 </script>
-
 </body>
 </html>

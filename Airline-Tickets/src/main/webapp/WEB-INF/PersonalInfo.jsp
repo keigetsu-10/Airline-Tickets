@@ -251,13 +251,12 @@
             <div class="form-row two-col">
                 <div class="form-group">
                     <label>Seat # <span class="required">*</span></label>
-                    <select id="seat" name="seat" required>
+                    <select id="seat" name="seat">
                         <option value="">Seat # Selected</option>
                         <c:forEach var="seat" items="${seats}">
                             <option value="${seat}" <c:if test="${user.seat eq seat}">selected</c:if>>${seat}</option>
                         </c:forEach>
                     </select>
-                    <span class="error-message" id="seatError">Please select a seat</span>
                 </div>
             </div>
 
@@ -298,10 +297,18 @@
 
             <div class="summary-item">
                 <div class="summary-label">PASSENGER DETAILS</div>
-                <div class="summary-value" style="margin-top: 5px;">${user.firstName} ${user.middleName} ${user.lastName}</div>
-                <div class="summary-value" style="margin-top: 5px;">${user.birthDate}</div>
-                <div class="summary-value" style="margin-top: 5px;">${user.nationality}</div>
-                <div class="summary-value" style="margin-top: 5px;">${user.passportId}</div>
+                <div class="summary-value" style="margin-top: 5px;">
+                    ${user.firstName} <c:if test="${not empty user.middleName}">${user.middleName} </c:if>${user.lastName}
+                </div>
+                <div class="summary-value" style="margin-top: 5px;">
+                    ${user.birthDate}
+                </div>
+                <div class="summary-value" style="margin-top: 5px;">
+                    ${user.nationality}
+                </div>
+                <div class="summary-value" style="margin-top: 5px;">
+                    ${user.passportId}
+                </div>
             </div>
 
             <hr class="summary-divider"/>
@@ -329,7 +336,7 @@
                 <div class="summary-row">
                     <div>
                         <div class="summary-label">SEAT #</div>
-                        <div class="summary-value">${user.seat}</div>
+                        <div class="summary-value">${not empty user.seat ? user.seat : 'N/A'}</div>
                     </div>
                     <div style="text-align: right;">
                         <div class="summary-label">BAGGAGE ALLOWANCE</div>
@@ -523,15 +530,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return true;
     };
     
-    const validateSeat = (select, errorElement) => {
-        if (select.value === '') {
-            showError(select, errorElement, 'Please select a seat');
-            return false;
-        }
-        clearError(select, errorElement);
-        return true;
-    };
-    
     const showError = (element, errorElement, message) => {
         element.classList.add('error');
         element.classList.remove('valid');
@@ -564,7 +562,6 @@ document.addEventListener("DOMContentLoaded", () => {
     email.addEventListener('blur', () => validateEmail(email, document.getElementById('emailError')));
     mobileNumber.addEventListener('blur', () => validateMobileNumber(mobileNumber, document.getElementById('mobileNumberError')));
     birthDate.addEventListener('blur', () => validateBirthDate(birthDate, document.getElementById('birthDateError')));
-    seat.addEventListener('change', () => validateSeat(seat, document.getElementById('seatError')));
     
     // Input restrictions
     mobileNumber.addEventListener('input', (e) => {
@@ -574,8 +571,6 @@ document.addEventListener("DOMContentLoaded", () => {
     passportId.addEventListener('input', (e) => {
         e.target.value = e.target.value.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
     });
-    
-    // Form submission
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         
@@ -587,10 +582,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const isEmailValid = validateEmail(email, document.getElementById('emailError'));
         const isMobileNumberValid = validateMobileNumber(mobileNumber, document.getElementById('mobileNumberError'));
         const isBirthDateValid = validateBirthDate(birthDate, document.getElementById('birthDateError'));
-        const isSeatValid = validateSeat(seat, document.getElementById('seatError'));
         
         if (isFirstNameValid && isLastNameValid && isMiddleNameValid && isNationalityValid && 
-            isPassportIdValid && isEmailValid && isMobileNumberValid && isBirthDateValid && isSeatValid) {
+            isPassportIdValid && isEmailValid && isMobileNumberValid && isBirthDateValid) {
             form.submit();
         } else {
             // Scroll to first error

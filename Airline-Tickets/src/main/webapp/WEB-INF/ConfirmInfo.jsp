@@ -174,16 +174,24 @@ h1 {
 
 			<a href="/PersonalInformation" class="return-link"> ⮜ Return</a>
 
-
 			<h1>Confirmation</h1>
-
 
 			<div class="section-tag">(PASSENGER 1)</div>
 
 			<div class="section-header" style="margin-top: 20px;">
 				<h2 class="section-title">Personal Information</h2>
-				<a href="${pageContext.request.contextPath}/PersonalInformation"
-					class="edit-link">Edit</a>
+				<form action="${pageContext.request.contextPath}/PersonalInformation" method="POST" style="display:inline;">
+    <input type="hidden" name="firstName" value="${user.firstName}" />
+    <input type="hidden" name="lastName" value="${user.lastName}" />
+    <input type="hidden" name="middleName" value="${user.middleName}" />
+    <input type="hidden" name="birthDate" value="${user.birthDate}" />
+    <input type="hidden" name="nationality" value="${user.nationality}" />
+    <input type="hidden" name="passportId" value="${user.passportId}" />
+    <input type="hidden" name="email" value="${user.email}" />
+    <input type="hidden" name="mobileNumber" value="${user.mobileNumber}" />
+    <input type="hidden" name="seat" value="${user.seat}" />
+    <button type="submit" class="edit-link" style="background:none;border:none;padding:0;margin:0;color:#5a7a94;cursor:pointer;">Edit</button>
+</form>
 			</div>
 
 			<div style="margin-bottom: 25px;">
@@ -192,32 +200,28 @@ h1 {
 
 				<div class="info-grid">
 					<div class="info-item">
-						<span class="info-label">First Name</span> <span
-							class="info-value">${personalInfo.firstName}</span>
+						<span class="info-label">First Name</span> 
+						<span class="info-value">${user.firstName}</span>
 					</div>
-
 					<div class="info-item">
-						<span class="info-label">Last Name</span> <span class="info-value">${personalInfo.lastName}</span>
+						<span class="info-label">Last Name</span> 
+						<span class="info-value">${user.lastName}</span>
 					</div>
-
 					<div class="info-item">
-						<span class="info-label">Middle Name</span> <span
-							class="info-value">${not empty personalInfo.middleName ? personalInfo.middleName : 'N/A'}</span>
+						<span class="info-label">Middle Name</span> 
+						<span class="info-value">${not empty user.middleName ? user.middleName : 'N/A'}</span>
 					</div>
-
 					<div class="info-item">
-						<span class="info-label">Birth Date</span> <span
-							class="info-value">${personalInfo.formattedBirthDate}</span>
+						<span class="info-label">Birth Date</span> 
+						<span class="info-value">${user.birthDate}</span>
 					</div>
-
 					<div class="info-item">
-						<span class="info-label">Nationality</span> <span
-							class="info-value">${personalInfo.nationality}</span>
+						<span class="info-label">Nationality</span> 
+						<span class="info-value">${user.nationality}</span>
 					</div>
-
 					<div class="info-item">
-						<span class="info-label">Passport ID</span> <span
-							class="info-value">${personalInfo.passportId}</span>
+						<span class="info-label">Passport ID</span> 
+						<span class="info-value">${user.passportId}</span>
 					</div>
 				</div>
 			</div>
@@ -228,16 +232,16 @@ h1 {
 
 				<div class="info-grid">
 					<div class="info-item">
-						<span class="info-label">Email</span> <span class="info-value">${personalInfo.email}</span>
+						<span class="info-label">Email</span> 
+						<span class="info-value">${user.email}</span>
 					</div>
-
 					<div class="info-item">
-						<span class="info-label">Mobile Number</span> <span
-							class="info-value">${personalInfo.mobileNumber}</span>
+						<span class="info-label">Mobile Number</span> 
+						<span class="info-value">${user.mobileNumber}</span>
 					</div>
-
 					<div class="info-item">
-						<span class="info-label">Seat #</span> <span class="info-value">${personalInfo.seatNumber}</span>
+						<span class="info-label">Seat #</span> 
+						<span class="info-value">${not empty user.seat ? user.seat : 'N/A'}</span>
 					</div>
 				</div>
 			</div>
@@ -254,44 +258,36 @@ h1 {
 							<span class="booking-label">From</span> <span
 								class="booking-value">${bookingDetails.from}</span>
 						</div>
-
 						<div class="booking-item">
 							<span class="booking-label">Departure Date</span> <span
 								class="booking-value">${bookingDetails.departureDate}</span>
 						</div>
-
 						<div class="booking-item">
 							<span class="booking-label">Departure Time</span> <span
 								class="booking-value">${bookingDetails.departureTime}</span>
 						</div>
-
 						<div class="booking-item">
 							<span class="booking-label">Airlines</span> <span
 								class="booking-value">${bookingDetails.airlines}</span>
 						</div>
-
 						<div class="booking-item">
 							<span class="booking-label">Baggage Allowance</span> <span
 								class="booking-value">${bookingDetails.baggageAllowance}</span>
 						</div>
 					</div>
-
 					<div class="booking-column">
 						<div class="booking-item">
 							<span class="booking-label">Destination</span> <span
 								class="booking-value">${bookingDetails.destination}</span>
 						</div>
-
 						<div class="booking-item">
 							<span class="booking-label">Return Date</span> <span
 								class="booking-value">${bookingDetails.returnDate}</span>
 						</div>
-
 						<div class="booking-item">
 							<span class="booking-label">Return Time</span> <span
 								class="booking-value">${bookingDetails.returnTime}</span>
 						</div>
-
 						<div class="booking-item">
 							<span class="booking-label">Flight Class</span> <span
 								class="booking-value">${bookingDetails.flightClass}</span>
@@ -311,7 +307,6 @@ h1 {
 		<div class="summary-section">
 			<div class="summary-card">
 				<h2>Transaction Summary</h2>
-
 				<div class="summary-item">
 					<div class="summary-row">
 						<span class="summary-label">DEPARTURE</span> <span
@@ -322,7 +317,6 @@ h1 {
 						<span class="summary-value">${bookingDetails.returnDate}</span>
 					</div>
 				</div>
-
 				<div class="summary-item">
 					<div class="summary-row">
 						<span class="summary-label">DEPARTURE TIME</span> <span
@@ -333,19 +327,17 @@ h1 {
 						<span class="summary-value">${bookingDetails.returnTime}</span>
 					</div>
 				</div>
-
 				<hr class="summary-divider">
-
 				<div class="summary-item">
 					<div class="summary-label">PASSENGER DETAILS</div>
-					<div class="summary-value" style="margin-top: 5px;">${personalInfo.fullName}</div>
-					<div class="summary-value" style="margin-top: 5px;">${personalInfo.formattedBirthDate}</div>
-					<div class="summary-value" style="margin-top: 5px;">${personalInfo.nationality}</div>
-					<div class="summary-value" style="margin-top: 5px;">${personalInfo.passportId}</div>
+					<div class="summary-value" style="margin-top: 5px;">
+						${user.firstName} <c:if test="${not empty user.middleName}">${user.middleName} </c:if>${user.lastName}
+					</div>
+					<div class="summary-value" style="margin-top: 5px;">${user.birthDate}</div>
+					<div class="summary-value" style="margin-top: 5px;">${user.nationality}</div>
+					<div class="summary-value" style="margin-top: 5px;">${user.passportId}</div>
 				</div>
-
 				<hr class="summary-divider">
-
 				<div class="summary-item">
 					<div class="summary-row">
 						<div style="width: 100%;">
@@ -364,14 +356,12 @@ h1 {
 						</div>
 					</div>
 				</div>
-
 				<hr class="summary-divider">
-
 				<div class="summary-item">
 					<div class="summary-row">
 						<div>
 							<div class="summary-label">SEAT #</div>
-							<div class="summary-value">${personalInfo.seatNumber}</div>
+							<div class="summary-value">${not empty user.seat ? user.seat : 'N/A'}</div>
 						</div>
 						<div style="text-align: right;">
 							<div class="summary-label">BAGGAGE ALLOWANCE</div>
@@ -379,16 +369,11 @@ h1 {
 						</div>
 					</div>
 				</div>
-
 				<hr class="summary-divider">
-
 				<div class="summary-item">
 					<div class="summary-label">ADD-ONS</div>
-
 				</div>
-
 				<hr class="summary-divider">
-
 				<div class="summary-item">
 					<h3 style="color: #1e3a5f; font-size: 16px; margin-bottom: 15px;">Your
 						Price Summary</h3>
@@ -398,7 +383,6 @@ h1 {
 					<div class="summary-row">
 						<span style="font-size: 14px;">12% VAT:</span> <span>${bookingDetails.vat}</span>
 					</div>
-
 					<div class="total-row">
 						<span class="total-label">Total Price</span> <span
 							class="total-value">${bookingDetails.totalPrice}</span>
@@ -410,26 +394,20 @@ h1 {
 	<jsp:include page="Footer.jsp" />
 	
 	<script>
-
-<!-- NAVBAR JS -->
-document.addEventListener("DOMContentLoaded", () => {
+	document.addEventListener("DOMContentLoaded", () => {
 	  const navLinks = document.querySelectorAll(".nav-links a");
 	  const currentUrl = window.location.pathname;
 
-	  // Highlight the link that matches current URL
 	  navLinks.forEach(link => {
 	    if (link.getAttribute("href") === currentUrl) {
 	      link.classList.add("active");
 	    }
-
-	    // Add click event listener for manual switching
 	    link.addEventListener("click", () => {
 	      navLinks.forEach(l => l.classList.remove("active"));
 	      link.classList.add("active");
 	    });
 	  });
 	});
-
-</script>
+	</script>
 </body>
 </html>
