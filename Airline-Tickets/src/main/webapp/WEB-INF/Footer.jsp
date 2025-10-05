@@ -6,7 +6,7 @@
         
         <!-- Brand & About -->
         <div class="footer-section footer-about">
-            <h2 class="footer-logo">✈︎ A4Lifers Flight Booking</h2>
+            <h2 class="footer-logo">✈︎ Alt+F4Life Flight Booking</h2>
             <p>Travel smarter, cheaper, and with style. Let's take you places ✈︎જ⁀➴</p>
             <div class="trust-badges">
                 <span class="badge"><i class="fas fa-shield-alt"></i> Secure Booking</span>
@@ -50,7 +50,7 @@
         <!-- Contact & Newsletter -->
         <div class="footer-section footer-contact">
             <h3>Get in Touch</h3>
-            <p><i class="fas fa-envelope"></i> support@a4lifersbooking.com</p>
+            <p><i class="fas fa-envelope"></i> support@alt4lifebooking.com</p>
             <p><i class="fas fa-phone"></i> +63 912 345 6789</p>
             <p><i class="fas fa-map-marker-alt"></i> Manila, Philippines</p>
             

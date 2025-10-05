@@ -5,12 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>A4Lifers Flight Booking |Login</title>
+<title>Alt+F4Life Flight Booking | Login</title>
 <link rel="stylesheet" href="/css/design.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<title>Login Page</title>
-<link rel="stylesheet" src="@{/css/design.css}">
 </head>
 <body>
 	<div class="container">
