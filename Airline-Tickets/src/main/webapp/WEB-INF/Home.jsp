@@ -377,7 +377,7 @@
 	<nav class="navbar">
 	  <div class="nav-center">
 	    <ul class="nav-links">
-	      <li><a class="active" href="#header">Home</a></li>
+	      <li><a class="active" href="/Home#header">Home</a></li>
 	      <li><a href="/Home#explore">Explore</a></li>
 	      <li><a href="/Flight/Options">Book</a></li>
 	      <li><a href="/Manage/Profile">Manage</a></li>
@@ -466,10 +466,8 @@
 	<jsp:include page="Footer.jsp" />
 	
 	
-	<!-- JAVASCRIPT -->
 	<script>
-	  
-	  //NAVBAR JS 
+	<!-- NAVBAR JS -->
 	  document.addEventListener("DOMContentLoaded", () => {
 		  const navLinks = document.querySelectorAll(".nav-links a");
 		  const currentUrl = window.location.pathname;
@@ -487,7 +485,7 @@
 		    });
 		  });
 		});
-	  
+
 	  const searchBtn = document.getElementById("search-btn");
 	  const fromInput = document.getElementById("from");
 	  const toInput = document.getElementById("to");
@@ -560,6 +558,7 @@
 	  
 	</script>
 	<script src="${pageContext.request.contextPath}/js/type_filter.js"></script>
+	<script src="${pageContext.request.contextPath}/js/calendar-validation.js"></script>
 	<script src="${pageContext.request.contextPath}/js/recommended.js"></script>
 	<script src="${pageContext.request.contextPath}/js/explore.js"></script>
 

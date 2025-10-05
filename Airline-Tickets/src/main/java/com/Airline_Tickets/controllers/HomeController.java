@@ -12,21 +12,21 @@ public class HomeController {
 
     private ArrayList<register> log = new ArrayList<>();
 
-    // 🏠 HOME PAGE (before & after login)
+    // HOME PAGE (before & after login)
     @GetMapping({"/", "/Home"})
     public String showHome(HttpSession session, Model model) {
         register currentUser = (register) session.getAttribute("currentUser");
 
-        // ✅ If logged in, send user info to Home.jsp
+        // If logged in, send user info to Home.jsp
         if (currentUser != null) {
             model.addAttribute("user", currentUser);
         }
 
-        // ✅ Always go to Home.jsp, not redirect to /Manage/Profile
+        // Always go to Home.jsp, not redirect to /Manage/Profile
         return "Home.jsp";
     }
 
-    // 🧩 LOGIN PAGE
+    // LOGIN PAGE
     @GetMapping("/login")
     public String loginPage(Model mv, @RequestParam(required = false) String error) {
         if ("blankFields".equals(error)) {
@@ -64,7 +64,7 @@ public class HomeController {
         return "redirect:/login?error=invalid";
     }
 
-    // 🧩 REGISTER PAGE
+    // REGISTER PAGE
     @GetMapping("/register")
     public String registerPage(Model mv, @RequestParam(required = false) String error) {
         if ("blankFields".equals(error)) {
@@ -131,7 +131,7 @@ public class HomeController {
         return (register) session.getAttribute("currentUser");
     }
 
-    // 🧩 PROFILE PAGE
+    // PROFILE PAGE
     @GetMapping("/Manage/Profile")
     public String showProfile(HttpSession session, Model model) {
         register currentUser = (register) session.getAttribute("currentUser");
@@ -143,7 +143,7 @@ public class HomeController {
         return "Profile.jsp";
     }
 
-    // 🧩 FAVORITES PAGE
+    // FAVORITES PAGE
     @GetMapping("/Home#explore")
     public String favoritesPage(HttpSession session) {
         if (session.getAttribute("currentUser") == null) {
@@ -152,7 +152,7 @@ public class HomeController {
         return "Home.jsp";
     }
 
-    // 🧩 LOGOUT
+    // LOGOUT
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();

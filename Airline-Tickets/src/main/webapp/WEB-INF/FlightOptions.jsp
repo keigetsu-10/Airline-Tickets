@@ -325,24 +325,25 @@
 	</form>
 	
 	<div class="flight_page">
-<<<<<<< HEAD
 	  <section id="flight_options" class="flight_options">
 	    <div class="flight_options_main">
 	      <p class="flight_options_results-num">??? Results</p>
 	
 	      <div class="flight_options_recommendations">
 	        <div class="recommendations_cheapest">
-	          <!-- Api -->
+	          <!-- API -->
 	          <p>$$$</p>
 	          <p>Cheapest</p>
 	        </div>
 	        <div class="recommendations_fastest">
-	          <!-- Api -->
+	          <!-- API -->
 	          <p>$$$</p>
 	          <p>Fastest</p>
 	        </div>
 	      </div>
 	
+	
+		<!-- NOT YET LIMITED TO 5 -->
 	      <div class="flight_results">
 	      	<c:choose>
 	        <c:when test="${not empty flights}">
@@ -398,149 +399,36 @@
 	    <label><input type="radio" name="class" value="business"> Business</label><br>
 	    <label><input type="radio" name="class" value="first"> First Class</label>
 	  </section>
-=======
-		<section id="flight_options" class="flight_options">
-			<div class="flight_options_main">
-				<p class="flight_options_results-num">??? Results</p>
-				<div class="flight_options_recommendations">
-					<div class="recommendations_cheapest">
-						<p>Cheapest</p>
-					</div>
-					<div class="recommendations_fastest">
-						<p>Fastest</p>
-					</div>
-				</div>
-		<c:choose>
-		  <c:when test="${not empty flights}">
-		    <c:forEach var="flight" items="${flights}">
-				<div class="flight_details-container">
-					<div class="flight_departure-details">
-						<p><b>${flight.name}, ${flight.country}</b></p>
-			            <p>Airport: ${flight.airport}</p>
-			            <p>Departure: ${flight.departureDate} ${flight.departureTime}</p>
-					</div>
-					<div class="flight_return-details">
-						<p>Return: ${flight.returnDate} ${flight.returnTime}</p>
-	          			<p>Class: ${flight.flightClass} | ${flight.tripType}</p>
-					</div>
-					<div class="flight_price-details">
-						<p>💲${flight.price}</p>
-					</div>
-					<div class="select-btn"><button  onclick="handleSelect()">Select</button></div>
-				 </div>
-			</c:forEach>
-		  </c:when>
-		  <c:otherwise>
-		    <p>No flights found for your search criteria 🚫</p>
-		  </c:otherwise>
-		</c:choose>
-			  </div>
-		  </section>
-		
-		
-	   	 <section id="flight_filters" class="flight_filters">
-			 <div class="filter-btn"><button>Filter</button></div>
-			 <p id="flight_filters-title" class="flight_filters-txt">FILTERS</p>
-			 <p id="flight_filters-deptime" class="flight_filters-txt">Departure Time</p>
-				 <input type="time" id="departure-time">
-			 <p id="flight_filters-class" class="flight_filters-txt">Flight Class</p>
-				 <label><input type="radio" name="class" value="economy"> Economy</label><br>
-				 <label><input type="radio" name="class" value="premium"> Premium Economy</label><br>
-				 <label><input type="radio" name="class" value="business"> Business</label><br>
-				 <label><input type="radio" name="class" value="first"> First Class</label>
-		</section>
->>>>>>> branch 'main' of https://github.com/keigetsu-10/Airline-Tickets.git
+
 	</div>
 	
 	<jsp:include page="Footer.jsp" />
 	
 	<script>
-<<<<<<< HEAD
-	document.addEventListener("DOMContentLoaded", () => {
-		
-	}
-	  // Handle navigation link highlighting
-	  const navLinks = document.querySelectorAll(".nav-links a");
-	  const currentUrl = window.location.pathname;
-	
-	  navLinks.forEach(link => {
-	    if (link.getAttribute("href") === currentUrl) {
-	      link.classList.add("active");
-	    }
-	    link.addEventListener("click", () => {
-	      navLinks.forEach(l => l.classList.remove("active"));
-	      link.classList.add("active");
-	    });
-	  });
-		  
-	// INSERT HERE type_filter after API INTEGRATION
-=======
 	<!-- NAVBAR JS -->
-	document.addEventListener("DOMContentLoaded", () => {
-	    const navLinks = document.querySelectorAll(".nav-links a");
-	    const currentUrl = window.location.pathname;
+	  document.addEventListener("DOMContentLoaded", () => {
+		  const navLinks = document.querySelectorAll(".nav-links a");
+		  const currentUrl = window.location.pathname;
 
-	    navLinks.forEach(link => {
-	      if (link.getAttribute("href") === currentUrl) {
-	        link.classList.add("active");
-	      }
+		  // Highlight the link that matches current URL
+		  navLinks.forEach(link => {
+		    if (link.getAttribute("href") === currentUrl) {
+		      link.classList.add("active");
+		    }
 
-	      link.addEventListener("click", () => {
-	        navLinks.forEach(l => l.classList.remove("active"));
-	        link.classList.add("active");
-	      });
-	    });
-	  });
-
-	  // Search button logic
-	  document.addEventListener("DOMContentLoaded", function () {
-	    const searchBtn = document.getElementById("search-btn");
-	    const fromInput = document.getElementById("from");
-	    const toInput = document.getElementById("to");
-	    const departureInput = document.getElementById("departureDate");
-	    const returnInput = document.getElementById("returnDate");
-
-	    searchBtn.addEventListener("click", function (e) {
-	      e.preventDefault(); // prevent accidental reload
-
-	      const from = fromInput.value.trim();
-	      const to = toInput.value.trim();
-	      const departureDate = departureInput.value;
-	      const returnDate = returnInput.value;
-
-	      if (!from || !to || !departureDate || !returnDate) {
-	        alert("⚠️ Please complete all booking fields before continuing.");
-	        return;
-	      }
-
-	      const params = new URLSearchParams({
-	        from,
-	        to,
-	        departureDate,
-	        returnDate
-	      }).toString();
-
-	      const targetUrl = `/Flight/Options?${params}`;
-	      window.location.href = targetUrl;
-	    });
-	  });
-
-	  // ✅ Login check before selecting a flight
-	  function handleSelect() {
-	    const isLoggedIn = <%= (session.getAttribute("user") != null) ? "true" : "false" %>;
-
-	    if (!isLoggedIn) {
-	      alert("⚠️ You must log in first before selecting a flight.");
-	      window.location.href = "/login";
-	    } else {
-	      window.location.href = "/book/confirm";
-	    }
-	  }
-	  </script>
-	  
->>>>>>> branch 'main' of https://github.com/keigetsu-10/Airline-Tickets.git
+		    // Add click event listener for manual switching
+		    link.addEventListener("click", () => {
+		      navLinks.forEach(l => l.classList.remove("active"));
+		      link.classList.add("active");
+		    });
+		  });
+		});
 	</script>
-	<script src="${pageContext.request.contextPath}/js/flight-options_generator.js"></script>	
+	<script src="${pageContext.request.contextPath}/js/type_filter.js"></script>
+	<script src="${pageContext.request.contextPath}/js/calendar-validation.js"></script>
+	<script src="${pageContext.request.contextPath}/js/flight-search.js"></script>
+	<script src="${pageContext.request.contextPath}/js/flight-options_generator.js"></script>
+	<script src="${pageContext.request.contextPath}/js/flight-options_select.js"></script>
 	
 </body>
 </html>
