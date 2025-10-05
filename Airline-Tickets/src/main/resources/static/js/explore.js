@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const card = document.createElement("div");
         card.classList.add("explore_card");
 
-        // Check if this destination is already favorited
+        // Check if this destination is already favorite
         const isActive = favorites.some(fav => fav.name === dest.name) ? 'active' : '';
 
         card.innerHTML = `
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
         exploreContainer.appendChild(card);
       });
 
-      // IMPORTANT: Attach star click handlers AFTER all cards are created
+      // Star SVG
       document.querySelectorAll('.star-icon').forEach(star => {
         star.addEventListener('click', function(e) {
           e.stopPropagation();
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
           const destinationName = card.querySelector('.explore_txt').innerText;
           const departureInput = document.getElementById("to");
           if (departureInput) {
-            // You'll need to get country from your data
+            // Get country from data
             departureInput.value = destinationName;
           } else {
             console.warn("Departure input not found!");
