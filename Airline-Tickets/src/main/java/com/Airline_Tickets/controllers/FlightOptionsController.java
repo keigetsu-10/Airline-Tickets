@@ -12,12 +12,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
+<<<<<<< HEAD
+=======
+import jakarta.servlet.http.HttpSession;
+
+>>>>>>> branch 'main' of https://github.com/keigetsu-10/Airline-Tickets.git
 import com.Airline_Tickets.models.Flight;
+import com.Airline_Tickets.models.register;
 
 @Controller
 public class FlightOptionsController {
+<<<<<<< HEAD
 
     private List<Flight> flights;
+=======
+	
+	private List<Flight> flights;
+	
+	@PostConstruct
+	public void init() throws IOException {
+	    ObjectMapper mapper = new ObjectMapper();
+>>>>>>> branch 'main' of https://github.com/keigetsu-10/Airline-Tickets.git
 
     @PostConstruct
     public void init() throws IOException {

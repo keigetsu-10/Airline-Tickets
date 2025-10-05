@@ -1,16 +1,14 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page session="true" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>A4Lifers Flight Booking | Payment</title>
+<title>A4Lifers Flight Booking | Payment Confirmation</title>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/format.css'/>">
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/Footer.css'/>">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbar.css">
-
 <style>
         h1 {
             color: #1e3a5f;
@@ -243,8 +241,18 @@
 </style>
 </head>
 <body>
+<%-- Use session values if not present --%>
+<c:if test="${empty user}">
+    <c:set var="user" value="${sessionScope.user}" />
+</c:if>
+<c:if test="${empty bookingDetails}">
+    <c:set var="bookingDetails" value="${sessionScope.bookingDetails}" />
+</c:if>
+<c:if test="${empty payment}">
+    <c:set var="payment" value="${sessionScope.payment}" />
+</c:if>
 
-   <nav class="navbar">
+<nav class="navbar">
 	  <div class="nav-center">
 	    <ul class="nav-links">
 	      <li><a class="active" href="#header">Home</a></li>
@@ -291,327 +299,293 @@
             <span class="step-label">Payment</span>
         </div>
     </div>
-    
-    <div class="container">
-        <div class="form">
-            <a href="/Payment" class="return-link">⮜  Return</a>
-            
-            <h1>Payment Confirmation</h1>
-                
-                
-                <div class="addon-options">
-                    <div class="section-title">Add-on Options</div>
-                    
-                    <div class="addon-item">
-                        <div class="addon-label">
-                            <input type="checkbox" name="option1" value="value1"> Extra Baggage </input>
-                        </div>
-                        <span class="addon-price">+ Php 400.00</span>
-                    </div>
-                    
-                    <div class="addon-item">
-                        <div class="addon-label">
-                            <input type="checkbox" name="option2" value="value2"> Travel Insurance </input>
-                        </div>
-                        <span class="addon-price">+ Php 3,500.00</span>
-                    </div>
-                </div>
-               
-               
-               <div class="payment-methods">
-                    <div class="section-title">Payment Method <span class="required">*</span></div>
-                    
-                </div>
-               
-     
-    <div class="form-rows">
-        <label><input type="radio" name="paymentMethod" value="credit-card" onclick="togglePaymentFields()" 
-            ${payment.paymentMethod == 'credit-card' ? 'checked' : ''}> Credit Card</label>
-        <label><input type="radio" name="paymentMethod" value="bank-transfer" onclick="togglePaymentFields()" 
-            ${payment.paymentMethod == 'bank-transfer' ? 'checked' : ''}> Bank Transfer</label>
+<div class="container">
+    <div class="form">
+        <a href="/Payment" class="return-link">⮜  Return</a>
+        <h1>Payment Confirmation</h1>
+        <form action="${pageContext.request.contextPath}/TransactionSuccesful" method="POST">
+        <div class="addon-options">
+            <div class="section-title">Add-on Options</div>
+            <div class="addon-item">
+    <div class="addon-label">
+        <input type="checkbox" disabled
+    <c:if test="${payment.option1 == 'value1'}">checked</c:if>
+> Extra Baggage
+<input type="hidden" name="option1" value="${payment.option1}">
     </div>
+    <span class="addon-price">+ Php 400.00</span>
+</div>
+<div class="addon-item">
+    <div class="addon-label">
+        <input type="checkbox" disabled
+    <c:if test="${payment.option2 == 'value2'}">checked</c:if>
+> Travel Insurance
+<input type="hidden" name="option2" value="${payment.option2}">
+    </div>
+    <span class="addon-price">+ Php 3,500.00</span>
+</div>
+        </div>
+        
+        <div class="payment-methods">
+            <div class="section-title">Payment Method <span class="required">*</span></div>
+            <div class="form-rows">
+                <label>
+                    <input type="radio" name="paymentMethod" value="credit-card" disabled 
+                        <c:if test="${payment.paymentMethod == 'credit-card'}">checked</c:if> > Credit Card
+                </label>
+                <label>
+                    <input type="radio" name="paymentMethod" value="bank-transfer" disabled 
+                        <c:if test="${payment.paymentMethod == 'bank-transfer'}">checked</c:if> > Bank Transfer
+                </label>
+            </div>
+        </div>
 
-    
-    <div id="creditCardFields" class="payment-fields ${payment.paymentMethod == 'credit-card' ? 'active' : ''}">
-        <div class="form-row four-col">
-                            <div class="form-group">
-                                <label>Cardholder Name <span class="required">*</span></label>
-                                <input type="text" name="cardName" value="${user.cardName}" placeholder=" Cardholder Name"/>
-                                
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Card Number <span class="required">*</span></label>
-                                <input type="text" name="cardNum" value="${user.cardNum}" placeholder=" Card Number "/>
-                                
-                            </div>
-                            
-                            <div class="visa-logo">VISA</div>
-                            
-                            <div class="form-group">
-                                <label>Expiration Date <span class="required">*</span></label>
-                                <input type="text" name="expiDate" value="${user.expiDate}" placeholder=" Expiration Date "/>
-                                
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>CVV <span class="required">*</span></label>
-                                <input type="text" name="cvvNum" value="${user.cvvNum}" placeholder=" CVV "/>
-                            </div>
-                        </div>
-                      </div>
+        <div id="creditCardFields" class="payment-fields <c:if test='${payment.paymentMethod == "credit-card"}'>active</c:if>">
+            <div class="form-row four-col">
+                <div class="form-group">
+                    <label>Cardholder Name</label>
+                    <input type="text" name="cardName" value="${payment.cardName}" placeholder=" Cardholder Name" maxlength="50" disabled>
+                </div>
+                <div class="form-group">
+                    <label>Card Number</label>
+                    <input type="text" name="cardNum" value="${payment.cardNum}" placeholder=" Card Number" maxlength="16" disabled>
+                </div>
+                <div class="visa-logo">${payment.cardType}</div>
+                <div class="form-group">
+                    <label>Expiration Date</label>
+                    <input type="text" name="expiDate" value="${payment.expiDate}" placeholder=" Expiration Date " disabled>
+                </div>
+                <div class="form-group">
+                    <label>CVV</label>
+                    <input type="text" name="cvvNum" value="${payment.cvvNum}" placeholder=" CVV " disabled>
+                </div>
+            </div>
+        </div>
 
-    <div id="bankTransferFields" class="payment-fields ${payment.paymentMethod == 'bank-transfer' ? 'active' : ''}">
-         <div class="form-row">
-              <div class="form-group">
-                            <label>Account Holder Name <span class="required">*</span></label>
-                             <input type="text" name="accName" value="${user.accName}" placeholder=" Account Holder Name"/>
-                                
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Account Number <span class="required">*</span></label>
-                                <input type="text" name="accNum" value="${user.accNum}" placeholder=" Account Number "/>
-                                
-                            </div>
-                            <div class="form-group">
-                                <label>Bank Name <span class="required">*</span></label>
-                                <input type="text" name="bankName" value="${user.bankName}" placeholder=" Bank Name "/>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>SWIFT/BIC <span class="required">*</span></label>
-                                <input type="text" name="swiftBic" value="${user.swiftBic}" placeholder=" SWIFT/BIC "/>
-                                
-                        </div>
+        <div id="bankTransferFields" class="payment-fields <c:if test='${payment.paymentMethod == "bank-transfer"}'>active</c:if>">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Account Holder Name</label>
+                    <input type="text" name="accName" value="${payment.accName}" placeholder=" Account Holder Name" disabled>
+                </div>
+                <div class="form-group">
+                    <label>Account Number</label>
+                    <input type="text" name="accNum" value="${payment.accNum}" placeholder=" Account Number " disabled>
+                </div>
+                <div class="form-group">
+                    <label>Bank Name</label>
+                    <input type="text" name="bankName" value="${payment.bankName}" placeholder=" Bank Name " disabled>
+                </div>
+                <div class="form-group">
+                    <label>SWIFT/BIC</label>
+                    <input type="text" name="swiftBic" value="${payment.swiftBic}" placeholder=" SWIFT/BIC " disabled>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 30px;">
+            <div class="section-title">Billing Information</div>
+            <div class="form-row three-col">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" name="fullName" value="${payment.fullName}" disabled>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" name="email" value="${payment.email}" disabled>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="text" name="phoneNum" value="${payment.phoneNum}" disabled>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 30px;">
+            <div class="form-row three-col">
+                <div class="form-group">
+                    <label>Billing Address</label>
+                    <input type="text" name="billAdd" value="${payment.billAdd}" disabled>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="city" value="${payment.city}" disabled>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="province" value="${payment.province}" disabled>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 30px;">
+            <div class="section-title">E-ticket mailing address</div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" name="email" value="${payment.email}">
+            </div>      
+        </div>
+        <div class="checkbox">
+            <input type="checkbox" name="agree" required > 
+            I agree to the <a href="#">Terms and Conditions</a>, <a href="#">Privacy Policy</a>.
+        </div>
+        <div class="right-panel">
+    <div class="price-summary">
+    <div style="margin-top: 30px;">
+        <h3>Your Price Summary</h3>
+        <div class="summary-price"><span>Travel Fare:</span><strong>----</strong></div>
+        <div class="summary-price"><span>12% VAT:</span><strong>----</strong></div>
+        <div class="summary-price"><span>Add-ons:</span><strong>----</strong></div>
+        <div class="summary-price discount"><span>Discount:</span><strong>--- &nbsp; ----</strong></div>
+        <div class="summary-price"><span>Promo Code:</span>
+            <div class="promo">
+                <input type="text" placeholder="Code">
+                <button type="button">Apply</button>
+            </div>
+        </div>
+        <div class="total-price"><span> Total Price:</span><span>-----</span> </div>
+    </div>
+    </div>
+</div>
+        
+            <div class="button-container">
+                <button type="submit" class="btn-confirm">Confirm and Pay</button>
+            </div>
+        </form>
+    </div>       
+
+    <!-- TRANSACTION SUMMARY -->
+    <div class="summary-section">
+        <div class="summary-card">
+            <h2>Transaction Summary</h2>
+            <div class="summary-item">
+                <div class="summary-row">
+                    <span class="summary-label">DEPARTURE</span>
+                    <span class="summary-label">RETURN</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-value">${bookingDetails.departureDate}</span>
+                    <span class="summary-value">${bookingDetails.returnDate}</span>
+                </div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-row">
+                    <span class="summary-label">DEPARTURE TIME</span>
+                    <span class="summary-label">RETURN TIME</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-value">${bookingDetails.departureTime}</span>
+                    <span class="summary-value">${bookingDetails.returnTime}</span>
+                </div>
+            </div>
+            <hr class="summary-divider"/>
+            <div class="summary-item">
+                <div class="summary-label">PASSENGER DETAILS</div>
+                <div class="summary-value" style="margin-top: 5px;">
+                    ${user.firstName} <c:if test="${not empty user.middleName}">${user.middleName} </c:if>${user.lastName}
+                </div>
+                <div class="summary-value" style="margin-top: 5px;">${user.birthDate}</div>
+                <div class="summary-value" style="margin-top: 5px;">${user.nationality}</div>
+                <div class="summary-value" style="margin-top: 5px;">${user.passportId}</div>
+            </div>
+            <hr class="summary-divider"/>
+            <div class="summary-item">
+                <div class="summary-row">
+                    <div style="width: 100%;">
+                        <div class="summary-label">FROM</div>
+                        <div class="summary-value">${bookingDetails.from}</div>
+                        <div class="summary-value" style="font-weight: 400; font-size: 12px;">${bookingDetails.fromTerminal}</div>
+                        <div class="summary-value" style="margin-top: 5px;">${bookingDetails.flightClass}</div>
                     </div>
-                 </div>
-                
+                    <div style="width: 100%; text-align: right;">
+                        <div class="summary-label">DESTINATION</div>
+                        <div class="summary-value">${bookingDetails.destination}</div>
+                        <div class="summary-value" style="font-weight: 400; font-size: 12px;">${bookingDetails.destinationTerminal}</div>
+                        <div class="summary-value" style="margin-top: 5px;">${bookingDetails.flightClass}</div>
+                    </div>
+                </div>
+            </div>
+            <hr class="summary-divider"/>
+            <div class="summary-item">
+                <div class="summary-row">
+                    <div>
+                        <div class="summary-label">SEAT #</div>
+                        <div class="summary-value">${not empty user.seat ? user.seat : 'N/A'}</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="summary-label">BAGGAGE ALLOWANCE</div>
+                        <div class="summary-value">${bookingDetails.baggageAllowance}</div>
+                    </div>
+                </div>
+            </div>
+            <hr class="summary-divider"/>
+            <div class="summary-item">
+    <div class="summary-label">ADD-ONS</div>
+    <div class="summary-value" style="margin-top: 5px;">
+        <c:choose>
+            <c:when test="${payment.option1 == 'value1' && payment.option2 == 'value2'}">
+                Extra Baggage<br/>Travel Insurance
+            </c:when>
+            <c:when test="${payment.option1 == 'value1'}">
+                Extra Baggage
+            </c:when>
+            <c:when test="${payment.option2 == 'value2'}">
+                Travel Insurance
+            </c:when>
+            <c:otherwise>
+                None
+            </c:otherwise>
+        </c:choose>
+    </div>
+</div>
+
+    <h3 style="color: #1e3a5f; font-size: 16px; margin-bottom: 15px;">Your Price Summary</h3>
+    <div class="summary-row">
+        <span style="font-size: 14px;">Travel Fare:</span>
+        <span>${bookingDetails.travelFare}</span>
+    </div>
+    <div class="summary-row">
+        <span style="font-size: 14px;">12% VAT:</span>
+        <span>${bookingDetails.vat}</span>
+    </div>
+    <div class="total-row">
+        <span class="total-label">Total Price</span>
+        <span class="total-value">${bookingDetails.totalPrice}</span>
+    </div>
+</div>
+        </div>
+    </div>
+</div>
+<jsp:include page="Footer.jsp" />
 
 <script>
-function togglePaymentFields() {
-    const selected = document.querySelector('input[name="paymentMethod"]:checked').value;
-    document.getElementById("creditCardFields").style.display = (selected === "credit-card") ? "block" : "none";
-    document.getElementById("bankTransferFields").style.display = (selected === "bank-transfer") ? "block" : "none";
-}
-
-
-window.onload = togglePaymentFields;
-</script>
-        <div style="margin-top: 30px;">
-                    <div class="section-title">Billing Information</div>
-                    
-                    <div class="form-row three-col">
-                        <div class="form-group">
-                            <label>Full Name <span class="required">*</span></label>
-                            <input type="text" name="fullName" value="${user.fullName}" placeholder=" Full Name"/>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Email Address <span class="required">*</span></label>
-                            <input type="email" name="email" value="${user.email}" placeholder=" Email "/>
-                            
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Phone Number <span class="required">*</span></label>
-                            <input type="text" name="phoneNum" value="${user.phoneNum}" placeholder=" Phone Number"/>
-                            
-                        </div>
-                    </div>
-                </div>
-                
-                <div style="margin-top: 30px;">
-                    
-                    <div class="form-row three-col">
-                        <div class="form-group">
-                            <label>Billing Address <span class="required">*</span></label>
-                            <input type="text" name="billAdd" value="${user.billAdd}" placeholder=" Address 1"/>
-                        </div>
-                        
-                        <div class="form-group">
-                            <input type="text" name="city" value="${user.city}" placeholder=" City "/>
-                            
-                        </div>
-                        
-                        <div class="form-group">
-                            <input type="text" name="province" value="${user.province}" placeholder=" Province "/>
-                            
-                        </div>
-                    </div>
-                </div>
-                
-                
-                
-                <div style="margin-top: 30px;">
-                    <div class="section-title">E-ticket mailing address</div>
-                    <div class="form-group">
-                            <label>Email Address <span class="required">*</span></label>
-                            <input type="email" name="email" value="${user.email}" placeholder=" Email "/>
-                        </div>      
-               </div>
-               
-               <div style="margin-top: 30px;">
-               <div class="right-panel">
-        <div class="price-summary">
-            <h3>Your Price Summary</h3>
-            <div class="summary-price"><span>Travel Fare:</span><strong>----</strong></div>
-            <div class="summary-price"><span>12% VAT:</span><strong>----</strong></div>
-            <div class="summary-price"><span>Add-ons:</span><strong>----</strong></div>
-            <div class="summary-price discount"><span>Discount:</span><strong>--- &nbsp; ----</strong></div>
-            <div class="summary-price"><span>Promo Code:</span>
-                <div class="promo">
-                    <input type="text" placeholder="Code">
-                    <button type="button">Apply</button>
-                </div>
-            </div>
-            <div class="total-price"><span> Total Price:</span><span>-----</span> </div>
-        </div>
-    </div> </div>
-
-               
-               <div class="checkbox">
-                 <input type="checkbox" name="agree" required> 
-              I agree to the <a href="#">Terms and Conditions</a>, <a href="#">Privacy Policy</a>, and understand that my booking is subject to airline policies and cancellation rules.
-              </div>
-      
-            <form action="${pageContext.request.contextPath}/TransactionSuccesful" method="POST">
-               <div class="button-container">
-                    <button type="submit" class="btn-confirm">Confirm and Pay</button>
-                </div>
-                </form>
-               </div>       
-                
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                <div class="summary-section">
-            <div class="summary-card">
-                <h2>Transaction Summary</h2>
-                
-                <div class="summary-item">
-                    <div class="summary-row">
-                        <span class="summary-label">DEPARTURE</span>
-                        <span class="summary-label">RETURN</span>
-                    </div>
-                    <div class="summary-row">
-                        <span class="summary-value">${bookingDetails.departureDate}</span>
-                        <span class="summary-value">${bookingDetails.returnDate}</span>
-                    </div>
-                </div>
-                
-                <div class="summary-item">
-                    <div class="summary-row">
-                        <span class="summary-label">DEPARTURE TIME</span>
-                        <span class="summary-label">RETURN TIME</span>
-                    </div>
-                    <div class="summary-row">
-                        <span class="summary-value">${bookingDetails.departureTime}</span>
-                        <span class="summary-value">${bookingDetails.returnTime}</span>
-                    </div>
-                </div>
-                
-                <hr class="summary-divider">
-                
-                <div class="summary-item">
-                    <div class="summary-label">PASSENGER DETAILS</div>
-                    <div class="summary-value" style="margin-top: 5px;">${personalInfo.fullName}</div>
-                    <div class="summary-value" style="margin-top: 5px;">${personalInfo.formattedBirthDate}</div>
-                    <div class="summary-value" style="margin-top: 5px;">${personalInfo.nationality}</div>
-                    <div class="summary-value" style="margin-top: 5px;">${personalInfo.passportId}</div>
-                </div>
-                
-                <hr class="summary-divider">
-                
-                <div class="summary-item">
-                    <div class="summary-row">
-                        <div style="width: 100%;">
-                            <div class="summary-label">FROM</div>
-                            <div class="summary-value">${bookingDetails.from}</div>
-                            <div class="summary-value" style="font-weight: 400; font-size: 12px;">${bookingDetails.fromTerminal}</div>
-                            <div class="summary-value" style="margin-top: 5px;">${bookingDetails.flightClass}</div>
-                        </div>
-                        <div style="width: 100%; text-align: right;">
-                            <div class="summary-label">DESTINATION</div>
-                            <div class="summary-value">${bookingDetails.destination}</div>
-                            <div class="summary-value" style="font-weight: 400; font-size: 12px;">${bookingDetails.destinationTerminal}</div>
-                            <div class="summary-value" style="margin-top: 5px;">${bookingDetails.flightClass}</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <hr class="summary-divider">
-                
-                <div class="summary-item">
-                    <div class="summary-row">
-                        <div>
-                            <div class="summary-label">SEAT #</div>
-                            <div class="summary-value">${personalInfo.seatNumber}</div>
-                        </div>
-                        <div style="text-align: right;">
-                            <div class="summary-label">BAGGAGE ALLOWANCE</div>
-                            <div class="summary-value">${bookingDetails.baggageAllowance}</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <hr class="summary-divider">
-                
-                <div class="summary-item">
-                    <div class="summary-label">ADD-ONS</div>
-                    
-                </div>
-                
-                <hr class="summary-divider">
-                
-                <div class="summary-item">
-                    <h3 style="color: #1e3a5f; font-size: 16px; margin-bottom: 15px;">Your Price Summary</h3>
-                    <div class="summary-row">
-                        <span style="font-size: 14px;">Travel Fare:</span>
-                        <span>${bookingDetails.travelFare}</span>
-                    </div>
-                    <div class="summary-row">
-                        <span style="font-size: 14px;">12% VAT:</span>
-                        <span>${bookingDetails.vat}</span>
-                    </div>
-                    
-                    <div class="total-row">
-                        <span class="total-label">Total Price</span>
-                        <span class="total-value">${bookingDetails.totalPrice}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-                </div>
-    <jsp:include page="Footer.jsp" />        
-    
-    
-    <script>
-
-<!-- NAVBAR JS -->
 document.addEventListener("DOMContentLoaded", () => {
-	  const navLinks = document.querySelectorAll(".nav-links a");
-	  const currentUrl = window.location.pathname;
+    // Show only the relevant payment fields
+    function togglePaymentFields() {
+        const cc = document.getElementById("creditCardFields");
+        const bank = document.getElementById("bankTransferFields");
+        if ("${payment.paymentMethod}" === "credit-card") {
+            cc.classList.add("active");
+            bank.classList.remove("active");
+        } else if ("${payment.paymentMethod}" === "bank-transfer") {
+            bank.classList.add("active");
+            cc.classList.remove("active");
+        } else {
+            cc.classList.remove("active");
+            bank.classList.remove("active");
+        }
+    }
+    togglePaymentFields();
 
-	  // Highlight the link that matches current URL
-	  navLinks.forEach(link => {
-	    if (link.getAttribute("href") === currentUrl) {
-	      link.classList.add("active");
-	    }
-
-	    // Add click event listener for manual switching
-	    link.addEventListener("click", () => {
-	      navLinks.forEach(l => l.classList.remove("active"));
-	      link.classList.add("active");
-	    });
-	  });
-	});
-
-</script>    
-
+    // Navbar code unchanged
+    const navLinks = document.querySelectorAll(".nav-links a");
+    const currentUrl = window.location.pathname;
+    navLinks.forEach(link => {
+        if (link.getAttribute("href") === currentUrl) {
+            link.classList.add("active");
+        }
+        link.addEventListener("click", () => {
+            navLinks.forEach(l => l.classList.remove("active"));
+            link.classList.add("active");
+        });
+    });
+});
+</script>
 </body>
 </html>

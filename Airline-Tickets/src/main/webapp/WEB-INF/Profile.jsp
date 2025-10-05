@@ -237,27 +237,51 @@
 	      background: #e0e4f1;
 	      border-color: #999;
 	   }
+	   
+	   .logout-btn {
+		 background: #ff4d4d;
+	     color: white;
+	     border: none;
+	     padding: 10px 16px;
+	     border-radius: 6px;
+	     cursor: pointer;
+	     transition: background 0.2s;
+		}
+		
+		.logout-btn:hover {
+		  background: #e60000;
+		}
 	
 	</style>
 
 </head>
 <body>
-
-	<nav class="navbar">
+<nav class="navbar">
 	  <div class="nav-center">
 	    <ul class="nav-links">
 	      <li><a href="/Home">Home</a></li>
 	      <li><a href="/Home#explore">Explore</a></li>
-	      <li><a href="/Flight/Options">Book </a></li>
-	      <li><a class="active" href="account_container">Manage</a></li>
+	      <li><a href="/Flight/Options">Book</a></li>
+	      <li><a  class="active" href="/Manage/Profile">Manage</a></li>
 	    </ul>
 	  </div>
 	  <div class="nav-right">
-		<ul class="nav-links">
-	      <li><a href="/login">Login / Sign-up</a></li>
-	    </ul>
-	    </div>
+  <ul class="nav-links">
+    <c:choose>
+      <c:when test="${not empty log}">
+        <li><span>Hi, ${log.firstname}!</span></li>
+        <li><a href="/logout">Log Out</a></li>
+      </c:when>
+      <c:otherwise>
+        <li><a href="/login">Login / Sign-up</a></li>
+      </c:otherwise>
+    </c:choose>
+  </ul>
+</div>
 	</nav>
+
+
+
 
 	<div id="account_container" class="account-container">
 	  <div class="sidebar">
@@ -269,7 +293,7 @@
 	    <input type="file" id="fileInput" accept="image/*" style="display:none;" onchange="previewImage(event)">
 	  </div>
 	
-	  <h3 class="user-name">Hi, <span id="userNameSpan"></span>!</h3>
+	  <h3 class="user-name">Hi, <span id="userNameSpan">${user.firstname}</span>!</h3>
 	  	
 	    <button class="active">Profile</button>
 	    <button>Favorites</button>
@@ -284,51 +308,51 @@
 	      <div class="profile-info">
 	        <div>
 	          <label>First Name</label>
-	          <span id="firstNameSpan"></span>
-	          <input type="text" id="firstNameInput" value="" style="display:none;">
+	          <span id="firstNameSpan">${user.firstname}</span>
+	          <input type="text" id="firstNameInput" value="${user.firstname}" style="display:none;">
 	        
 	        </div>
 	        <div>
 	          <label>Last Name</label>
-	          <span id="lastNameSpan"></span>
-	          <input type="text" id="lastNameInput" value="" style="display:none;">
+	          <span id="lastNameSpan">${user.lastname}</span>
+	          <input type="text" id="lastNameInput" value="${user.lastname}" style="display:none;">
 	          
 	        </div>
 	        <div>
 	          <label>Middle Name</label>
-	          <span id="middleNameSpan"></span>
-	          <input type="text" id="middleNameInput" value="" style="display:none;">
+	          <span id="middleNameSpan">${user.middlename}</span>
+	          <input type="text" id="middleNameInput" value="${user.middlename}" style="display:none;">
 	          
 	        </div>
 	        <div>
 	          <label>Birth Date</label>
-	          <span id="birthDateSpan"></span>
-			  <input type="date" id="birthDateInput" value="" style="display:none;" placeholder="DD/MM/YYYY">
+	          <span id="birthDateSpan">${user.bday}</span>
+			  <input type="date" id="birthDateInput" value="${user.bday}" style="display:none;" placeholder="DD/MM/YYYY">
 	          
 	        </div>
 	        <div>
 	          <label>Phone</label>
-	          <span id="phoneNumSpan"></span>
-	          <input type="text" id="phoneNumInput" value="" style="display:none;">
+	          <span id="phoneNumSpan">${user.phonenum}</span>
+	          <input type="text" id="phoneNumInput" value="${user.phonenum}" style="display:none;">
 	          
 	        </div>
 	        <div>
 	          <label>Email</label>
-	          <span id="emailSpan"></span>
-	          <input type="email" id="emailInput" value="" style="display:none;">
+	          <span id="emailSpan">${user.email}</span>
+	          <input type="email" id="emailInput" value="${user.email}" style="display:none;">
 	          
 	        </div>
 	        <div>
 	          <label>Password</label>
-	          <span id="passwordSpan"></span>
-	          <input type="password" id="passwordInput" value="" style="display:none;">
+	          <span id="passwordSpan">${user.password}</span>
+	          <input type="password" id="passwordInput" value="${user.password}" style="display:none;">
 	          
 	        </div>
 	      </div>
 	      <button id="editBtn" class="edit-btn" onclick="enableEdit()">Edit</button>
   		  <button id="saveBtn" class="edit-btn" onclick="saveChanges()" style="display:none;">Save</button>
+  		  <button id="logoutBtn" class="logout-btn" onclick="logoutUser()">Log Out</button>
 	    </div>
-	    
 	    <div class="favorites-section section">
 	    	<h3>Favorites</h3>
 	      <div class="favorites-info">
@@ -342,7 +366,7 @@
 	      <div class="history-info">
 	       
 	      </div>
-	
+			
 	    </div>
 	    
 	  </div>
@@ -638,6 +662,18 @@ window.onload = function() {
     document.getElementById('passwordInput').value = localStorage.getItem("password");
   }
 };
+
+
+function logoutUser() {
+	  if (confirm("Are you sure you want to log out?")) {
+	    // Clear all local data
+	    localStorage.clear();
+
+	    // Redirect to server-side logout (Spring or JSP controller)
+	    window.location.href = "/logout";
+	  }
+	}
+
 </script>
 
 

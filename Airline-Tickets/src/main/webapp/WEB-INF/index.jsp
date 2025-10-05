@@ -24,10 +24,10 @@
         </div>
         <div class="right-panel">
             <h2>Log in</h2>
-            <form:form action="/register" method="post" modelAttribute="register">
+            <form action="/login" method="post">
             <div class="form-row one-col">
 			  <div class="form-group">
-			        <input type="email" placeholder="Email">
+			        <input type="email"  name="email" placeholder="Email">
 			   </div>
 			</div>
                 <div class="form-row">
@@ -37,7 +37,7 @@
                     </div>
             
             <div class="checkbox-group">
-                    <input type="checkbox" id="agreeTerms">
+                    <input type="checkbox" name="agreeTerms" id="agreeTerms" />
                     <label for="agreeTerms">I agree to the <a href="terms.jsp">Terms & Conditions</a></label>
                 </div>
                 <div class="checkbox-group">
@@ -50,7 +50,8 @@
             <div class="login-link">
                 Don’t have an account?<a href="/register">Create an account</a>
             </div>
-        </form:form>
+        </form>
+        <p class="success">${error}</p>
     </div>
 </div>
 </body>
