@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import com.Airline_Tickets.models.Passenger;
 
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class PersonInfoController {
@@ -19,6 +20,13 @@ public class PersonInfoController {
             user = new Passenger();
         }
         model.addAttribute("user", user);
+        
+        // Get seats list from session for dropdown
+        List<String> seats = (List<String>) session.getAttribute("seats");
+        if (seats != null) {
+            model.addAttribute("seats", seats);
+        }
+        
         return "PersonalInfo.jsp";
     }
 
@@ -27,7 +35,7 @@ public class PersonInfoController {
         // Save/update latest user info in session for summary and payment
         session.setAttribute("user", user);
         model.addAttribute("user", user);
-        return "ConfirmInfo.jsp"; 
+        return "ConfirmInfo.jsp";
     }
 
     @PostMapping("/PersonalInformation")
@@ -35,11 +43,13 @@ public class PersonInfoController {
         // For edit, update session and return to personal info form with fields pre-filled
         session.setAttribute("user", user);
         model.addAttribute("user", user);
+        
+        // Re-add seats list for dropdown
+        List<String> seats = (List<String>) session.getAttribute("seats");
+        if (seats != null) {
+            model.addAttribute("seats", seats);
+        }
+        
         return "PersonalInfo.jsp";
-    }
-
-    @PostMapping("/SeatMap")
-    public String showSeatMap() {
-        return "SeatMap.jsp"; 
     }
 }

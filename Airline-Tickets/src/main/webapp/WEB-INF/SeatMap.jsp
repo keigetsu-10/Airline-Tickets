@@ -13,11 +13,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">	
 	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-   body {
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            margin: 0;
-        }
+  
 
     /* Left Panel */
     .left-panel {
@@ -358,25 +354,24 @@
             </div>
             
             
-        <div class="passenger-info">
-            <div class="form-group">
-                <label for="passengerCount">Passenger Count <span style="color: red;">*</span></label>
-                <input type="text" id="passenger" placeholder="Number of Passengers">
-            </div>
-            <div class="form-group">
-                <label for="seatsSelected">Seat(s) Selected</label>
-                <input type="text" id="seatsSelected" placeholder="Seat Number" readonly>
-            </div>
-            <div class="next-button-container">
-                <button class="btn-next" onclick="window.location.href='/PersonalInformation'">Next</button>
-            </div>
+        <!-- Replace the entire passenger-info div and form -->
+<form action="${pageContext.request.contextPath}/SeatMap" method="POST">
+    <div class="passenger-info">
+        <div class="form-group">
+            <label for="passengerCount">Passenger Count <span style="color: red;">*</span></label>
+            <input type="number" id="passenger" name="passenger" placeholder="Number of Passengers" min="1" max="9" required>
         </div>
-        
-        
+        <div class="form-group">
+            <label for="seatsSelected">Seat(s) Selected</label>
+            <input type="text" id="seatsSelected" name="seatsSelected" placeholder="Seat Number" readonly required>
         </div>
-
+        <div class="next-button-container">
+            <button type="submit" class="btn-next">Next</button>
+        </div>
+    </div>
+</form>
         <!-- Passenger Info -->
-        
+       </div> 
     </div>
 
     <!-- RIGHT PANEL -->
@@ -484,6 +479,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const seats = document.querySelectorAll(".seat:not(.occupied)");
     const seatInput = document.getElementById("seatsSelected");
     const passengerInput = document.getElementById("passenger");
+    const form = document.querySelector("form");
 
     let selectedSeats = [];
 
@@ -491,7 +487,6 @@ document.addEventListener("DOMContentLoaded", () => {
         seat.addEventListener("click", () => {
             const seatNumber = seat.textContent.trim();
 
-            // Toggle seat selection
             if (seat.classList.contains("selected")) {
                 seat.classList.remove("selected");
                 selectedSeats = selectedSeats.filter(s => s !== seatNumber);
@@ -509,15 +504,33 @@ document.addEventListener("DOMContentLoaded", () => {
                 selectedSeats.push(seatNumber);
             }
 
-            // Update read-only field
             seatInput.value = selectedSeats.join(", ");
         });
     });
+
+    form.addEventListener("submit", (e) => {
+        const passenger = parseInt(passengerInput.value) || 0;
+        
+        if (passenger === 0) {
+            e.preventDefault();
+            alert("Please enter the number of passengers.");
+            return;
+        }
+        
+        if (selectedSeats.length === 0) {
+            e.preventDefault();
+            alert("Please select at least one seat.");
+            return;
+        }
+        
+        if (selectedSeats.length !== passenger) {
+            e.preventDefault();
+            alert(`Please select exactly ${passenger} seat(s). You have selected ${selectedSeats.length}.`);
+            return;
+        }
+    });
 });
-
 </script>
-
-
 
 
 </body>
