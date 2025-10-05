@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>A4Lifers Flight Booking | Personal Information</title>
+<title>Alt+F4Life Flight Booking | Personal Information</title>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/format.css'/>">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbar.css">
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/Footer.css'/>">
