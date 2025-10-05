@@ -17,6 +17,14 @@
     
 	<style>
 	
+	html, body {
+         margin: 0;
+         padding: 0;
+         width: 100%;
+         min-height: 10vh; 
+         overflow-x: hidden; 
+    }
+    
 	   body {
 	      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	      margin: 0;
@@ -176,10 +184,10 @@
 	   }
 	
 	  .favorites-info {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 15px;
-}
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+    }
 	
 	   .favorites-info div {
 	      display: flex;
@@ -210,8 +218,44 @@
 	      flex-direction: column;
 	      margin-bottom: 10px;
 	   }
+	   /* Change Password Section */ 
+	   .change-section {
+	      background: #f9f9fb;
+	      padding: 20px;
+	      border-radius: 8px;
+	      margin-bottom: 20px;
+	   }
+	
+	   .change-section h3 {
+	      margin-top: 0;
+	   }
+	
+	   .changepass-info {
+	      display: grid;
+	      grid-template-columns: 1fr 1fr; /* Adjust as needed for password fields */
+	      gap: 15px;
+	   }
+	
+	   .changepass-info div {
+	      display: flex;
+	      flex-direction: column;
+	      margin-bottom: 10px;
+	   }
 	 
-	   
+	   .changepass-info label {
+	      font-weight: bold;
+	      font-size: 12px;
+	      margin-bottom: 5px;
+	      color: #666;
+	   }
+	
+	   .changepass-info input {
+		  padding: 6px;
+		  font-size: 14px;
+		  border: 1px solid #ccc;
+		  border-radius: 6px;
+		  margin-top: 3px;
+	   }
 	   
 	   /* SECTION: ACTIVE*/
 	   .section {
@@ -251,7 +295,24 @@
 		.logout-btn:hover {
 		  background: #e60000;
 		}
-	
+		
+		/* New button for Change Password section */
+		.save-password-btn {
+	      background: #007bff;
+	      color: white;
+	      border: none;
+	      border-radius: 6px;
+	      padding: 8px 15px;
+	      font-size: 14px;
+	      cursor: pointer;
+	      margin-top: 10px;
+	      transition: background 0.2s;
+		}
+		
+		.save-password-btn:hover {
+		  background: #0056b3;
+		}
+
 	</style>
 
 </head>
@@ -298,6 +359,7 @@
 	    <button class="active">Profile</button>
 	    <button>Favorites</button>
 	    <button>Booking History</button>
+	    <button>Change Password</button>
 	  </div>
 	
 	  <div class="content">
@@ -342,13 +404,7 @@
 	          <input type="email" id="emailInput" value="${user.email}" style="display:none;">
 	          
 	        </div>
-	        <div>
-	          <label>Password</label>
-	          <span id="passwordSpan">${user.password}</span>
-	          <input type="password" id="passwordInput" value="${user.password}" style="display:none;">
-	          
 	        </div>
-	      </div>
 	      <button id="editBtn" class="edit-btn" onclick="enableEdit()">Edit</button>
   		  <button id="saveBtn" class="edit-btn" onclick="saveChanges()" style="display:none;">Save</button>
   		  <button id="logoutBtn" class="logout-btn" onclick="logoutUser()">Log Out</button>
@@ -364,10 +420,29 @@
 	    <div class="history-section section">
 	    	<h3>Booking History</h3>
 	      <div class="history-info">
-	       
 	      </div>
 			
 	    </div>
+	      <div class="change-section section">
+	    	<h3>Change Password</h3>
+	      <div class="changepass-info">
+	      	 <div>
+	          <label>Current Password</label>
+	          <input type="password" id="currentPasswordInput">
+	        </div>
+	      	 <div>
+	          </div>
+	        <div>
+	          <label>New Password</label>
+	          <input type="password" id="newPasswordInput">
+	        </div>
+	        <div>
+	          <label>Confirm New Password</label>
+	          <input type="password" id="confirmPasswordInput">
+	        </div>
+	       </div>
+	       <button id="savePasswordBtn" class="save-password-btn" onclick="changePassword()">Change Password</button>
+	      </div>
 	    
 	  </div>
 	 
@@ -425,8 +500,12 @@ document.querySelectorAll(".sidebar button").forEach((button, index) => {
       loadFavorites();
     } else if (button.textContent === "Booking History") {
       document.querySelector(".history-section").classList.add("active");
+    } 
+    // Logic for Change Password button
+    else if (button.textContent === "Change Password") {
+      document.querySelector(".change-section").classList.add("active");
     }
-  });
+  }); 
 });
 
 // Load and display favorites
@@ -517,7 +596,7 @@ function loadFavorites() {
     
     favoritesContainer.appendChild(favCard);
     
-    // Add click handler for unfavoriting
+
     svg.addEventListener('click', (e) => {
       e.stopPropagation();
       if (confirm('Are you sure you want to remove "' + fav.name + '" from your favorites?')) {
@@ -591,7 +670,7 @@ function saveChanges() {
   let formattedBirthDate = formatDateToDisplay(birthDateIso);
   let phoneNum = document.getElementById('phoneNumInput').value;
   let email = document.getElementById('emailInput').value;
-  let password = document.getElementById('passwordInput').value;
+  // password removed from here
 
   document.getElementById('firstNameSpan').innerText = firstName;
   document.getElementById('lastNameSpan').innerText = lastName;
@@ -599,7 +678,6 @@ function saveChanges() {
   document.getElementById('birthDateSpan').innerText = formattedBirthDate || "Not set";
   document.getElementById('phoneNumSpan').innerText = phoneNum;
   document.getElementById('emailSpan').innerText = email;
-  document.getElementById('passwordSpan').innerText = "******";
   document.getElementById('userNameSpan').innerText = firstName;
 
   localStorage.setItem("firstName", firstName);
@@ -609,7 +687,6 @@ function saveChanges() {
   localStorage.setItem("birthDateFormatted", formattedBirthDate);
   localStorage.setItem("phoneNum", phoneNum);
   localStorage.setItem("email", email);
-  localStorage.setItem("password", password);
   localStorage.setItem("username", firstName);
 
   const spans = document.querySelectorAll('.profile-info span');
@@ -622,7 +699,56 @@ function saveChanges() {
   document.getElementById('saveBtn').style.display = "none";
 }
 
+
+function changePassword() {
+    const currentPassword = document.getElementById('currentPasswordInput').value;
+    const newPassword = document.getElementById('newPasswordInput').value;
+    const confirmPassword = document.getElementById('confirmPasswordInput').value;
+    // Get the password currently stored in local storage
+    const storedPassword = localStorage.getItem('password'); 
+
+    if (currentPassword === '' || newPassword === '' || confirmPassword === '') {
+        alert("Please fill in all password fields.");
+        return;
+    }
+    
+  
+    if (currentPassword !== storedPassword) {
+        alert("Current password is incorrect.");
+        return;
+    }
+
+ 
+    if (newPassword.length < 6) {
+        alert("New password must be at least 6 characters long.");
+        return;
+    }
+
+    if (newPassword !== confirmPassword) {
+        alert("New password and confirm password do not match.");
+        return;
+    }
+
+   
+    localStorage.setItem("password", newPassword);
+    
+    
+    document.getElementById('currentPasswordInput').value = '';
+    document.getElementById('newPasswordInput').value = '';
+    document.getElementById('confirmPasswordInput').value = '';
+    
+    alert("Password changed successfully! You will need to use this new password for your next login.");
+}
+
 window.onload = function() {
+  
+  const initialJspPassword = "${user.password}".trim(); 
+  if (!localStorage.getItem("password") && initialJspPassword) {
+      localStorage.setItem("password", initialJspPassword);
+      console.log("Password initialized from JSP variable.");
+  }
+
+
   if (localStorage.getItem("profileImage")) {
     document.getElementById('profileImage').src = localStorage.getItem("profileImage");
   }
@@ -657,19 +783,24 @@ window.onload = function() {
     document.getElementById('emailSpan').innerText = localStorage.getItem("email");
     document.getElementById('emailInput').value = localStorage.getItem("email");
   }
-  if (localStorage.getItem("password")) {
-    document.getElementById('passwordSpan').innerText = "******";
-    document.getElementById('passwordInput').value = localStorage.getItem("password");
-  }
+  
 };
 
 
 function logoutUser() {
 	  if (confirm("Are you sure you want to log out?")) {
-	    // Clear all local data
+	    
+    
+      let savedPassword = localStorage.getItem("password"); 
+
+
 	    localStorage.clear();
 
-	    // Redirect to server-side logout (Spring or JSP controller)
+
+      if (savedPassword) {
+          localStorage.setItem("password", savedPassword);
+      }
+
 	    window.location.href = "/logout";
 	  }
 	}
