@@ -164,8 +164,11 @@
 		
 		/* Flight Result Cards */
 		.flight_details-container {
+			font-family: 'Poppins', sans-serif;
+			font-size: 12px;
 			height: 120px;
 			width: 100%;        
+			line-height: 4px;
     		box-sizing: border-box; 
 		    background: #fff;
 		    border-radius: 12px;
@@ -185,6 +188,16 @@
 		    padding: 10px 16px;
 		    cursor: pointer;
 		    transition: 0.3s;
+		}
+		
+		.no_flight {
+			margin-top: 6rem;
+			font-family: 'Poppins', sans-serif;
+			font-size: 26px;
+			font-weight: 800;
+			color: #5a7080;
+			justify-content: center;
+			text-align: center;
 		}
 		
 		/* Filters */
@@ -235,6 +248,11 @@
 		    transform: scale(1.05);
 		}
 		
+		.flight_details-container:hover {
+		   transform: scale(1.01); 
+		   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+		}
+		
 		.select-btn button:hover {
 		    background: #3e5463;
 		}
@@ -248,62 +266,139 @@
 	
 </head>
 <body>
+<body>
 	<nav class="navbar">
-	  <div class="nav-center">
-	    <ul class="nav-links">
-	      <li><a href="/Home">Home</a></li>
-	      <li><a href="/Home#explore">Explore</a></li>
-	      <li><a class="active" href="#shortcut_booking-bar">Book </a></li>
-	      <li><a href="/Manage/Profile">Manage</a></li>
-	    </ul>
-	  </div>
-	  <div class="nav-right">
-		<ul class="nav-links">
-	      <li><a href="/login">Login / Sign-up</a></li>
-	    </ul>
-	    </div>
+		<div class="nav-center">
+			<ul class="nav-links">
+				<li><a href="/Home">Home</a></li>
+				<li><a href="/Home#explore">Explore</a></li>
+				<li><a class="active" href="#shortcut_booking-bar">Book </a></li>
+				<li><a href="/Manage/Profile">Manage</a></li>
+			</ul>
+		</div>
+		<div class="nav-right">
+			<ul class="nav-links">
+			  <li><a href="/login">Login / Sign-up</a></li>
+			</ul>
+		</div>
 	</nav>
-
+	
 	<!-- Booking Bar -->
-	<section id="shortcut_booking-bar" class="shortcut_booking-bar">
-	  <div class="booking-container">
-	    <div class="from">
-	      <label>Where From?</label>
-	      <input type="text" id="from" placeholder="From" value="${from}"> 
-	      <ul id="from-suggestions" class="suggestions-list"></ul>
+	<form id="bookingForm" onsubmit="return false;">
+	  <section id="shortcut_booking-bar" class="shortcut_booking-bar">
+	    <div class="booking-container">
+	      <div class="from">
+	        <label>Where From?</label>
+	        <input type="text" id="from" placeholder="From" value="${from}">
+	        <ul id="from-suggestions" class="suggestions-list"></ul>
+	      </div>
+	
+	      <div class="to">
+	        <label>Where To?</label>
+	        <input type="text" id="to" placeholder="Destination" value="${to}">
+	        <ul id="to-suggestions" class="suggestions-list"></ul>
+	      </div>
+	
+	      <div class="departure">
+	        <label>Departure</label>
+	        <input type="date" id="departureDate" placeholder="MM/DD/YYYY" value="${departureDate}">
+	      </div>
+	
+	      <div class="return">
+	        <label>Return</label>
+	        <input type="date" id="returnDate" placeholder="MM/DD/YYYY" value="${returnDate}">
+	      </div>
+	
+	      <div class="trip">
+	        <label>Trip Type</label>
+	        <select id="tripType" name="tripType">
+	          <option value="Round Trip" selected>Round Trip</option>
+	          <option value="One Way">One Way</option>
+	        </select>
+	      </div>
+	
+	      <div class="search-btn">
+	        <button id="flight-search-btn" type="button">Search</button>
+	      </div>
 	    </div>
-	    
-	    <div class="to">
-	      <label>Where To?</label>
-	      <input type="text" id="to" placeholder="Destination" value="${to}">
-	      <ul id="to-suggestions" class="suggestions-list"></ul>
-	    </div>
-	 
-	    <div class="departure">
-	      <label>Departure</label>
-	      <input type="date" id="departureDate" placeholder="MM/DD/YYYY" value="${departureDate}">
-	    </div>
-	    
-	    <div class="return">
-	      <label>Return</label>
-	      <input type="date" id="returnDate" placeholder="MM/DD/YYYY" value="${returnDate}">
-	    </div>
-	    
-	    <div class="trip">
-	      <label>Trip Type</label>
-	      <select>
-	        <option>Round Trip</option>
-	        <option>One Way</option>
-	      </select>
-	    </div>
-	    
-	    <div id="search-btn" class="search-btn">
-	      <button>Search</button>
-	    </div>
-	  </div>
-	</section>
+	  </section>
+	</form>
 	
 	<div class="flight_page">
+<<<<<<< HEAD
+	  <section id="flight_options" class="flight_options">
+	    <div class="flight_options_main">
+	      <p class="flight_options_results-num">??? Results</p>
+	
+	      <div class="flight_options_recommendations">
+	        <div class="recommendations_cheapest">
+	          <!-- Api -->
+	          <p>$$$</p>
+	          <p>Cheapest</p>
+	        </div>
+	        <div class="recommendations_fastest">
+	          <!-- Api -->
+	          <p>$$$</p>
+	          <p>Fastest</p>
+	        </div>
+	      </div>
+	
+	      <div class="flight_results">
+	      	<c:choose>
+	        <c:when test="${not empty flights}">
+	          <c:forEach var="flight" items="${flights}">
+	            <div class="flight_details-container">
+	              <div class="flight_departure-details">
+	                <p><b>${flight.name}, ${flight.country}</b></p>
+	                <p>Airport: ${flight.airport}</p>
+	                <p>Departure: ${flight.departureDate} ${flight.departureTime}</p>
+	              </div>
+	
+	              <div class="flight_return-details">
+	                <c:if test="${flight.tripType == 'Round Trip'}">
+	                  <p>Return: ${flight.returnDate} ${flight.returnTime}</p>
+	                </c:if>
+	                <p>Class: ${flight.flightClass} | ${flight.tripType}</p>
+	              </div>
+	
+	              <div class="flight_price-details">
+	                <p>💲${flight.price}</p>
+	              </div>
+	
+	              <div class="select-btn">
+	                <button id="select-btn" type="button">Select</button>
+	              </div>
+	            </div>
+	          </c:forEach>
+	        </c:when>
+	
+	        <c:otherwise>
+	          <p class="no_flight">NO FLIGHTS FOUND</p>
+	        </c:otherwise>
+	      </c:choose>
+	      
+	      </div>
+	    </div>
+	  </section>
+	
+	  <section id="flight_filters" class="flight_filters">
+	    <div class="filter-btn">
+	      <button id="filter-btn" type="button">Filter</button>
+	    </div>
+	
+	    <p id="flight_filters-title" class="flight_filters-txt">FILTERS</p>
+	    <p id="flight_filters-deptime" class="flight_filters-txt">Departure Time</p>
+	    <input type="time" id="departureTime">
+	    <p id="flight_filters-rettime" class="flight_filters-txt">Return Time</p>
+	    <input type="time" id="returnTime">
+	
+	    <p id="flight_filters-class" class="flight_filters-txt">Flight Class</p>
+	    <label><input type="radio" name="class" value="economy"> Economy</label><br>
+	    <label><input type="radio" name="class" value="premium"> Premium Economy</label><br>
+	    <label><input type="radio" name="class" value="business"> Business</label><br>
+	    <label><input type="radio" name="class" value="first"> First Class</label>
+	  </section>
+=======
 		<section id="flight_options" class="flight_options">
 			<div class="flight_options_main">
 				<p class="flight_options_results-num">??? Results</p>
@@ -354,10 +449,32 @@
 				 <label><input type="radio" name="class" value="business"> Business</label><br>
 				 <label><input type="radio" name="class" value="first"> First Class</label>
 		</section>
+>>>>>>> branch 'main' of https://github.com/keigetsu-10/Airline-Tickets.git
 	</div>
 	
 	<jsp:include page="Footer.jsp" />
+	
 	<script>
+<<<<<<< HEAD
+	document.addEventListener("DOMContentLoaded", () => {
+		
+	}
+	  // Handle navigation link highlighting
+	  const navLinks = document.querySelectorAll(".nav-links a");
+	  const currentUrl = window.location.pathname;
+	
+	  navLinks.forEach(link => {
+	    if (link.getAttribute("href") === currentUrl) {
+	      link.classList.add("active");
+	    }
+	    link.addEventListener("click", () => {
+	      navLinks.forEach(l => l.classList.remove("active"));
+	      link.classList.add("active");
+	    });
+	  });
+		  
+	// INSERT HERE type_filter after API INTEGRATION
+=======
 	<!-- NAVBAR JS -->
 	document.addEventListener("DOMContentLoaded", () => {
 	    const navLinks = document.querySelectorAll(".nav-links a");
@@ -421,8 +538,9 @@
 	  }
 	  </script>
 	  
+>>>>>>> branch 'main' of https://github.com/keigetsu-10/Airline-Tickets.git
 	</script>
-	<script src="${pageContext.request.contextPath}/js/type_filter.js"></script>
+	<script src="${pageContext.request.contextPath}/js/flight-options_generator.js"></script>	
 	
 </body>
 </html>

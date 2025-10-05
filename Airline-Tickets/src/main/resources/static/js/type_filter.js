@@ -10,12 +10,12 @@ document.addEventListener("DOMContentLoaded", function () {
   fromInput.disabled = true;
   toInput.disabled = true;
 
-  // Fetch destination list
+  // Fetch destination list - API TO BE INSERTED
   fetch("/json/destinations.json")
     .then(res => res.json())
     .then(data => {
       destinationsData = data.destinations;
-      console.log("✅ Destinations loaded:", destinationsData);
+      console.log("Destinations loaded:", destinationsData);
       fromInput.disabled = false;
       toInput.disabled = false;
     })
@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// ✅ Flight search validation + redirect
+// Flight search validation + redirect
 document.addEventListener("DOMContentLoaded", function () {
   const searchBtn = document.getElementById("search-btn");
   const fromInput = document.getElementById("from");
@@ -103,13 +103,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const departureDate = departureInput.value.trim();
     const returnDate = returnInput.value.trim();
 
-    // ✅ Validate all fields
+    // Validate all fields
     if (!from || !to || !departureDate || !returnDate) {
       alert("⚠️ Please complete all fields before proceeding.");
       return;
     }
 
-    // ✅ Redirect to /Flight/Options with query parameters
+    // Redirect to /Flight/Options with query parameters
     const params = new URLSearchParams({
       from: from,
       to: to,

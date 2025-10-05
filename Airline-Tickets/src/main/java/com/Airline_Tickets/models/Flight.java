@@ -2,7 +2,7 @@ package com.Airline_Tickets.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(ignoreUnknown = true) // ✅ Ignore extra fields in JSON
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Flight {
     
     private int id;

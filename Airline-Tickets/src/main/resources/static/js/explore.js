@@ -17,8 +17,13 @@ document.addEventListener("DOMContentLoaded", function () {
         const card = document.createElement("div");
         card.classList.add("explore_card");
 
+<<<<<<< HEAD
+        // Check if this destination is already favorite
+        const isActive = favorites.some(fav => fav.name === dest.name) ? 'active' : '';
+=======
         // ✅ Check if destination is already favorited
         const isActive = favorites.some(fav => fav.name === dest.name) ? "active" : "";
+>>>>>>> branch 'main' of https://github.com/keigetsu-10/Airline-Tickets.git
 
         card.innerHTML = `
           <svg class="star-icon ${isActive}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
@@ -31,9 +36,15 @@ document.addEventListener("DOMContentLoaded", function () {
         exploreContainer.appendChild(card);
       });
 
+<<<<<<< HEAD
+      // Star SVG
+      document.querySelectorAll('.star-icon').forEach(star => {
+        star.addEventListener('click', function(e) {
+=======
       // ⭐ STAR CLICK HANDLER
       document.querySelectorAll(".star-icon").forEach((star) => {
         star.addEventListener("click", function (e) {
+>>>>>>> branch 'main' of https://github.com/keigetsu-10/Airline-Tickets.git
           e.stopPropagation();
 
           const card = star.closest(".explore_card");
@@ -66,6 +77,21 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       });
 
+<<<<<<< HEAD
+      // Add click handlers for card navigation (to populate the "to" field)
+      document.querySelectorAll('.explore_card').forEach(card => {
+        card.addEventListener("click", function(e) {
+          // Don't navigate if clicking the star
+          if (e.target.closest('.star-icon')) {
+            return;
+          }
+          
+          const destinationName = card.querySelector('.explore_txt').innerText;
+          const departureInput = document.getElementById("to");
+          if (departureInput) {
+            // Get country from data
+            departureInput.value = destinationName;
+=======
       // ✈️ CARD CLICK HANDLER — autofill “To” input
       document.querySelectorAll(".explore_card").forEach((card) => {
         card.addEventListener("click", function (e) {
@@ -77,6 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           if (toInput) {
             toInput.value = destinationName;
+>>>>>>> branch 'main' of https://github.com/keigetsu-10/Airline-Tickets.git
           } else {
             console.warn("⚠️ Destination input not found!");
           }

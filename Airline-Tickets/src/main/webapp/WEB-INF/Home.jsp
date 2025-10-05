@@ -426,13 +426,13 @@
 	    
 	    <div class="trip">
 	      <label>Trip Type</label>
-	      <select>
-	        <option>Round Trip</option>
-	        <option>One Way</option>
-	      </select>
+	      <select id="tripType" name="tripType">
+			  <option value="Round Trip" selected>Round Trip</option>
+			  <option value="One Way">One Way</option>
+			</select>
 	    </div>
 	    
-	    <div class="search">
+	    <div class="search-btn">
 	      <button id="search-btn" >Search</button>
 	    </div>
 	  </div>
@@ -441,7 +441,7 @@
 	<section id="recommendations" class="recommendations">
 		<div class="recommendations_title">
 		<h2>RECOMMENDED TOP TRAVEL DESTINATIONS</h2>
-		<p>For as low as $5</p>
+		<p>For as low as $5</p> <!-- API ??  -->
 		</div>
 		<div class="recommendations_destination">
 		</div>
@@ -469,7 +469,7 @@
 	<!-- JAVASCRIPT -->
 	<script>
 	  
-	  <!-- NAVBAR JS -->
+	  //NAVBAR JS 
 	  document.addEventListener("DOMContentLoaded", () => {
 		  const navLinks = document.querySelectorAll(".nav-links a");
 		  const currentUrl = window.location.pathname;
@@ -488,41 +488,53 @@
 		  });
 		});
 	  
-	  document.addEventListener("DOMContentLoaded", function () {
-		  const searchBtn = document.getElementById("search-btn");
-		  const fromInput = document.getElementById("from");
-		  const toInput = document.getElementById("to");
-		  const departureInput = document.getElementById("departureDate");
-		  const returnInput = document.getElementById("returnDate");
-		  const tripType = document.querySelector(".trip select");
+	  const searchBtn = document.getElementById("search-btn");
+	  const fromInput = document.getElementById("from");
+	  const toInput = document.getElementById("to");
+	  const departureInput = document.getElementById("departureDate");
+	  const returnInput = document.getElementById("returnDate");
+	  const tripTypeSelect = document.getElementById("tripType");
 
-		  searchBtn.addEventListener("click", function (e) {
-		    e.preventDefault();
+	  if (searchBtn) {
+	    searchBtn.addEventListener("click", function (e) {
+	      e.preventDefault();
+	      e.stopImmediatePropagation();
 
-		    const from = fromInput.value.trim();
-		    const to = toInput.value.trim();
-		    const departure = departureInput.value;
-		    const returnDate = returnInput.value;
-		    const trip = tripType.value;
+	      // Get all values 
+	      const fromValue = fromInput.value.trim();
+	      const toValue = toInput.value.trim();
+	      const departureValue = departureInput.value;
+	      const returnValue = returnInput.value;
+	      const tripTypeValue = tripTypeSelect.value;
 
-		    if (!from || !to || !departure || (trip === "Round Trip" && !returnDate)) {
-		      alert("⚠️ Please complete all booking fields before continuing.");
-		      return;
-		    }
+	      // Validate inputs 
+	      if (!fromValue || !toValue || !departureValue || 
+	          (tripTypeValue === "Round Trip" && !returnValue)) {
+	        alert("⚠️ Please complete all booking fields before continuing.");
+	        return;
+	      }
 
-		    // Build query string
-		    const params = new URLSearchParams({
-		      from,
-		      to,
-		      departure,
-		      returnDate,
-		      trip
-		    }).toString();
+	      // Build URL params
+	      const queryParams = new URLSearchParams({
+	        from: fromValue,
+	        to: toValue,
+	        departureDate: departureValue,
+	        returnDate: returnValue,
+	        tripType: tripTypeValue
+	      }).toString();
 
-		    // Redirect to booking page
-		    window.location.href = `/Flight/Options?${params}`;
-		  });
-		});
+	      console.log("Raw params string:", queryParams);
+
+	      // Build and log final redirect URL
+	      const finalUrl = "/Flight/Options?" + queryParams;
+	      console.log("Final redirect URL:", finalUrl);
+
+	      // Delay load
+	      setTimeout(() => {
+	        window.location.href = finalUrl;
+	      }, 1000); 
+	    });
+	    }
 	  
 	  // FAVORITES FUNCTIONALITY
 	  function addToFavorites(destination, imageUrl) {
