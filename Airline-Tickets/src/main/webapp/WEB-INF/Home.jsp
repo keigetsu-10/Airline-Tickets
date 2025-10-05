@@ -345,10 +345,20 @@
 		.suggestions-list li:hover {
 		   background-color: #f0f0f0;
 		}
-		
-		.search-btn button:hover {
-		   background: #144272;
+		.search button {
+		    background: #0a2647;
+		    color: #fff;
+		    border: none;
+		    border-radius: 8px;
+		    padding: 12px 20px;
+		    cursor: pointer;
+		    font-weight: bold;
+		    transition: 0.3s;
 		}
+		.search button:hover {
+		    background: #144272;
+		}
+	
 		
 		.recommendations_card:hover {
 		   transform: scale(1.05); 

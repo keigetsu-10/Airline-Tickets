@@ -331,7 +331,7 @@
 					<div class="flight_price-details">
 						<p>💲${flight.price}</p>
 					</div>
-					<div class="select-btn"><button>Select</button></div>
+					<div class="select-btn"><button  onclick="handleSelect()">Select</button></div>
 				 </div>
 			</c:forEach>
 		  </c:when>
@@ -359,61 +359,68 @@
 	<jsp:include page="Footer.jsp" />
 	<script>
 	<!-- NAVBAR JS -->
-	  document.addEventListener("DOMContentLoaded", () => {
-		  const navLinks = document.querySelectorAll(".nav-links a");
-		  const currentUrl = window.location.pathname;
+	document.addEventListener("DOMContentLoaded", () => {
+	    const navLinks = document.querySelectorAll(".nav-links a");
+	    const currentUrl = window.location.pathname;
 
-		  // Highlight the link that matches current URL
-		  navLinks.forEach(link => {
-		    if (link.getAttribute("href") === currentUrl) {
-		      link.classList.add("active");
-		    }
+	    navLinks.forEach(link => {
+	      if (link.getAttribute("href") === currentUrl) {
+	        link.classList.add("active");
+	      }
 
-		    // Add click event listener for manual switching
-		    link.addEventListener("click", () => {
-		      navLinks.forEach(l => l.classList.remove("active"));
-		      link.classList.add("active");
-		    });
-		  });
-		});
-	  
-	  //Search
+	      link.addEventListener("click", () => {
+	        navLinks.forEach(l => l.classList.remove("active"));
+	        link.classList.add("active");
+	      });
+	    });
+	  });
+
+	  // Search button logic
 	  document.addEventListener("DOMContentLoaded", function () {
-  const searchBtn = document.getElementById("search-btn");
-  const fromInput = document.getElementById("from");
-  const toInput = document.getElementById("to");
-  const departureInput = document.getElementById("departureDate");
-  const returnInput = document.getElementById("returnDate");
+	    const searchBtn = document.getElementById("search-btn");
+	    const fromInput = document.getElementById("from");
+	    const toInput = document.getElementById("to");
+	    const departureInput = document.getElementById("departureDate");
+	    const returnInput = document.getElementById("returnDate");
 
-  searchBtn.addEventListener("click", function (e) {
-    e.preventDefault(); // prevent accidental form reload
+	    searchBtn.addEventListener("click", function (e) {
+	      e.preventDefault(); // prevent accidental reload
 
-    const from = fromInput.value.trim();
-    const to = toInput.value.trim();
-    const departureDate = departureInput.value;
-    const returnDate = returnInput.value;
+	      const from = fromInput.value.trim();
+	      const to = toInput.value.trim();
+	      const departureDate = departureInput.value;
+	      const returnDate = returnInput.value;
 
-    // Validation
-    if (!from || !to || !departureDate || !returnDate) {
-      alert("⚠️ Please complete all booking fields before continuing.");
-      return;
-    }
+	      if (!from || !to || !departureDate || !returnDate) {
+	        alert("⚠️ Please complete all booking fields before continuing.");
+	        return;
+	      }
 
-    // Build URL query string
-    const params = new URLSearchParams({
-      from,
-      to,
-      departureDate,
-      returnDate
-    }).toString();
+	      const params = new URLSearchParams({
+	        from,
+	        to,
+	        departureDate,
+	        returnDate
+	      }).toString();
 
-    const targetUrl = `/Flight/Options?${params}`;
-    console.log("🔍 Redirecting to:", targetUrl); // for debugging
+	      const targetUrl = `/Flight/Options?${params}`;
+	      window.location.href = targetUrl;
+	    });
+	  });
 
-    // Redirect to backend to trigger filtering
-    window.location.href = targetUrl;
-  });
-});
+	  // ✅ Login check before selecting a flight
+	  function handleSelect() {
+	    const isLoggedIn = <%= (session.getAttribute("user") != null) ? "true" : "false" %>;
+
+	    if (!isLoggedIn) {
+	      alert("⚠️ You must log in first before selecting a flight.");
+	      window.location.href = "/login";
+	    } else {
+	      window.location.href = "/book/confirm";
+	    }
+	  }
+	  </script>
+	  
 	</script>
 	<script src="${pageContext.request.contextPath}/js/type_filter.js"></script>
 	
