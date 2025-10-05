@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>A4Lifers Flight Booking | Register Page</title>
+<title>Alt+F4Life Flight Booking | Register</title>
 </head>
 <body>
 <style>

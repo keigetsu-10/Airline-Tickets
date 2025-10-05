@@ -22,7 +22,7 @@
                 <li><a href="<c:url value='/Home'/>">Home</a></li>
                 <li><a href="<c:url value='/Explore'/>">Explore Destinations</a></li>
                 <li><a href="<c:url value='/Book'/>">Book Flight</a></li>
-                <li><a href="<c:url value='/Manage'/>">Manage Booking</a></li>
+                <li><a href="<c:url value='/Manage'/>">Manage Profile</a></li>
             </ul>
         </div>
 
@@ -50,7 +50,7 @@
         <!-- Contact & Newsletter -->
         <div class="footer-section footer-contact">
             <h3>Get in Touch</h3>
-            <p><i class="fas fa-envelope"></i> support@alt4lifebooking.com</p>
+            <p><i class="fas fa-envelope"></i> support@altf4lifebooking.com</p>
             <p><i class="fas fa-phone"></i> +63 912 345 6789</p>
             <p><i class="fas fa-map-marker-alt"></i> Manila, Philippines</p>
             
@@ -66,7 +66,7 @@
     <!-- Bottom Bar -->
     <div class="footer-bottom">
         <div class="footer-bottom-content">
-            <p>&copy; 2025 A4Lifers Flight Booking. All rights reserved.</p>
+            <p>&copy; 2025 Alt+F4Life Flight Booking. All rights reserved.</p>
             <div class="footer-legal-links">
                 <span style="cursor:pointer;">Privacy Policy</span>
                 <span style="cursor:pointer;">Terms of Service</span>
