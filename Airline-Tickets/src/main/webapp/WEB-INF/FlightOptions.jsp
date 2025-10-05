@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>A4Lifers Flight Booking | Flight Options</title>
+<title>Alt+F4Life Flight Booking | Flight Options</title>
     <link rel="stylesheet" type="text/css" href="/css/navbar.css">
 	<link rel="stylesheet" type="text/css" href="<c:url value='/css/Footer.css'/>">
 	
@@ -16,12 +16,12 @@
 
 	<style>
 	    html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    min-height: 100vh; 
-    overflow-x: hidden; 
-    }
+		    margin: 0;
+		    padding: 0;
+		    width: 100%;
+		    min-height: 100vh; 
+		    overflow-x: hidden; 
+		}
 	
 		body {
 		  /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */

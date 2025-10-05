@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>A4Lifers Flight Booking | Home</title>
+<title>Alt+F4Life Flight Booking | Home</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbar.css">
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">	
