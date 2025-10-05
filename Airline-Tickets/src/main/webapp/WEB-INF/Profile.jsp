@@ -499,8 +499,9 @@ document.querySelectorAll(".sidebar button").forEach((button, index) => {
       document.querySelector(".favorites-section").classList.add("active");
       loadFavorites();
     } else if (button.textContent === "Booking History") {
-      document.querySelector(".history-section").classList.add("active");
-    } 
+    	  document.querySelector(".history-section").classList.add("active");
+    	  loadBookingHistory(); 
+    }
     // Logic for Change Password button
     else if (button.textContent === "Change Password") {
       document.querySelector(".change-section").classList.add("active");
@@ -639,6 +640,51 @@ function unfavoriteDestination(destination) {
   loadFavorites();
 }
 
+//Load and display booking history
+function loadBookingHistory() {
+  const history = JSON.parse(localStorage.getItem('bookingHistory')) || [];
+  const historyContainer = document.querySelector('.history-info');
+  
+  console.log('Loading booking history:', history);
+  
+  if (history.length === 0) {
+    historyContainer.innerHTML = `
+      <p style="grid-column: 1 / -1; text-align: center; color: #999; padding: 40px; font-family: Poppins, sans-serif;">
+        No transactions yet. Book a flight to see your history here!
+      </p>`;
+    return;
+  }
+
+  historyContainer.innerHTML = '';
+
+  history.forEach((item, index) => {
+    console.log(`Transaction ${index}:`, item);
+
+    const card = document.createElement('div');
+    card.className = 'history-card';
+    card.style.cssText = `
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    `;
+
+    // Example fields
+    card.innerHTML = `
+      <strong>Flight:</strong> ${item.flight || 'N/A'}<br>
+      <strong>Date:</strong> ${item.date || 'N/A'}<br>
+      <strong>Destination:</strong> ${item.destination || 'N/A'}<br>
+      <strong>Amount:</strong> ${item.amount ? '$' + item.amount : 'N/A'}
+    `;
+
+    historyContainer.appendChild(card);
+  });
+}
+
+
 // Change Photo 
 function previewImage(event) {
   const reader = new FileReader();
@@ -699,12 +745,13 @@ function saveChanges() {
   document.getElementById('saveBtn').style.display = "none";
 }
 
-
+//Get the password currently stored in local storage
 function changePassword() {
     const currentPassword = document.getElementById('currentPasswordInput').value;
     const newPassword = document.getElementById('newPasswordInput').value;
     const confirmPassword = document.getElementById('confirmPasswordInput').value;
-    // Get the password currently stored in local storage
+    
+    
     const storedPassword = localStorage.getItem('password'); 
 
     if (currentPassword === '' || newPassword === '' || confirmPassword === '') {
